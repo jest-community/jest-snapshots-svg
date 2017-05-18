@@ -31,3 +31,6 @@ jspm_packages
 
 # Jest cache
 .jest
+
+# TS build files
+build

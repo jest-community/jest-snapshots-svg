@@ -7,10 +7,16 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^19.2.3",
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
     "danger": "^0.18.0",
     "husky": "^0.13.3",
     "jest": "^20.0.0",
     "lint-staged": "^3.2.5",
+    "prop-types": "^15.5.10",
+    "react": "16.0.0-alpha.6",
+    "react-native": "^0.44.0",
+    "react-test-renderer": "^15.5.4",
     "ts-jest": "^20.0.0",
     "ts-node": "^3.0.0",
     "tslint": "^5.2.0",
@@ -36,6 +42,7 @@
       "js"
     ],
     "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(.test)\\.(ts|tsx)$",
@@ -43,6 +50,10 @@
       "\\.snap$",
       "<rootDir>/node_modules/"
     ],
-    "cacheDirectory": ".jest/cache"
+    "cacheDirectory": ".jest/cache",
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "yoga-layout": "^1.5.0"
   }
 }

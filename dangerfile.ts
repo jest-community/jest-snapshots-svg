@@ -1,5 +1,5 @@
 import { danger, fail, warn } from "danger"
-import fs from "fs"
+import * as fs from "fs"
 
 // Setup
 const pr = danger.github.pr
