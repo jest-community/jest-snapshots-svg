@@ -1,0 +1,47 @@
+{
+  "name": "jest-snapshots-svg",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "author": " <> & Art.sy Inc",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "husky": "^0.13.3",
+    "jest": "^20.0.0",
+    "lint-staged": "^3.2.5",
+    "ts-jest": "^20.0.0",
+    "ts-node": "^3.0.0",
+    "tslint": "^5.2.0",
+    "typescript": "^2.3.2"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build": "tsc",
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "precommit": "lint-staged",
+    "prepush": "npm run build"
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "tslint --fix",
+      "git add"
+    ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(.test)\\.(ts|tsx)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
+  }
+}

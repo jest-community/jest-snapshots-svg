@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "rootDir": "src",
+        "outDir": "build",
+        "allowJs": false,
+        "pretty": true,
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "declaration": true
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "exclude": [
+        "dangerfile.ts",
+        "node_modules",
+        "build"
+    ]
+}
