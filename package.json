@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^19.2.3",
+    "danger": "^0.18.0",
     "husky": "^0.13.3",
     "jest": "^20.0.0",
     "lint-staged": "^3.2.5",
