@@ -1,0 +1,226 @@
+{
+  "type": "RCTScrollView",
+  "props": {
+    "style": {
+      "backgroundColor": "black"
+    }
+  },
+  "children": [
+    {
+      "type": "View",
+      "props": {},
+      "children": [
+        {
+          "type": "View",
+          "props": {
+            "style": {
+              "flex": 1,
+              "paddingTop": 40,
+              "alignItems": "center"
+            }
+          },
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "style": [
+                  {
+                    "fontSize": 30,
+                    "color": "white",
+                    "textAlign": "center",
+                    "paddingLeft": 20,
+                    "paddingRight": 20
+                  },
+                  {},
+                  {
+                    "fontFamily": "AGaramondPro-Regular"
+                  }
+                ],
+                "accessible": true,
+                "allowFontScaling": true,
+                "ellipsizeMode": "tail"
+              },
+              "children": [
+                "Sell works from your collection through our partner network"
+              ]
+            },
+            {
+              "type": "View",
+              "props": {
+                "style": {
+                  "width": 300,
+                  "alignItems": "center",
+                  "marginTop": 20
+                }
+              },
+              "children": [
+                {
+                  "type": "View",
+                  "props": {
+                    "style": {
+                      "borderColor": "white",
+                      "borderRadius": 40,
+                      "width": 80,
+                      "height": 80,
+                      "borderWidth": 2,
+                      "justifyContent": "center",
+                      "alignItems": "center"
+                    }
+                  },
+                  "children": [
+                    {
+                      "type": "Image",
+                      "props": {
+                        "source": 1
+                      },
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 20,
+                        "color": "#cccccc",
+                        "paddingLeft": 25,
+                        "paddingRight": 25,
+                        "marginTop": 18,
+                        "marginBottom": 18,
+                        "textAlign": "center"
+                      },
+                      {},
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Sell work from your collection through our partner network."
+                  ]
+                },
+                {
+                  "type": "View",
+                  "props": {
+                    "style": {
+                      "borderColor": "white",
+                      "borderRadius": 40,
+                      "width": 80,
+                      "height": 80,
+                      "borderWidth": 2,
+                      "justifyContent": "center",
+                      "alignItems": "center"
+                    }
+                  },
+                  "children": [
+                    {
+                      "type": "Image",
+                      "props": {
+                        "source": 1
+                      },
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 20,
+                        "color": "#cccccc",
+                        "paddingLeft": 25,
+                        "paddingRight": 25,
+                        "marginTop": 18,
+                        "marginBottom": 18,
+                        "textAlign": "center"
+                      },
+                      {},
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Get your work placed in an upcoming sale."
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "View",
+              "props": {
+                "style": {
+                  "height": 43,
+                  "width": 320,
+                  "marginTop": 20
+                }
+              },
+              "children": [
+                {
+                  "type": "View",
+                  "props": {
+                    "accessible": true,
+                    "style": [
+                      {
+                        "backgroundColor": "transparent"
+                      },
+                      {
+                        "justifyContent": "center",
+                        "alignItems": "center",
+                        "borderColor": "#e5e5e5",
+                        "borderWidth": 1,
+                        "flex": 1,
+                        "backgroundColor": "rgba(255, 255, 255, 1)"
+                      }
+                    ],
+                    "isTVSelectable": true
+                  },
+                  "children": [
+                    {
+                      "type": "View",
+                      "props": {},
+                      "children": [
+                        {
+                          "type": "Text",
+                          "props": {
+                            "style": [
+                              {
+                                "fontSize": 12
+                              },
+                              {
+                                "fontFamily": "AGaramondPro-Regular",
+                                "color": "black",
+                                "opacity": 1
+                              },
+                              {
+                                "fontFamily": "Avant Garde Gothic ITCW01Dm"
+                              }
+                            ],
+                            "accessible": true,
+                            "allowFontScaling": true,
+                            "ellipsizeMode": "tail"
+                          },
+                          "children": [
+                            "GET STARTED"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

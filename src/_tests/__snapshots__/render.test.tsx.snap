@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Fixtures does some simple JSX 1`] = `
-<Text
-  accessible={true}
-  allowFontScaling={true}
-  ellipsizeMode="tail"
-/>
-`;

@@ -2,6 +2,6 @@ import hello from "../"
 
 describe("hello", () => {
     it("does something", () => {
-        hello()
+        expect("a").toEqual("a")
     })
 })
