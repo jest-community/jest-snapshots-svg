@@ -4,7 +4,7 @@ import nodeToSVG from "./node-to-svg"
 import wsp from "./whitespace"
 
 export const recurseTree =
-  (indent: number, root: yoga.NodeInstance, parent: yoga.NodeInstance | null, settings: Settings) => {
+  (indent: number, root: yoga.NodeInstance, settings: Settings) => {
 
     const nodeString = nodeToSVG(indent, root, settings)
 
@@ -15,7 +15,7 @@ export const recurseTree =
       let childGroups = ""
       for (let index = 0; index < childrenCount; index++) {
         const child = root.getChild(index)
-        childGroups += "  " + recurseTree(indent + 1, child, root, settings)
+        childGroups += recurseTree(indent + 1, child, settings)
       }
 
       return childGroups
@@ -37,7 +37,7 @@ ${wsp(indent)}</g>
 
 const treeToSVG = (root: yoga.NodeInstance, settings: Settings) => {
   root.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
-  return svgWrapper(recurseTree(0, root, null, settings), settings)
+  return svgWrapper(recurseTree(0, root, settings), settings)
 }
 
 export default treeToSVG
