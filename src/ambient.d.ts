@@ -5,6 +5,7 @@
 declare module "yoga-layout" {
 
   // https://github.com/facebook/yoga/blob/master/javascript/sources/YGEnums.js
+  const UNDEFINED: number
 
   const ALIGN_COUNT = 8
   const ALIGN_AUTO = 0
@@ -15,6 +16,19 @@ declare module "yoga-layout" {
   const ALIGN_BASELINE = 5
   const ALIGN_SPACE_BETWEEN = 6
   const ALIGN_SPACE_AROUND = 7
+
+ /** Do not use this in your code */
+  enum Align {
+    Count = 8,
+    Auto = 0,
+    FlexStart = 1,
+    Center = 2,
+    FlexEnd = 3,
+    Stretch = 4,
+    Baseline = 5,
+    SpaceBetween = 6,
+    SpaceAround = 7,
+  }
 
   const DIMENSION_COUNT = 2
   const DIMENSION_WIDTH = 0
@@ -154,6 +168,13 @@ declare module "yoga-layout" {
   }
 
   class Layout {
+    left: number
+    right: number
+    top: number
+    bottom: number
+    width: number
+    height: number
+
     constructor(left: number, right: number, top: number, bottom: number, width: number, height: number)
     fromJS(expose: () => void)
     toString(): string
@@ -166,12 +187,18 @@ declare module "yoga-layout" {
 
   class Size {
     static fromJS(Sizeable): Size
+
+    width: number
+    height: number
     constructor(width: number, height: number)
     fromJS(expose: () => void)
     toString(): string
   }
 
   class Value {
+    unit: Unit
+    value: any
+
     constructor(unit: Unit, value: any)
 
     fromJS(expose: () => void)
@@ -191,9 +218,10 @@ declare module "yoga-layout" {
     setMaxWidth(height: number)
     setMaxHeight(height: number)
     setPadding(edge: Edge, value: number)
+    setMargin(edge: Edge, value: number) // maybe?
     setDisplay(display: Display)
 
-    setFlex(direction: Direction)
+    setFlex(ordinal: number)
     setFlexDirection(direct: FlexDirection)
 
     insertChild(node: NodeInstance, index: number)
@@ -204,15 +232,16 @@ declare module "yoga-layout" {
     getComputedTop(): number
     getComputedHeight(): number
 
-    getComputedLayout(): Layout
-
     getChild(index: number): NodeInstance
     getChildCount(): number
 
     free()
     freeRecursive()
 
-    calculateLayout(width: number, height: number, Direction)
+    // Triggers a layout pass, but doesn't give you the results
+    calculateLayout(width: number, height: number, direction: Direction)
+    // Generates the layout
+    getComputedLayout(): Layout
   }
 
   interface NodeFactory {

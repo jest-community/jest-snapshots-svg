@@ -3,11 +3,16 @@ import * as yoga from "yoga-layout"
 export interface Component {
     type: string,
     props: any,
-    children: Component[]
+    children: Component[] | null
 }
 
-export default function hello(width: number, height: number, json: Component) {
+export interface Settings {
+    width: number
+    height: number
+}
 
+export default function hello(settings: Settings, json: Component) {
+    const {height, width} = settings
     const rootNode = yoga.Node.create()
     rootNode.setWidth(width)
     rootNode.setHeight(height)
