@@ -1,3 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nodeToSVG handles a simple square 1`] = `"<rect x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\"/>"`;
+exports[`nodeToSVG handles a simple square 1`] = `
+"
+ <rect x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\"/>"
+`;

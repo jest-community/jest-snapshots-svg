@@ -32,7 +32,7 @@ describe("recurseTree", () => {
         width: 1024,
         height: 768
       }
-      const results = recurseTree(0, fakeNode, null, settings)
+      const results = recurseTree(0, fakeNode, settings)
       expect(nodeToSVG.mock.calls.length).toEqual(1)
     })
 
@@ -41,6 +41,8 @@ describe("recurseTree", () => {
       const root: any = {
         getChild: (index) => children[index],
         getChildCount: () => children.length,
+        getComputedLeft: () => 20,
+        getComputedTop: () => 20,
         id: "root"
       }
       const fakeNode2: any = {
@@ -54,6 +56,7 @@ describe("recurseTree", () => {
         getChildCount: () => 0,
         id: "3"
       }
+
       children.push(fakeNode2)
       children.push(fakeNode3)
 
@@ -62,7 +65,7 @@ describe("recurseTree", () => {
         height: 768
       }
 
-      const results = recurseTree(0, root, null, settings)
+      const results = recurseTree(0, root, settings)
       expect(nodeToSVG.mock.calls.length).toEqual(3)
     })
 })
