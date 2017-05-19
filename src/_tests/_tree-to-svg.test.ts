@@ -1,12 +1,10 @@
-import * as fs from "fs"
+// import * as fs from "fs"
 import * as yoga from "yoga-layout"
 
 import treeToSVG from "../tree-to-svg"
 
 describe("treeToSVG", () => {
     it("wraps whatever text you pass into it with an SVG schema", () => {
-      jest.unmock("../node-to-svg")
-
       const rootNode = yoga.Node.create()
       rootNode.setWidth(600)
       rootNode.setHeight(400)
@@ -21,7 +19,7 @@ describe("treeToSVG", () => {
 
       const results = treeToSVG(rootNode, settings)
       expect(results).toMatchSnapshot()
-      fs.writeFileSync("simple.svg", results)
+      // fs.writeFileSync("simple.svg", results)
 
       rootNode.freeRecursive()
     })

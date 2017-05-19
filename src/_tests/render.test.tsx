@@ -12,10 +12,14 @@ it("handles some simple JSX", () => {
   const jsx = (
     <View style={{width: 200, height: 200, marginLeft: 40, marginTop: 40, paddingLeft: 20}}>
       <View style={{width: 20, height: 20}}/>
-      <View style={{width: 20, height: 20}}/>
+      <View style={{width: 160, height: 40, marginTop: 20}}>
+        <View style={{width: 10, height: 10, marginLeft: 10, marginTop: 20}}/>
+        <View style={{width: 10, height: 10, marginLeft: 20, marginTop: 10}}/>
+      </View>
       <View style={{width: 20, height: 20}}/>
     </View>
   )
+
   const component = renderer.create(jsx).toJSON()
   const settings = {
     width:  600,

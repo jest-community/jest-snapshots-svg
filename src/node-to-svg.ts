@@ -1,20 +1,16 @@
 import * as yoga from "yoga-layout"
 import { Settings } from "./index"
+import wsp from "./whitespace"
 
-const nodeToSVG = (node: yoga.NodeInstance, parent: yoga.NodeInstance | null, settings: Settings) => {
-  // Do we need to pass in the parent node too?
-  const outerWidth = parent ? parent.getComputedWidth() : settings.width
-  const outerHeight = parent ? parent.getComputedWidth() : settings.height
-
-  node.calculateLayout(outerWidth, outerHeight, yoga.DIRECTION_INHERIT)
+const nodeToSVG = (indent: number, node: yoga.NodeInstance, settings: Settings) => {
   const layout = node.getComputedLayout()
   const attributes = {
     "fill-opacity": "0.1",
     "stroke-width": "1",
     "stroke": "black"
   }
-  console.log(layout.toString())
-  return svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
+
+  return "\n" + wsp(indent) + svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
 }
 
 const svgRect = (x, y, w, h, settings) => {
