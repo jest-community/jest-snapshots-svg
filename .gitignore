@@ -30,7 +30,7 @@ jspm_packages
 .node_repl_history
 
 # Jest cache
-.jest
+.jest/
 
 # TS build files
 build

@@ -3,6 +3,18 @@
     "tslint:recommended"
   ],
   "rules": {
+    // These can be ignored, I started a PR to fix them in schemastore but damn, it was a timesink with no obvious end
+    "completed-docs": [
+      true,
+      {
+        "functions": {
+          "visibilities" : ["exported"]
+        },
+        "methods": {
+          "visibilities" : ["exported"]
+        }
+      }
+    ],
     "no-console": [
       false
     ],
@@ -30,8 +42,7 @@
     ],
     "switch-default": false,
     "trailing-comma": [
-      true,
-      { "multiline": "always", "singleline": "never" }
+      false
     ]
   }
 }
