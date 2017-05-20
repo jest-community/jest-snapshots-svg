@@ -12,7 +12,8 @@ describe("nodeToSVG", () => {
 
       const settings = {
         width: 1024,
-        height: 768
+        height: 768,
+        styleMap: new WeakMap()
       }
 
       const results = nodeToSVG(0, rootNode, settings)

@@ -26,9 +26,11 @@ it("handles some simple JSX", () => {
   const settings = {
     width:  600,
     height: 400,
+    styleMap: new WeakMap()
   }
-  // console.log(component)
+
   const rootNode = componentTreeToNodeTree(component, settings)
+  settings.styleMap.set(rootNode, component)
   const results = treeToSVG(rootNode, settings)
 
   fs.writeFileSync("jsx-render.svg", results)

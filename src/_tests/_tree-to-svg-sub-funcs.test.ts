@@ -9,7 +9,9 @@ describe("svgWrapper", () => {
       const body = "[My Body]"
       const settings = {
         width: 444,
-        height: 555
+        height: 555,
+                styleMap: new WeakMap()
+
       }
 
       const results = svgWrapper(body, settings)
@@ -30,7 +32,9 @@ describe("recurseTree", () => {
       }
       const settings = {
         width: 1024,
-        height: 768
+        height: 768,
+        styleMap: new WeakMap()
+
       }
       const results = recurseTree(0, fakeNode, settings)
       expect(nodeToSVG.mock.calls.length).toEqual(1)
@@ -62,7 +66,8 @@ describe("recurseTree", () => {
 
       const settings = {
         width: 1024,
-        height: 768
+        height: 768,
+        styleMap: new WeakMap()
       }
 
       const results = recurseTree(0, root, settings)

@@ -13,6 +13,7 @@ export const recurseTree =
 
     return nodeString + groupWrap(root, indent, () => {
       let childGroups = ""
+
       for (let index = 0; index < childrenCount; index++) {
         const child = root.getChild(index)
         childGroups += recurseTree(indent + 1, child, settings)

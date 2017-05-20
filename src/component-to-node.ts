@@ -29,23 +29,25 @@ const componentToNode = (component: Component, settings: Settings) => {
 
     if (style.flex) { node.setFlex(style.flex) }
 
-    if (!style.flexDirection) { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW) }
     if (style.flexDirection === "row") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW) }
     if (style.flexDirection === "column") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN) }
     if (style.flexDirection === "row-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW_REVERSE) }
     if (style.flexDirection === "column-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN_REVERSE) }
 
-    // if (style.alignItems) {
-    //   let alignment: yoga.Align = 0
-    //   switch (style.alignItems) {
-    //     case "center":
-    //       alignment = yoga.ALIGN_CENTER
-    //       break
+    if (style.justifyContent === "flex-start") { node.setJustifyContent(yoga.JUSTIFY_FLEX_START) }
+    if (style.justifyContent === "flex-end") { node.setJustifyContent(yoga.JUSTIFY_FLEX_END) }
+    if (style.justifyContent === "center") { node.setJustifyContent(yoga.JUSTIFY_CENTER) }
+    if (style.justifyContent === "space-between") { node.setJustifyContent(yoga.JUSTIFY_SPACE_BETWEEN) }
+    if (style.justifyContent === "space-around") { node.setJustifyContent(yoga.JUSTIFY_SPACE_AROUND) }
 
-    //     default:
-    //       break
-    //   }
-    // }
+    if (style.alignItems === "flex-start") { node.setJustifyContent(yoga.ALIGN_FLEX_END) }
+    if (style.alignItems === "flex-end") { node.setJustifyContent(yoga.ALIGN_FLEX_END) }
+    if (style.alignItems === "center") { node.setJustifyContent(yoga.ALIGN_CENTER) }
+    if (style.alignItems === "stretch") { node.setJustifyContent(yoga.ALIGN_STRETCH) }
+    if (style.alignItems === "baseline") { node.setJustifyContent(yoga.ALIGN_BASELINE) }
+
+    node.myID = Math.random() * 50
+    console.log(` < (${node.myID})`, style)
   }
 
   return node
