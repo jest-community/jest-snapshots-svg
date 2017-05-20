@@ -43,6 +43,7 @@
     "switch-default": false,
     "trailing-comma": [
       false
-    ]
+    ],
+    "no-namespace": [false]
   }
 }

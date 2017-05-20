@@ -19,9 +19,6 @@ describe("treeToSVG", () => {
 
       const results = treeToSVG(rootNode, settings)
       expect(results).toMatchSnapshot()
-      // fs.writeFileSync("simple.svg", results)
-
-      // console.log(jasmine)
 
       rootNode.freeRecursive()
     })

@@ -1,3 +1,12 @@
+// Add our matcher to Jest's definitions
+
+declare namespace jest {
+  interface Matchers {
+    /** Checks and sets up SVG rendering for React Components. */
+    toMatchSVGSnapshot(width: number, height: number): void;
+  }
+}
+
 // Initial stub of the Yoga type system
 // Based on https://facebook.github.io/yoga/docs/api/javascript/
 //
@@ -17,7 +26,7 @@ declare module "yoga-layout" {
   const ALIGN_SPACE_BETWEEN = 6
   const ALIGN_SPACE_AROUND = 7
 
- /** Do not use this in your code */
+  /** Do not use this in your code */
   enum Align {
     Count = 8,
     Auto = 0,
