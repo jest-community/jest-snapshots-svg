@@ -1,4 +1,5 @@
-import * as yoga from "yoga-layout"
+import * as fs from "fs"
+import * as path from "path"
 
 export interface Component {
     type: string,
@@ -11,50 +12,53 @@ export interface Settings {
     height: number
 }
 
-export default function hello(settings: Settings, json: Component) {
-    const {height, width} = settings
-    const rootNode = yoga.Node.create()
-    rootNode.setWidth(width)
-    rootNode.setHeight(height)
-    rootNode.setPadding(yoga.EDGE_ALL, 20)
-    rootNode.setDisplay(yoga.DISPLAY_FLEX)
-    rootNode.setFlexDirection(yoga.FLEX_DIRECTION_ROW)
+import componentTreeToNodeTree from "./component-tree-to-nodes"
+import treeToSVG from "./tree-to-svg"
 
-    const child1 = yoga.Node.create()
-    child1.setWidth(250)
-    child1.setHeight(400)
-    child1.setFlex(0)
+// toMatchSVGSnapshot(1024, 768)
 
-    const child2 = yoga.Node.create()
-    child2.setWidth(400)
-    child2.setHeight(500)
-    child2.setFlex(1)
+const fail = (msg) => ({ message: () => msg, pass: false })
 
-    rootNode.insertChild(child1, 0)
-    rootNode.insertChild(child2, 1)
+expect.extend({
+    toMatchSVGSnapshot(root: Component, width, height) {
+        if (!root) { return fail("A falsy Component was passed to toMatchSVGSnapshot") }
+        if (!root.props) { return fail("A Component without props was passed to toMatchSVGSnapshot") }
+        if (!root.type) { return fail("A Component without a type was passed to toMatchSVGSnapshot") }
 
-    rootNode.calculateLayout(1024, 768, yoga.DIRECTION_LTR)
+        // This isn't in the d.ts
+        const currentTest = (expect as any).getState().testPath
 
-    console.log(`
-    root pos: {${rootNode.getComputedLeft()}, ${rootNode.getComputedTop()},
-               ${rootNode.getComputedWidth()}, ${rootNode.getComputedHeight()}}
-`)
-    for (let i = 0, l = rootNode.getChildCount(); i < l; ++i) {
-        const child = rootNode.getChild(i)
-        console.log(`
-    child ${i} pos: {${child.getComputedLeft()}, ${child.getComputedTop()},
-                     ${child.getComputedWidth()}, ${child.getComputedHeight()}}`)
-        console.log(child.getComputedLayout().toString())
+        //  Figure out the paths
+        const snapshotsDir = path.join(currentTest, "..", "__snapshots__")
+        const expectedSnapshot = path.join(snapshotsDir, path.basename(currentTest) + ".svg")
+
+        // We will need to do something smarter in the future, these snapshots need to be 1 file per test
+        // whereas jest-snapshots can be multi-test per file.
+
+        const settings: Settings = { width, height }
+        const rootNode = componentTreeToNodeTree(root, settings)
+        const svgText = treeToSVG(rootNode, settings)
+
+        // Are we in write mode?
+
+        if (!fs.existsSync(expectedSnapshot)) {
+            fs.writeFileSync(expectedSnapshot, svgText)
+            return {
+                message: () => "Created a new Snapshot for you"
+            }
+
+        } else {
+            const contents = fs.readFileSync(expectedSnapshot, "utf8")
+            if (contents !== svgText) {
+                fs.writeFileSync(expectedSnapshot, svgText)
+                return {
+                    message: () => (
+                        `SVG Snapshot failed: we have updated it for you`
+                    ),
+                    pass: false,
+                }
+            }
+            return { message: () => "All good", pass: true }
+        }
     }
-
-    rootNode.removeChild(child1)
-    rootNode.removeChild(child2)
-
-    console.log(`There are ${yoga.getInstanceCount()} nodes`)
-    yoga.Node.destroy(child2)
-    console.log(`There are ${yoga.getInstanceCount()} nodes left`)
-    child1.free()
-    console.log(`There are ${yoga.getInstanceCount()} nodes left`)
-    rootNode.freeRecursive()
-    console.log(`There are ${yoga.getInstanceCount()} nodes left`)
-}
+} as any)
