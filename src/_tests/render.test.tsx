@@ -1,3 +1,5 @@
+import "../index"
+
 import * as React from "react"
 import { View } from "react-native"
 import * as renderer from "react-test-renderer"
@@ -10,7 +12,7 @@ import * as yoga from "yoga-layout"
 
 it("handles some simple JSX", () => {
   const jsx = (
-    <View style={{width: 200, height: 200, marginLeft: 40, marginTop: 40, paddingLeft: 20}}>
+    <View style={{width: 100, height: 200, marginLeft: 40, marginTop: 40, paddingLeft: 20}}>
       <View style={{width: 20, height: 20}}/>
       <View style={{width: 160, height: 40, marginTop: 20}}>
         <View style={{width: 10, height: 10, marginLeft: 10, marginTop: 20}}/>
@@ -25,12 +27,13 @@ it("handles some simple JSX", () => {
     width:  600,
     height: 400,
   }
-  console.log(component)
+  // console.log(component)
   const rootNode = componentTreeToNodeTree(component, settings)
   const results = treeToSVG(rootNode, settings)
 
   fs.writeFileSync("jsx-render.svg", results)
   expect(results).toMatchSnapshot()
 
+  expect(component).toMatchSVGSnapshot(1024, 768)
   rootNode.freeRecursive()
 })
