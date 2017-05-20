@@ -4,10 +4,12 @@ import componentToNode from "./component-to-node"
 import { Component, Settings } from "./index"
 
 const treeToNodes = (root: Component, settings: Settings) => recurseTree(root, settings)
+
 export default treeToNodes
 
 export const recurseTree = (component: Component, settings: Settings) => {
   const node = componentToNode(component, settings)
+  settings.styleMap.set(node, component.props.style)
 
   if (component.children) {
     for (let index = 0; index < component.children.length; index++) {

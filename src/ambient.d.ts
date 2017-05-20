@@ -14,6 +14,8 @@ declare namespace jest {
 declare module "yoga-layout" {
 
   // https://github.com/facebook/yoga/blob/master/javascript/sources/YGEnums.js
+  // and https://github.com/facebook/yoga/blob/master/gentest/gentest-javascript.js
+
   const UNDEFINED: number
 
   const ALIGN_COUNT = 8
@@ -116,6 +118,16 @@ declare module "yoga-layout" {
   const JUSTIFY_FLEX_END = 2
   const JUSTIFY_SPACE_BETWEEN = 3
   const JUSTIFY_SPACE_AROUND = 4
+
+  /** Do not use this in your code */
+  enum Justify {
+    Count = 5,
+    FlexStart = 0,
+    Center = 1,
+    FlexEnd = 2,
+    SpaceBetween = 3,
+    SpaceAround = 3,
+  }
 
   const LOG_LEVEL_COUNT = 6
   const LOG_LEVEL_ERROR = 0
@@ -232,6 +244,8 @@ declare module "yoga-layout" {
 
     setFlex(ordinal: number)
     setFlexDirection(direct: FlexDirection)
+    setJustifyContent(justify: Justify)
+    setAlignItems(alignment: number)
 
     insertChild(node: NodeInstance, index: number)
     removeChild(node: NodeInstance)
@@ -263,3 +277,9 @@ declare module "yoga-layout" {
   // Globals
   function getInstanceCount(): number
 }
+
+// import {ViewStyle} from "react-native"
+
+// interface NodeInstance {
+//   style: ViewStyle
+// }

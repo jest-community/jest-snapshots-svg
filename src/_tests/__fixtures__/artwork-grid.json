@@ -1,0 +1,443 @@
+{
+  "type": "View",
+  "props": {},
+  "children": [
+    {
+      "type": "View",
+      "props": {
+        "style": {
+          "flexDirection": "row"
+        },
+        "accessibilityLabel": "Artworks Content View"
+      },
+      "children": [
+        {
+          "type": "View",
+          "props": {
+            "style": [
+              {
+                "flexDirection": "column"
+              },
+              {
+                "width": 242.66666666666666,
+                "marginRight": 20
+              }
+            ],
+            "accessibilityLabel": "Section 0"
+          },
+          "children": [
+            {
+              "type": "View",
+              "props": {
+                "accessible": true
+              },
+              "children": [
+                {
+                  "type": "AROpaqueImageView",
+                  "props": {
+                    "style": {
+                      "marginBottom": 10
+                    },
+                    "aspectRatio": 2.18,
+                    "imageURL": "artsy.net/image-url"
+                  },
+                  "children": null
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      [
+                        {
+                          "fontSize": 12,
+                          "color": "#666666"
+                        },
+                        {
+                          "fontWeight": "bold"
+                        }
+                      ],
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Guerrilla Girls"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    {
+                      "type": "Text",
+                      "props": {
+                        "style": [
+                          {
+                            "fontSize": 17
+                          },
+                          [
+                            {
+                              "fontSize": 12,
+                              "color": "#666666"
+                            },
+                            {
+                              "fontStyle": "italic"
+                            }
+                          ],
+                          {
+                            "fontFamily": "AGaramondPro-Regular"
+                          }
+                        ],
+                        "numberOfLines": 1,
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "ellipsizeMode": "tail"
+                      },
+                      "children": [
+                        "DO WOMEN STILL HAVE TO BE NAKED TO GET INTO THE MET. MUSEUM"
+                      ]
+                    },
+                    ", 2012"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Whitechapel Gallery"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "View",
+          "props": {
+            "style": [
+              {
+                "flexDirection": "column"
+              },
+              {
+                "width": 242.66666666666666,
+                "marginRight": 20
+              }
+            ],
+            "accessibilityLabel": "Section 1"
+          },
+          "children": [
+            {
+              "type": "View",
+              "props": {
+                "accessible": true
+              },
+              "children": [
+                {
+                  "type": "AROpaqueImageView",
+                  "props": {
+                    "style": {
+                      "marginBottom": 10
+                    },
+                    "aspectRatio": 2.18,
+                    "imageURL": "artsy.net/image-url"
+                  },
+                  "children": null
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      [
+                        {
+                          "fontSize": 12,
+                          "color": "#666666"
+                        },
+                        {
+                          "fontWeight": "bold"
+                        }
+                      ],
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Guerrilla Girls"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    {
+                      "type": "Text",
+                      "props": {
+                        "style": [
+                          {
+                            "fontSize": 17
+                          },
+                          [
+                            {
+                              "fontSize": 12,
+                              "color": "#666666"
+                            },
+                            {
+                              "fontStyle": "italic"
+                            }
+                          ],
+                          {
+                            "fontFamily": "AGaramondPro-Regular"
+                          }
+                        ],
+                        "numberOfLines": 1,
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "ellipsizeMode": "tail"
+                      },
+                      "children": [
+                        "DO WOMEN STILL HAVE TO BE NAKED TO GET INTO THE MET. MUSEUM"
+                      ]
+                    },
+                    ", 2012"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Whitechapel Gallery"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "View",
+          "props": {
+            "style": [
+              {
+                "flexDirection": "column"
+              },
+              {
+                "width": 242.66666666666666,
+                "marginRight": 0
+              }
+            ],
+            "accessibilityLabel": "Section 2"
+          },
+          "children": [
+            {
+              "type": "View",
+              "props": {
+                "accessible": true
+              },
+              "children": [
+                {
+                  "type": "AROpaqueImageView",
+                  "props": {
+                    "style": {
+                      "marginBottom": 10
+                    },
+                    "aspectRatio": 2.18,
+                    "imageURL": "artsy.net/image-url"
+                  },
+                  "children": null
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      [
+                        {
+                          "fontSize": 12,
+                          "color": "#666666"
+                        },
+                        {
+                          "fontWeight": "bold"
+                        }
+                      ],
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Guerrilla Girls"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    {
+                      "type": "Text",
+                      "props": {
+                        "style": [
+                          {
+                            "fontSize": 17
+                          },
+                          [
+                            {
+                              "fontSize": 12,
+                              "color": "#666666"
+                            },
+                            {
+                              "fontStyle": "italic"
+                            }
+                          ],
+                          {
+                            "fontFamily": "AGaramondPro-Regular"
+                          }
+                        ],
+                        "numberOfLines": 1,
+                        "accessible": true,
+                        "allowFontScaling": true,
+                        "ellipsizeMode": "tail"
+                      },
+                      "children": [
+                        "DO WOMEN STILL HAVE TO BE NAKED TO GET INTO THE MET. MUSEUM"
+                      ]
+                    },
+                    ", 2012"
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "props": {
+                    "style": [
+                      {
+                        "fontSize": 17
+                      },
+                      {
+                        "fontSize": 12,
+                        "color": "#666666"
+                      },
+                      {
+                        "fontFamily": "AGaramondPro-Regular"
+                      }
+                    ],
+                    "numberOfLines": 1,
+                    "accessible": true,
+                    "allowFontScaling": true,
+                    "ellipsizeMode": "tail"
+                  },
+                  "children": [
+                    "Whitechapel Gallery"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

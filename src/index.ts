@@ -1,6 +1,8 @@
 import * as fs from "fs"
 import * as path from "path"
 
+import * as yoga from "yoga-layout"
+
 export interface Component {
     type: string,
     props: any,
@@ -10,6 +12,7 @@ export interface Component {
 export interface Settings {
     width: number
     height: number
+    styleMap: WeakMap<yoga.NodeInstance, Component>
 }
 
 import componentTreeToNodeTree from "./component-tree-to-nodes"
@@ -32,33 +35,32 @@ expect.extend({
         const snapshotsDir = path.join(currentTest, "..", "__snapshots__")
         const expectedSnapshot = path.join(snapshotsDir, path.basename(currentTest) + ".svg")
 
+        // Make our folder if it's needed
+        if (!fs.existsSync(snapshotsDir)) { fs.mkdirSync(snapshotsDir) }
+
         // We will need to do something smarter in the future, these snapshots need to be 1 file per test
         // whereas jest-snapshots can be multi-test per file.
 
-        const settings: Settings = { width, height }
+        const settings: Settings = { width, height, styleMap: new WeakMap() }
         const rootNode = componentTreeToNodeTree(root, settings)
         const svgText = treeToSVG(rootNode, settings)
+        rootNode.freeRecursive()
 
         // Are we in write mode?
 
         if (!fs.existsSync(expectedSnapshot)) {
             fs.writeFileSync(expectedSnapshot, svgText)
             return {
-                message: () => "Created a new Snapshot for you"
+                message: () => "Created a new Snapshot for you",
+                pass: false
             }
-
         } else {
             const contents = fs.readFileSync(expectedSnapshot, "utf8")
             if (contents !== svgText) {
-                fs.writeFileSync(expectedSnapshot, svgText)
-                return {
-                    message: () => (
-                        `SVG Snapshot failed: we have updated it for you`
-                    ),
-                    pass: false,
-                }
+                return { message: () => `SVG Snapshot failed: we have updated it for you`, pass: false }
+            } else {
+                return { message: () => "All good", pass: true }
             }
-            return { message: () => "All good", pass: true }
         }
     }
 } as any)

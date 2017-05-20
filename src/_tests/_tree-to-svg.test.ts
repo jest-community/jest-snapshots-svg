@@ -1,4 +1,3 @@
-// import * as fs from "fs"
 import * as yoga from "yoga-layout"
 
 import treeToSVG from "../tree-to-svg"
@@ -14,7 +13,8 @@ describe("treeToSVG", () => {
 
       const settings = {
         width: 1024,
-        height: 768
+        height: 768,
+        styleMap: new WeakMap()
       }
 
       const results = treeToSVG(rootNode, settings)

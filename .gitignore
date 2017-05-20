@@ -34,3 +34,5 @@ jspm_packages
 
 # TS build files
 build
+
+error_log.txt
