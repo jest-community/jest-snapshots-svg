@@ -14,7 +14,7 @@ declare namespace jest {
 declare module "yoga-layout" {
 
   // https://github.com/facebook/yoga/blob/master/javascript/sources/YGEnums.js
-  // and https://github.com/facebook/yoga/blob/master/gentest/gentest-javascript.js
+  // and https://github.com/facebook/yoga/blob/master/gentest/gentest-javascript.js 5
 
   const UNDEFINED: number
 
@@ -250,9 +250,11 @@ declare module "yoga-layout" {
     insertChild(node: NodeInstance, index: number)
     removeChild(node: NodeInstance)
 
-    getComputedWidth(): number
     getComputedLeft(): number
+    getComputedRight(): number
     getComputedTop(): number
+    getComputedBottom(): number
+    getComputedWidth(): number
     getComputedHeight(): number
 
     getChild(index: number): NodeInstance

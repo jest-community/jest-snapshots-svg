@@ -6,7 +6,7 @@ import * as renderer from "react-test-renderer"
 
 // https://facebook.github.io/react-native/docs/flexbox.html
 
-it("Renders three vertically/horizonyally centeredblocks", () => {
+it("Renders three vertically/horizontally centeredblocks", () => {
   const jsx =
       <View style={{
         flex: 1,

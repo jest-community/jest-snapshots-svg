@@ -4,18 +4,33 @@ import * as path from "path"
 import * as yoga from "yoga-layout"
 
 export interface Component {
-    type: string,
-    props: any,
+    type: string
+    props: any
     children: Component[] | null
+}
+
+export interface RenderedComponent {
+    type: string
+    props: any
+    children: RenderedComponent[]
+    layout: {
+        left: number
+        right: number
+        top: number
+        bottom: number
+        width: number
+        height: number
+    }
 }
 
 export interface Settings {
     width: number
     height: number
-    styleMap: WeakMap<yoga.NodeInstance, Component>
+    styleMap: Map<yoga.NodeInstance, Component>
 }
 
 import componentTreeToNodeTree from "./component-tree-to-nodes"
+import renderedComponentTree from "./reapply-layouts-to-components"
 import treeToSVG from "./tree-to-svg"
 
 // toMatchSVGSnapshot(1024, 768)
@@ -41,13 +56,21 @@ expect.extend({
         // We will need to do something smarter in the future, these snapshots need to be 1 file per test
         // whereas jest-snapshots can be multi-test per file.
 
-        const settings: Settings = { width, height, styleMap: new WeakMap() }
+        const settings: Settings = { width, height, styleMap: new Map() }
         const rootNode = componentTreeToNodeTree(root, settings)
-        const svgText = treeToSVG(rootNode, settings)
+        // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
+        // still exist.
+        rootNode.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
+
+        const renderedComponentRoot = renderedComponentTree(root, rootNode)
+
+        const svgText = treeToSVG(renderedComponentRoot, settings)
         rootNode.freeRecursive()
 
-        // Are we in write mode?
+        // const GLOBAL_STATE = Symbol.for("$$jest-matchers-object")
+        // console.log(global[GLOBAL_STATE].state)
 
+        // Are we in write mode?
         if (!fs.existsSync(expectedSnapshot)) {
             fs.writeFileSync(expectedSnapshot, svgText)
             return {
@@ -57,6 +80,7 @@ expect.extend({
         } else {
             const contents = fs.readFileSync(expectedSnapshot, "utf8")
             if (contents !== svgText) {
+                fs.writeFileSync(expectedSnapshot, svgText)
                 return { message: () => `SVG Snapshot failed: we have updated it for you`, pass: false }
             } else {
                 return { message: () => "All good", pass: true }

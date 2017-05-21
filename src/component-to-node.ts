@@ -45,9 +45,6 @@ const componentToNode = (component: Component, settings: Settings) => {
     if (style.alignItems === "center") { node.setJustifyContent(yoga.ALIGN_CENTER) }
     if (style.alignItems === "stretch") { node.setJustifyContent(yoga.ALIGN_STRETCH) }
     if (style.alignItems === "baseline") { node.setJustifyContent(yoga.ALIGN_BASELINE) }
-
-    node.myID = Math.random() * 50
-    console.log(` < (${node.myID})`, style)
   }
 
   return node
