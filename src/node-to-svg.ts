@@ -1,27 +1,23 @@
 import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
 
-import { Settings } from "./index"
+import { RenderedComponent, Settings } from "./index"
 import wsp from "./whitespace"
 
-const nodeToSVG = (indent: number, node: yoga.NodeInstance, settings: Settings) => {
-  const layout = node.getComputedLayout()
+const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
+  const layout = node.layout
   const attributes: any = {
     "fill-opacity": "0.1",
     "stroke-width": "1",
     "stroke": "black"
   }
 
-  const component = settings.styleMap.get(node)
-  if (component && component.props && component.props.style) {
-    const style = component.props.style
-    console.log("> ", component.props.style)
+  if (node && node.props && node.props.style) {
+    const style = node.props.style
     if (style.backgroundColor) {
       attributes.fill = style.backgroundColor
       attributes["fill-opacity"] = 1
     }
-  } else {
-    console.log(` > (${node.myID})`, component)
   }
   return "\n" + wsp(indent) + svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
 }

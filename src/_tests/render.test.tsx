@@ -5,6 +5,7 @@ import { View } from "react-native"
 import * as renderer from "react-test-renderer"
 
 import componentTreeToNodeTree from "../component-tree-to-nodes"
+import renderedComponentTree from "../reapply-layouts-to-components"
 import treeToSVG from "../tree-to-svg"
 
 import * as fs from "fs"
@@ -26,12 +27,11 @@ it("handles some simple JSX", () => {
   const settings = {
     width:  600,
     height: 400,
-    styleMap: new WeakMap()
   }
 
   const rootNode = componentTreeToNodeTree(component, settings)
-  settings.styleMap.set(rootNode, component)
-  const results = treeToSVG(rootNode, settings)
+  const rendered = renderedComponentTree(component, rootNode)
+  const results = treeToSVG(rendered, settings)
 
   fs.writeFileSync("jsx-render.svg", results)
   expect(results).toMatchSnapshot()

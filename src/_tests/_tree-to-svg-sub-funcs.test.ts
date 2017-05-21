@@ -2,6 +2,7 @@ const nodeToSVG = jest.fn()
 jest.mock("../node-to-svg.ts", () => ({ default: nodeToSVG }))
 
 import * as yoga from "yoga-layout"
+import { RenderedComponent } from "../index"
 import { recurseTree, svgWrapper } from "../tree-to-svg"
 
 describe("svgWrapper", () => {
@@ -10,8 +11,6 @@ describe("svgWrapper", () => {
       const settings = {
         width: 444,
         height: 555,
-                styleMap: new WeakMap()
-
       }
 
       const results = svgWrapper(body, settings)
@@ -19,50 +18,39 @@ describe("svgWrapper", () => {
     })
 })
 
+const component = (name) => ({
+  type: name,
+  props: {},
+  children: [],
+  layout: {
+    left: 2,
+    right: 6,
+    top: 80,
+    bottom: 100,
+    width: 200,
+    height: 200
+  }
+}) as RenderedComponent
+
 describe("recurseTree", () => {
     beforeEach(() => {
       nodeToSVG.mockReset()
     })
 
     it("Calls nodeToSVG for it's first node", () => {
-      const children = []
-      const fakeNode: any = {
-        getChild: (index) => children[index],
-        getChildCount: () => children.length,
-      }
+      const root = component("main")
+
       const settings = {
         width: 1024,
         height: 768,
-        styleMap: new WeakMap()
-
       }
-      const results = recurseTree(0, fakeNode, settings)
+      const results = recurseTree(0, root, settings)
       expect(nodeToSVG.mock.calls.length).toEqual(1)
     })
 
     it("Calls nodeToSVG for it's children nodes", () => {
-      const children = [] as any[]
-      const root: any = {
-        getChild: (index) => children[index],
-        getChildCount: () => children.length,
-        getComputedLeft: () => 20,
-        getComputedTop: () => 20,
-        id: "root"
-      }
-      const fakeNode2: any = {
-        getChild: (index) => null,
-        getChildCount: () => 0,
-        id: "2"
-      }
-
-      const fakeNode3: any = {
-        getChild: (index) => null,
-        getChildCount: () => 0,
-        id: "3"
-      }
-
-      children.push(fakeNode2)
-      children.push(fakeNode3)
+      const root = component("main")
+      root.children = [component("1"), component("2")]
 
       const settings = {
         width: 1024,

@@ -2,23 +2,30 @@ import * as yoga from "yoga-layout"
 
 import nodeToSVG from "../node-to-svg"
 
+const component = (name) => ({
+  type: name,
+  props: {},
+  children: [],
+  layout: {
+    left: 0,
+    right: 6,
+    top: 0,
+    bottom: 100,
+    width: 600,
+    height: 400
+  }
+})
+
 describe("nodeToSVG", () => {
     it("handles a simple square", () => {
-      const rootNode = yoga.Node.create()
-      rootNode.setWidth(600)
-      rootNode.setHeight(400)
-      rootNode.setDisplay(yoga.DISPLAY_FLEX)
-      rootNode.setFlexDirection(yoga.FLEX_DIRECTION_ROW)
+      const rootNode = component("my component")
 
       const settings = {
         width: 1024,
         height: 768,
-        styleMap: new WeakMap()
       }
 
       const results = nodeToSVG(0, rootNode, settings)
       expect(results).toMatchSnapshot()
-
-      rootNode.free()
     })
 })
