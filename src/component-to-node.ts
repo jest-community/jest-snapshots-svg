@@ -7,9 +7,8 @@ const componentToNode = (component: Component, settings: Settings) => {
   if (component.props && component.props.style) {
     let style = component.props.style
 
-    // TODO: merge like RN stylesheets would
     if (component.props.style instanceof Array) {
-      style = component.props.style.first
+      style = Object.assign({}, ...component.props.style)
     }
 
     // http://facebook.github.io/react-native/releases/0.44/docs/layout-props.html
@@ -29,22 +28,31 @@ const componentToNode = (component: Component, settings: Settings) => {
 
     if (style.flex) { node.setFlex(style.flex) }
 
-    if (style.flexDirection === "row") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW) }
-    if (style.flexDirection === "column") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN) }
-    if (style.flexDirection === "row-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW_REVERSE) }
-    if (style.flexDirection === "column-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN_REVERSE) }
+    const flexDirection = style.flexDirection
+    if (flexDirection) {
+      if (flexDirection === "row") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW) }
+      if (flexDirection === "column") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN) }
+      if (flexDirection === "row-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW_REVERSE) }
+      if (flexDirection === "column-reverse") { node.setFlexDirection(yoga.FLEX_DIRECTION_COLUMN_REVERSE) }
+    }
 
-    if (style.justifyContent === "flex-start") { node.setJustifyContent(yoga.JUSTIFY_FLEX_START) }
-    if (style.justifyContent === "flex-end") { node.setJustifyContent(yoga.JUSTIFY_FLEX_END) }
-    if (style.justifyContent === "center") { node.setJustifyContent(yoga.JUSTIFY_CENTER) }
-    if (style.justifyContent === "space-between") { node.setJustifyContent(yoga.JUSTIFY_SPACE_BETWEEN) }
-    if (style.justifyContent === "space-around") { node.setJustifyContent(yoga.JUSTIFY_SPACE_AROUND) }
+    const justifyContent = style.justifyContent
+    if (justifyContent) {
+      if (justifyContent === "flex-start") { node.setJustifyContent(yoga.JUSTIFY_FLEX_START) }
+      if (justifyContent === "flex-end") { node.setJustifyContent(yoga.JUSTIFY_FLEX_END) }
+      if (justifyContent === "center") { node.setJustifyContent(yoga.JUSTIFY_CENTER) }
+      if (justifyContent === "space-between") { node.setJustifyContent(yoga.JUSTIFY_SPACE_BETWEEN) }
+      if (justifyContent === "space-around") { node.setJustifyContent(yoga.JUSTIFY_SPACE_AROUND) }
+    }
 
-    if (style.alignItems === "flex-start") { node.setJustifyContent(yoga.ALIGN_FLEX_END) }
-    if (style.alignItems === "flex-end") { node.setJustifyContent(yoga.ALIGN_FLEX_END) }
-    if (style.alignItems === "center") { node.setJustifyContent(yoga.ALIGN_CENTER) }
-    if (style.alignItems === "stretch") { node.setJustifyContent(yoga.ALIGN_STRETCH) }
-    if (style.alignItems === "baseline") { node.setJustifyContent(yoga.ALIGN_BASELINE) }
+    const alignItems = style.alignItems
+    if (alignItems) {
+      if (alignItems === "flex-start") { node.setAlignItems(yoga.ALIGN_FLEX_END) }
+      if (alignItems === "flex-end") { node.setAlignItems(yoga.ALIGN_FLEX_END) }
+      if (alignItems === "center") { node.setAlignItems(yoga.ALIGN_CENTER) }
+      if (alignItems === "stretch") { node.setAlignItems(yoga.ALIGN_STRETCH) }
+      if (alignItems === "baseline") { node.setAlignItems(yoga.ALIGN_BASELINE) }
+    }
   }
 
   return node

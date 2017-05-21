@@ -57,15 +57,19 @@ expect.extend({
 
         const settings: Settings = { width, height }
         const rootNode = componentTreeToNodeTree(root, settings)
+
         // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
         // still exist.
         rootNode.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
 
+        // Generate a tree of components with the layout baked into it, them clean up yog memory
         const renderedComponentRoot = renderedComponentTree(root, rootNode)
-
-        const svgText = treeToSVG(renderedComponentRoot, settings)
         rootNode.freeRecursive()
 
+        const svgText = treeToSVG(renderedComponentRoot, settings)
+
+        // TODO: Dertermine if Jest is in `-u`?
+        //
         // const GLOBAL_STATE = Symbol.for("$$jest-matchers-object")
         // console.log(global[GLOBAL_STATE].state)
 
