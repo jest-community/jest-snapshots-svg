@@ -57,8 +57,6 @@
     "preset": "react-native"
   },
   "dependencies": {
-    "@types/react-native": "^0.44.3",
-    "ts-lint": "^4.5.1",
     "yoga-layout": "^1.5.0"
   }
 }
