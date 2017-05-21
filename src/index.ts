@@ -26,7 +26,6 @@ export interface RenderedComponent {
 export interface Settings {
     width: number
     height: number
-    styleMap: Map<yoga.NodeInstance, Component>
 }
 
 import componentTreeToNodeTree from "./component-tree-to-nodes"
@@ -56,7 +55,7 @@ expect.extend({
         // We will need to do something smarter in the future, these snapshots need to be 1 file per test
         // whereas jest-snapshots can be multi-test per file.
 
-        const settings: Settings = { width, height, styleMap: new Map() }
+        const settings: Settings = { width, height }
         const rootNode = componentTreeToNodeTree(root, settings)
         // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
         // still exist.
