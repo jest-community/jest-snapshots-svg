@@ -4,9 +4,9 @@
  <rect x="0" y="0" width="320" height="480" fill-opacity="0.1" stroke-width="1" stroke="black"/>
 
  <g transform='translate(0, 0)'>
-   <rect x="0" y="330" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="powderblue"/>
-   <rect x="0" y="380" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="skyblue"/>
-   <rect x="0" y="430" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="steelblue"/>
+   <rect x="135" y="165" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="powderblue"/>
+   <rect x="135" y="215" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="skyblue"/>
+   <rect x="135" y="265" width="50" height="50" fill-opacity="1" stroke-width="1" stroke="black" fill="steelblue"/>
  </g>
 
 </svg>
