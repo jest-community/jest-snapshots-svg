@@ -1,6 +1,6 @@
 {
   "name": "jest-snapshots-svg",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Generate SVG Snapshots of React Native Component Trees",
   "main": "build/index.js",
   "files": [
