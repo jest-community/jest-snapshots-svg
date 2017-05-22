@@ -16,6 +16,11 @@ const componentToNode = (component: Component, settings: Settings) => {
     if (style.width) { node.setWidth(style.width) }
     if (style.height) { node.setHeight(style.height) }
 
+    // Potentially temporary, but should at least provide some layout stubbing
+    // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
+    //
+    if (!style.height && style.fontSize) { node.setHeight(style.fontSize * 2) }
+
     if (style.marginTop) { node.setMargin(yoga.EDGE_TOP, style.marginTop) }
     if (style.marginBottom) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
     if (style.marginLeft) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
