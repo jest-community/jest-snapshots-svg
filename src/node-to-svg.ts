@@ -7,7 +7,7 @@ import wsp from "./whitespace"
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
   const layout = node.layout
   const attributes: any = {
-    "fill-opacity": "0.1",
+    "fill-opacity": "0.05",
     "stroke-width": "1",
     "stroke": "black"
   }
@@ -18,7 +18,16 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       attributes.fill = style.backgroundColor
       attributes["fill-opacity"] = 1
     }
+
+    if (style.color && !style.backgroundColor) {
+      attributes.stroke = style.color
+    }
+
+    if (style.borderColor) {
+      attributes.stroke = style.borderColor
+    }
   }
+
   return "\n" + wsp(indent) + svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
 }
 

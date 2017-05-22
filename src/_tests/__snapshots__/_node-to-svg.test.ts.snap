@@ -2,5 +2,10 @@
 
 exports[`nodeToSVG handles a simple square 1`] = `
 "
- <rect x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\"/>"
+ <rect x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\" fill-opacity=\\"0.05\\" stroke-width=\\"1\\" stroke=\\"black\\"/>"
+`;
+
+exports[`nodeToSVG shows the text colour outline when there is no BG 1`] = `
+"
+ <rect x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\" fill-opacity=\\"0.05\\" stroke-width=\\"1\\" stroke=\\"white\\"/>"
 `;

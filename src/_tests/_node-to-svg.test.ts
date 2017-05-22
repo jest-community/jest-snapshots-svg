@@ -4,7 +4,7 @@ import nodeToSVG from "../node-to-svg"
 
 const component = (name) => ({
   type: name,
-  props: {},
+  props: {} as any,
   children: [],
   layout: {
     left: 0,
@@ -15,14 +15,23 @@ const component = (name) => ({
     height: 400
   }
 })
+const settings = {
+        width: 1024,
+        height: 768,
+      }
 
 describe("nodeToSVG", () => {
     it("handles a simple square", () => {
       const rootNode = component("my component")
 
-      const settings = {
-        width: 1024,
-        height: 768,
+      const results = nodeToSVG(0, rootNode, settings)
+      expect(results).toMatchSnapshot()
+    })
+
+    it("shows the text colour outline when there is no BG", () => {
+      const rootNode = component("my component")
+      rootNode.props.style = {
+        color: "white",
       }
 
       const results = nodeToSVG(0, rootNode, settings)

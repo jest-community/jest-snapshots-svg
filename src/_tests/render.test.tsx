@@ -8,7 +8,6 @@ import componentTreeToNodeTree from "../component-tree-to-nodes"
 import renderedComponentTree from "../reapply-layouts-to-components"
 import treeToSVG from "../tree-to-svg"
 
-import * as fs from "fs"
 import * as yoga from "yoga-layout"
 
 it("handles some simple JSX", () => {
@@ -33,7 +32,6 @@ it("handles some simple JSX", () => {
   const rendered = renderedComponentTree(component, rootNode)
   const results = treeToSVG(rendered, settings)
 
-  fs.writeFileSync("jsx-render.svg", results)
   expect(results).toMatchSnapshot()
 
   expect(component).toMatchSVGSnapshot(1024, 768)
