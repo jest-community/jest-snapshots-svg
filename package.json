@@ -32,7 +32,7 @@
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
     "prepush": "yarn build && yarn jest",
-    "prepublish": "cp src/external-api.d.ts build"
+    "prepublishOnly": "yarn build && cp src/external-api.d.ts build"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
