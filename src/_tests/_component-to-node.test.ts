@@ -18,7 +18,6 @@ describe("componentToNode", () => {
       const settings = {
         width: 1024,
         height: 768,
-        styleMap: new WeakMap()
       }
 
       const node = componentToNode(component, settings)
