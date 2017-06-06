@@ -30,7 +30,7 @@
     "build": "tsc",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
-    "prepush": "npm run build"
+    "prepush": "npm run build && npm run jest"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
