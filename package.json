@@ -6,7 +6,7 @@
   "files": [
     "build/*"
   ],
-  "typings": "build/index.d.ts",
+  "typings": "build/external-api.d.ts",
   "author": "Orta Therox <orta.therox@gmail.com> & Art.sy Inc",
   "license": "MIT",
   "devDependencies": {
@@ -32,7 +32,7 @@
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
     "prepush": "yarn build && yarn jest",
-    "prepublish": "cp src/external-api.d.ts build/index.d.ts"
+    "prepublish": "cp src/external-api.d.ts build"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
