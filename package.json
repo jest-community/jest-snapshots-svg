@@ -28,11 +28,10 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "build": "tsc",
+    "build": "tsc && cp src/external-api.d.ts build",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
-    "prepush": "yarn build && yarn jest",
-    "prepublishOnly": "yarn build && cp src/external-api.d.ts build"
+    "prepush": "yarn build && yarn jest"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
