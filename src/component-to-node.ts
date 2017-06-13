@@ -24,11 +24,15 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (style.marginBottom) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
     if (style.marginLeft) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
     if (style.marginRight) { node.setMargin(yoga.EDGE_RIGHT, style.marginRight) }
+    if (style.marginVertical) { node.setMargin(yoga.EDGE_VERTICAL, style.marginVertical) }
+    if (style.marginHorizontal) { node.setMargin(yoga.EDGE_HORIZONTAL, style.marginHorizontal) }
 
     if (style.paddingTop) { node.setPadding(yoga.EDGE_TOP, style.paddingTop) }
     if (style.paddingBottom) { node.setPadding(yoga.EDGE_BOTTOM, style.paddingBottom) }
     if (style.paddingLeft) { node.setPadding(yoga.EDGE_LEFT, style.paddingLeft) }
     if (style.paddingRight) { node.setPadding(yoga.EDGE_RIGHT, style.paddingRight) }
+    if (style.paddingVertical) { node.setPadding(yoga.EDGE_VERTICAL, style.paddingVertical) }
+    if (style.paddingHorizontal) { node.setPadding(yoga.EDGE_HORIZONTAL, style.paddingHorizontal) }
 
     if (style.flex) { node.setFlex(style.flex) }
 
