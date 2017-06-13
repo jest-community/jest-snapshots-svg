@@ -20,6 +20,11 @@ it("handles some simple JSX", () => {
         <View style={{width: 10, height: 10, marginLeft: 20, marginTop: 10}}/>
       </View>
       <View style={{width: 20, height: 20}}/>
+      <View style={{width: 160, height: 40, marginTop: 20, paddingHorizontal: 10 }}>
+        <View style={{width: 10, height: 10, marginHorizontal: 10 }}/>
+        <View style={{width: 10, height: 10, marginVertical: 10 }}/>
+        <View style={{width: 10, height: 10, marginHorizontal: -10 }}/>
+      </View>
     </View>
   )
 
