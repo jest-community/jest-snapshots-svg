@@ -32,8 +32,6 @@ it("handles some simple JSX", () => {
   const rootNode = componentTreeToNodeTree(component, settings)
   const rendered = renderedComponentTree(component, rootNode)
   const results = treeToSVG(rendered, settings)
-
-  fs.writeFileSync("jsx-render.svg", results)
   expect(results).toMatchSnapshot()
 
   expect(component).toMatchSVGSnapshot(1024, 768)
