@@ -7,6 +7,7 @@ import wsp from "./whitespace"
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
   const layout = node.layout
   const attributes: any = {
+    "type": node.type,
     "fill-opacity": "0.1",
     "stroke-width": "1",
     "stroke": "black"
@@ -30,7 +31,7 @@ const svgRect = (x, y, w, h, settings) => {
       attributes += ` ${key}="${element}"`
     }
   }
-  return `<rect x="${x}" y="${y}" width="${w}" height="${h}"${attributes}/>`
+  return `<rect${attributes} x="${x}" y="${y}" width="${w}" height="${h}"/>`
 }
 
 export default nodeToSVG

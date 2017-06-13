@@ -29,6 +29,7 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "build": "tsc && cp src/external-api.d.ts build",
+    "watch": "tsc --watch",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
     "prepush": "yarn build && yarn jest"
@@ -58,6 +59,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "@types/node": "^7.0.31",
     "nbind": "^0.3.12",
     "yoga-layout": "^1.5.0"
   }

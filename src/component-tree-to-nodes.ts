@@ -13,8 +13,11 @@ export const recurseTree = (component: Component, settings: Settings) => {
   if (component.children) {
     for (let index = 0; index < component.children.length; index++) {
       const childComponent = component.children[index]
-      const childNode = recurseTree(childComponent, settings)
-      node.insertChild(childNode, index)
+      // Don't go into Text nodes
+      if (!(typeof childComponent === "string")) {
+        const childNode = recurseTree(childComponent, settings)
+        node.insertChild(childNode, index)
+      }
     }
   }
 

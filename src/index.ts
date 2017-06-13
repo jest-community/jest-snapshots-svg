@@ -6,7 +6,7 @@ import * as yoga from "yoga-layout"
 export interface Component {
     type: string
     props: any
-    children: Component[] | null
+    children: Component[] | string[] | null
 }
 
 export interface RenderedComponent {
@@ -57,6 +57,7 @@ expect.extend({
 
         const settings: Settings = { width, height }
         const rootNode = componentTreeToNodeTree(root, settings)
+        if (!rootNode) { return }
 
         // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
         // still exist.

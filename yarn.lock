@@ -6,9 +6,9 @@
   version "19.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.3.tgz#61748040e8589a891dfc2ec1d16a2dd74482980e"
 
-"@types/node@^7.0.15":
-  version "7.0.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.18.tgz#cd67f27d3dc0cfb746f0bdd5e086c4c5d55be173"
+"@types/node@^7.0.31":
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
 abab@^1.0.3:
   version "1.0.3"
@@ -3258,19 +3258,10 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-nbind@^0.3.12:
+nbind@^0.3.12, nbind@^0.3.8:
   version "0.3.12"
   resolved "https://registry.yarnpkg.com/nbind/-/nbind-0.3.12.tgz#5b022d45950c1d664b360b54e6c29fa2fa5b8a59"
   dependencies:
-    emscripten-library-decorator "~0.2.2"
-    mkdirp "~0.5.1"
-    nan "^2.6.2"
-
-nbind@^0.3.8:
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/nbind/-/nbind-0.3.11.tgz#1616e49bfee231d48381851b4ffef10b8cd47a91"
-  dependencies:
-    "@types/node" "^7.0.15"
     emscripten-library-decorator "~0.2.2"
     mkdirp "~0.5.1"
     nan "^2.6.2"

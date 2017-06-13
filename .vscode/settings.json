@@ -5,5 +5,8 @@
     "**/.jest": true,
     "**/node_modules": true,
     "**/build": true
-  }
+  },
+  "prettier.semi": false,
+  "prettier.printWidth": 120,
+  "prettier.singleQuote": false
 }

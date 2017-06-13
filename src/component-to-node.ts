@@ -1,20 +1,19 @@
 import * as yoga from "yoga-layout"
 import { Component, Settings } from "./index"
 
-const componentToNode = (component: Component, settings: Settings) => {
+const componentToNode = (component: Component, settings: Settings): yoga.NodeInstance => {
   // Do we need to pass in the parent node too?
   const node = yoga.Node.create()
   if (component.props && component.props.style) {
-    let style = component.props.style
-
-    if (component.props.style instanceof Array) {
-      style = Object.assign({}, ...component.props.style)
-    }
+    const style = styleFromComponent(component)
 
     // http://facebook.github.io/react-native/releases/0.44/docs/layout-props.html
 
     if (style.width) { node.setWidth(style.width) }
     if (style.height) { node.setHeight(style.height) }
+
+    if (style.minHeight) { node.setMinHeight(style.minHeight) }
+    if (style.minWidth) { node.setMinWidth(style.minWidth) }
 
     // Potentially temporary, but should at least provide some layout stubbing
     // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
@@ -58,9 +57,45 @@ const componentToNode = (component: Component, settings: Settings) => {
       if (alignItems === "stretch") { node.setAlignItems(yoga.ALIGN_STRETCH) }
       if (alignItems === "baseline") { node.setAlignItems(yoga.ALIGN_BASELINE) }
     }
+
+    // TODO: De-dupe with above
+    const alignSelf = style.alignSelf
+    if (alignSelf) {
+      if (alignSelf === "flex-start") { node.setAlignSelf(yoga.ALIGN_FLEX_END) }
+      if (alignSelf === "flex-end") { node.setAlignSelf(yoga.ALIGN_FLEX_END) }
+      if (alignSelf === "center") { node.setAlignSelf(yoga.ALIGN_CENTER) }
+      if (alignSelf === "stretch") { node.setAlignSelf(yoga.ALIGN_STRETCH) }
+      if (alignSelf === "baseline") { node.setAlignSelf(yoga.ALIGN_BASELINE) }
+    }
+
+    // We're in a node showing Text
+    if (component && component.children && component.children[0] && typeof component.children[0] === "string") {
+      // Skip attempting to figure the width, if it's hardcoded
+      if (style.width) { return node }
+      const content = component.children[0] as string
+
+      // Let's say that every font is ~2 times taller than high
+      const fontHeightToWidthRatio = 2
+      const guessWidth = (style.fontSize || 14) / fontHeightToWidthRatio
+      node.setWidth(style.width)
+    }
   }
 
   return node
+}
+
+export const styleFromComponent = (component: Component) => {
+    let style = component.props.style
+
+    if (Array.isArray(style)) {
+      // The Stylesheet object allows some serious nesting of styles
+      const flattened = Array.prototype.concat.apply([], style)
+      const themeFlattened = Array.prototype.concat.apply([], flattened) as any[]
+      const objectsOnly = themeFlattened.filter(f => f)
+      style = Object.assign({}, ...objectsOnly)
+    }
+
+    return style
 }
 
 export default componentToNode

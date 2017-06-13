@@ -14,8 +14,11 @@ export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
     for (let index = 0; index < component.children.length; index++) {
       const childComponent = component.children[index]
       const childNode = node.getChild(index)
-      const renderedChildComponent = recurseTree(childComponent, childNode)
-      newChildren.push(renderedChildComponent)
+      // Don't go into Text nodes
+      if (!(typeof childComponent === "string")) {
+        const renderedChildComponent = recurseTree(childComponent, childNode)
+        newChildren.push(renderedChildComponent)
+      }
     }
   }
 

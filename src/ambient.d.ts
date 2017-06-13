@@ -246,6 +246,7 @@ declare module "yoga-layout" {
     setFlexDirection(direct: FlexDirection)
     setJustifyContent(justify: Justify)
     setAlignItems(alignment: number)
+    setAlignSelf(alignment: number)
 
     insertChild(node: NodeInstance, index: number)
     removeChild(node: NodeInstance)

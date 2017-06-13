@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styleFromComponent handles deeply nested arrays of styles 1`] = `[Function]`;

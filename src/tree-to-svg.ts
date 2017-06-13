@@ -16,7 +16,10 @@ export const recurseTree =
 
       for (let index = 0; index < childrenCount; index++) {
         const child = root.children[index]
-        childGroups += recurseTree(indent + 1, child, settings)
+        // Don't go into Text nodes
+        if (!(typeof child === "string")) {
+          childGroups += recurseTree(indent + 1, child, settings)
+        }
       }
 
       return childGroups
