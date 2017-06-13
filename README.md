@@ -25,13 +25,37 @@ Would make:
 src/_tests/
 ├── __snapshots__
 │   ├── render.test.tsx.snap
-│   └── render.test.tsx.svg
+│   └── render.test.tsx-does-some-simple-jsx.svg
 └── render.test.tsx
 ```
 
-## Note:
+### Flaws
 
-This is not in production yet. So buyer's beware.
+* Doesn't render text correctly - see [#11](https://github.com/orta/jest-snapshots-svg/issues/11)
+* Doesn't render image - see [#18](https://github.com/orta/jest-snapshots-svg/issues/18)
+* Not all flexbox attributes are supported - see [#19](https://github.com/orta/jest-snapshots-svg/issues/19)
+
+### I want to work on this
+
+OK, you need to clone this repo:
+
+```sh
+git clone https://github.com/orta/jest-snapshots-svg.git
+```
+
+There's the usual stuff, `yarn test` and `yarn lint`.
+
+If you want to work against your own projects, then you need to set it up for linking and turn on watch mode.
+
+```sh
+yarn watch # starts a server, so make a new tab for the next bits
+yarn link
+
+cd [my_project]
+yarn link jest-snapshot-svg
+```
+
+Now your project is using the dev version of this.
 
 ## TODO:
 
