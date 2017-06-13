@@ -8,7 +8,7 @@ Take a React Native component tree, and render it into an SVG.
 import * as React from "react"
 import { Text } from "react-native"
 import * as renderer from "react-test-renderer"
-import "jest-snapshot-svg"
+import "jest-snapshots-svg"
 
 describe("Fixtures", () => {
   it("does some simple JSX", () => {
@@ -46,8 +46,9 @@ It does this by emulating the rendering process of React Native by calling yoga-
     import * as React from "react"
     import { View } from "react-native"
     import * as renderer from "react-test-renderer"
+    import "jest-snapshots-svg"
 
-    const squareStyle = (color) => 
+    const squareStyle = (color) =>
       ({ width: 50, height: 50, backgroundColor: color })
 
     it("Renders three centered blocks", () => {
@@ -74,7 +75,7 @@ It does this by emulating the rendering process of React Native by calling yoga-
     <td>Then you run your tests. <code>yarn jest</code>.</td>
   </tr>
     <td><p>Then you get SVG output in the <code>__snapshots__</code> folder. <a href='https://github.com/orta/jest-snapshots-svg/blob/master/src/_tests/example_layouts/__snapshots__/_align-items.test.tsx-renders-three-vertically-horizontally-centeredblocks.svg?short_path=8153b80'>Example</a></p>
-    
+
     <?xml version="1.0" encoding="UTF-8" ?>
       <svg width="320" height="480" ...>
       <rect type="View".../>
