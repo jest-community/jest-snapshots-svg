@@ -5,3 +5,6 @@ Moving to React Native gave us the chance to have fast tests that are run out of
 
 <img src="https://cloud.githubusercontent.com/assets/49038/22830912/459acc64-ef76-11e6-8209-44b3291291a6.png">
 
+---
+
+This project came from this [original issue](https://github.com/artsy/emission/issues/442).
