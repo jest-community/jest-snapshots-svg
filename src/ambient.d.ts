@@ -155,6 +155,11 @@ declare module "yoga-layout" {
   const POSITION_TYPE_RELATIVE = 0
   const POSITION_TYPE_ABSOLUTE = 1
 
+  enum PositionType {
+    RELATIVE = 0,
+    ABSOLUTE = 1,
+  }
+
   const PRINT_OPTIONS_COUNT = 3
   const PRINT_OPTIONS_LAYOUT = 1
   const PRINT_OPTIONS_STYLE = 2
@@ -228,8 +233,6 @@ declare module "yoga-layout" {
   }
 
   interface NodeInstance {
-    // setPosition(x: number, y:number)
-    // setMargin()
     // setFlexBasis ()
 
     setWidth(width: number)
@@ -241,6 +244,8 @@ declare module "yoga-layout" {
     setPadding(edge: Edge, value: number)
     setMargin(edge: Edge, value: number) // maybe?
     setDisplay(display: Display)
+    setPositionType(positionType: PositionType)
+    setPosition(edge: Edge, position: number)
 
     setFlex(ordinal: number)
     setFlexDirection(direct: FlexDirection)
