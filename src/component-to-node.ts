@@ -36,6 +36,14 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
 
     if (style.flex) { node.setFlex(style.flex) }
 
+    if (style.position === "absolute") {
+      node.setPositionType(yoga.POSITION_TYPE_ABSOLUTE)
+    }
+    if (style.top) { node.setPosition(yoga.EDGE_TOP, style.top) }
+    if (style.left) { node.setPosition(yoga.EDGE_LEFT, style.left) }
+    if (style.right) { node.setPosition(yoga.EDGE_RIGHT, style.right) }
+    if (style.bottom) { node.setPosition(yoga.EDGE_BOTTOM, style.bottom) }
+
     const flexDirection = style.flexDirection
     if (flexDirection) {
       if (flexDirection === "row") { node.setFlexDirection(yoga.FLEX_DIRECTION_ROW) }
