@@ -15,6 +15,9 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (style.minHeight) { node.setMinHeight(style.minHeight) }
     if (style.minWidth) { node.setMinWidth(style.minWidth) }
 
+    if (style.maxHeight) { node.setMaxHeight(style.maxHeight) }
+    if (style.maxWidth) { node.setMaxWidth(style.maxWidth) }
+
     // Potentially temporary, but should at least provide some layout stubbing
     // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
     //
