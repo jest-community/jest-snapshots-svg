@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     version="1.2" baseProfile="tiny" viewBox="0 0 220 320">
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg width="320" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
 
-    <foreignObject width="100" height="50"
-                   requiredExtensions="http://www.w3.org/1999/xhtml">
-      <!-- XHTML content goes here -->
-      <body xmlns="http://www.w3.org/1999/xhtml">
-        <p>Here is a paragraph that requires word wrap</p>
-      </body>
-    </foreignObject>
+ <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="0" width="600" height="600"/>
+
+ <g transform='translate(0, 0)'>
+   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="5" width="200" height="32"><body xmlns="http://www.w3.org/1999/xhtml"><p>Hello there, here are some words</p></body></foreignObject>
+ </g>
+
 </svg>

@@ -21,10 +21,13 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
     }
   }
 
-  const type = node.textContent ? "textArea" : "rect"
+  const svgText = node.textContent ?
+    text(layout.left, layout.top, layout.width, layout.height, node.props.style, node.textContent)
+    : svg("rect", layout.left, layout.top, layout.width, layout.height, attributes)
+
   return "\n"
           + wsp(indent)
-          + svg(type, layout.left, layout.top, layout.width, layout.height, attributes, node.textContent)
+          + svgText
 }
 
 // This might be a reduce function?
@@ -39,9 +42,14 @@ const attributes = (settings) => {
   return attributeString
 }
 
-const svg = (type, x, y, w, h, settings, textContent) => {
-  const suffix = textContent ? `>${textContent}</${type}>` : "/>"
-  return `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}" ${suffix}`
+const svg = (type, x, y, w, h, settings) =>
+  `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}"/>`
+
+const text = (x, y, w, h, style, textContent) => {
+  const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'
+  return `<foreignObject ${extensions} x="${x}" y="${y}" width="${w}" height="${h}">`
+       + `<body xmlns="http://www.w3.org/1999/xhtml"><p>${textContent}</p>`
+       + "</body></foreignObject>"
 }
 
 export default nodeToSVG
