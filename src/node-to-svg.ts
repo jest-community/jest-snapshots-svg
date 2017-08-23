@@ -20,18 +20,28 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       attributes["fill-opacity"] = 1
     }
   }
-  return "\n" + wsp(indent) + svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
+
+  const type = node.textContent ? "textArea" : "rect"
+  return "\n"
+          + wsp(indent)
+          + svg(type, layout.left, layout.top, layout.width, layout.height, attributes, node.textContent)
 }
 
-const svgRect = (x, y, w, h, settings) => {
-  let attributes = ""
+// This might be a reduce function?
+const attributes = (settings) => {
+  let attributeString = ""
   for (const key in settings) {
     if (settings.hasOwnProperty(key)) {
       const element = settings[key]
-      attributes += ` ${key}="${element}"`
+      attributeString += ` ${key}="${element}"`
     }
   }
-  return `<rect${attributes} x="${x}" y="${y}" width="${w}" height="${h}"/>`
+  return attributeString
+}
+
+const svg = (type, x, y, w, h, settings, textContent) => {
+  const suffix = textContent ? `>${textContent}</${type}>` : "/>"
+  return `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}" ${suffix}`
 }
 
 export default nodeToSVG

@@ -10,6 +10,8 @@ export default renderedComponentTree
 export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
 
   const newChildren = [] as RenderedComponent[]
+  let textContent: string | undefined
+
   if (component.children) {
     for (let index = 0; index < component.children.length; index++) {
       const childComponent = component.children[index]
@@ -18,6 +20,8 @@ export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
       if (!(typeof childComponent === "string")) {
         const renderedChildComponent = recurseTree(childComponent, childNode)
         newChildren.push(renderedChildComponent)
+      } else {
+        textContent = childComponent
       }
     }
   }
@@ -26,6 +30,7 @@ export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
     type: component.type,
     props: component.props,
     children: newChildren,
+    textContent,
     layout : {
       left: node.getComputedLeft(),
       right: node.getComputedRight(),
