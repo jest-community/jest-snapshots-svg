@@ -20,18 +20,36 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       attributes["fill-opacity"] = 1
     }
   }
-  return "\n" + wsp(indent) + svgRect(layout.left, layout.top, layout.width, layout.height, attributes)
+
+  const svgText = node.textContent ?
+    text(layout.left, layout.top, layout.width, layout.height, node.props.style, node.textContent)
+    : svg("rect", layout.left, layout.top, layout.width, layout.height, attributes)
+
+  return "\n"
+          + wsp(indent)
+          + svgText
 }
 
-const svgRect = (x, y, w, h, settings) => {
-  let attributes = ""
+// This might be a reduce function?
+const attributes = (settings) => {
+  let attributeString = ""
   for (const key in settings) {
     if (settings.hasOwnProperty(key)) {
       const element = settings[key]
-      attributes += ` ${key}="${element}"`
+      attributeString += ` ${key}="${element}"`
     }
   }
-  return `<rect${attributes} x="${x}" y="${y}" width="${w}" height="${h}"/>`
+  return attributeString
+}
+
+const svg = (type, x, y, w, h, settings) =>
+  `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}"/>`
+
+const text = (x, y, w, h, style, textContent) => {
+  const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'
+  return `<foreignObject ${extensions} x="${x}" y="${y}" width="${w}" height="${h}">`
+       + `<body xmlns="http://www.w3.org/1999/xhtml"><p>${textContent}</p>`
+       + "</body></foreignObject>"
 }
 
 export default nodeToSVG

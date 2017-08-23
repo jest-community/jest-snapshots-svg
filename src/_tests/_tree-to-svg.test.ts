@@ -8,6 +8,7 @@ describe("treeToSVG", () => {
       type: "my component",
       props: {},
       children: [],
+      textContent: undefined,
       layout: {
         left: 2,
         right: 6,

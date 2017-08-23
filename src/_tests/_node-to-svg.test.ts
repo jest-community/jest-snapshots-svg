@@ -6,6 +6,7 @@ const component = (name) => ({
   type: name,
   props: {},
   children: [],
+  textContent: undefined,
   layout: {
     left: 0,
     right: 6,

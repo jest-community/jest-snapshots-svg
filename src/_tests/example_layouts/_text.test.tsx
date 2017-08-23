@@ -4,16 +4,15 @@ import * as React from "react"
 import { Text, View } from "react-native"
 import * as renderer from "react-test-renderer"
 
-it("Renders three vertically/horizontally centeredblocks", () => {
+it("Renders text blocks", () => {
   const jsx =
     <View style={{
       flex: 1,
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
+      width: 600,
+      height: 600
     }}>
       <Text style={{
-        width: 100,
+        width: 200,
         fontFamily: "AGaramondPro-Regular",
         fontSize: 16,
         marginTop: 5,
