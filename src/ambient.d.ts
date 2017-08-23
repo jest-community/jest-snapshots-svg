@@ -233,7 +233,6 @@ declare module "yoga-layout" {
   }
 
   interface NodeInstance {
-    // setFlexBasis ()
 
     setWidth(width: number)
     setHeight(height: number)
@@ -248,6 +247,9 @@ declare module "yoga-layout" {
     setPosition(edge: Edge, position: number)
 
     setFlex(ordinal: number)
+    setFlexGrow(ordinal: number)
+    setFlexShrink(ordinal: number)
+    setFlexBasis(ordinal: number)
     setFlexDirection(direct: FlexDirection)
     setJustifyContent(justify: Justify)
     setAlignItems(alignment: number)

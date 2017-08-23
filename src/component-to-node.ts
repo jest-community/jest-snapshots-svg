@@ -35,6 +35,9 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (style.paddingHorizontal) { node.setPadding(yoga.EDGE_HORIZONTAL, style.paddingHorizontal) }
 
     if (style.flex) { node.setFlex(style.flex) }
+    if (style.flexGrow) { node.setFlexGrow(style.flexGrow) }
+    if (style.flexShrink) { node.setFlexShrink(style.flexShrink) }
+    if (style.flexBasis) { node.setFlexBasis(style.flexBasis) }
 
     if (style.position === "absolute") {
       node.setPositionType(yoga.POSITION_TYPE_ABSOLUTE)
