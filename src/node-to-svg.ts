@@ -47,8 +47,11 @@ const svg = (type, x, y, w, h, settings) =>
 
 const text = (x, y, w, h, style, textContent) => {
   const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'
+  const fontSize = style && style.fontSize || 14
+  const fontFamily = (style && `'${style.fontFamily}',`) || ""
+  const textStyle = `style="font-family:${fontFamily}'Times New Roman';font-size:${fontSize}px"`
   return `<foreignObject ${extensions} x="${x}" y="${y}" width="${w}" height="${h}">`
-       + `<body xmlns="http://www.w3.org/1999/xhtml"><p>${textContent}</p>`
+       + `<body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p ${textStyle}>${textContent}</p>`
        + "</body></foreignObject>"
 }
 

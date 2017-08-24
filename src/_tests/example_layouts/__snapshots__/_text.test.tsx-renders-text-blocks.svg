@@ -4,10 +4,10 @@
  <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="0" width="600" height="600"/>
 
  <g transform='translate(0, 0)'>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="5" width="200" height="32"><body xmlns="http://www.w3.org/1999/xhtml"><p>Hello there, here are some words</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="42" width="600" height="28"><body xmlns="http://www.w3.org/1999/xhtml"><p>here are some words that use default font size</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="70" width="600" height="28"><body xmlns="http://www.w3.org/1999/xhtml"><p>Use number as children:</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="98" width="600" height="28"><body xmlns="http://www.w3.org/1999/xhtml"><p>123</p></body></foreignObject>
+   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="5" width="200" height="32"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'AGaramondPro-Regular','Times New Roman';font-size:16px">Hello there, here are some words</p></body></foreignObject>
+   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="42" width="289" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'Arial','Times New Roman';font-size:14px">here are some words that use default font size</p></body></foreignObject>
+   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="70" width="137" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'Times New Roman';font-size:14px">Use number as children:</p></body></foreignObject>
+   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="98" width="22" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'Times New Roman';font-size:14px">123</p></body></foreignObject>
  </g>
 
 </svg>
