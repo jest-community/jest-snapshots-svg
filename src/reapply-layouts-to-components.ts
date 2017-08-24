@@ -17,11 +17,11 @@ export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
       const childComponent = component.children[index]
       const childNode = node.getChild(index)
       // Don't go into Text nodes
-      if (!(typeof childComponent === "string")) {
+      if (typeof childComponent === "string" || typeof childComponent === "number") {
+        textContent = childComponent
+      } else {
         const renderedChildComponent = recurseTree(childComponent, childNode)
         newChildren.push(renderedChildComponent)
-      } else {
-        textContent = childComponent
       }
     }
   }
