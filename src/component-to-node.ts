@@ -18,11 +18,6 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (style.maxHeight) { node.setMaxHeight(style.maxHeight) }
     if (style.maxWidth) { node.setMaxWidth(style.maxWidth) }
 
-    // Potentially temporary, but should at least provide some layout stubbing
-    // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
-    //
-    if (!style.height && style.fontSize) { node.setHeight(style.fontSize * 2) }
-
     if (style.marginTop) { node.setMargin(yoga.EDGE_TOP, style.marginTop) }
     if (style.marginBottom) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
     if (style.marginLeft) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
@@ -88,13 +83,19 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
 
     // We're in a node showing Text
     if (component && component.children && component.children[0] && typeof component.children[0] === "string") {
+      // Potentially temporary, but should at least provide some layout stubbing
+      // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
+      //
+      const fontSize = style.fontSize || 14
+      if (!style.height) { node.setHeight(fontSize * 2) }
+
       // Skip attempting to figure the width, if it's hardcoded
       if (style.width) { return node }
       const content = component.children[0] as string
 
       // Let's say that every font is ~2 times taller than high
       const fontHeightToWidthRatio = 2
-      const guessWidth = (style.fontSize || 14) / fontHeightToWidthRatio
+      const guessWidth = fontSize / fontHeightToWidthRatio
       node.setWidth(style.width)
     }
   }
