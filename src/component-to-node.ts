@@ -82,7 +82,13 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     }
 
     // We're in a node showing Text
-    if (component && component.children && component.children[0] && typeof component.children[0] === "string") {
+    if (
+      component && component.children && component.children[0] &&
+      (
+        typeof component.children[0] === "string" ||
+        typeof component.children[0] === "number"
+      )
+    ) {
       // Potentially temporary, but should at least provide some layout stubbing
       // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
       //
@@ -91,7 +97,7 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
 
       // Skip attempting to figure the width, if it's hardcoded
       if (style.width) { return node }
-      const content = component.children[0] as string
+      const content = String(component.children[0])
 
       // Let's say that every font is ~2 times taller than high
       const fontHeightToWidthRatio = 2

@@ -21,6 +21,8 @@ it("Renders text blocks", () => {
         fontFamily: "AGaramondPro-Regular",
         marginTop: 5,
       }}>here are some words that use default font size</Text>
+      <Text>Use number as children:</Text>
+      <Text children={123}></Text>
     </View>
 
   const component = renderer.create(jsx).toJSON()
