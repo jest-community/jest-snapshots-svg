@@ -18,7 +18,7 @@ it("Renders text blocks", () => {
         marginTop: 5,
       }}>Hello there, here are some words</Text>
       <Text style={{
-        fontFamily: "AGaramondPro-Regular",
+        fontFamily: "Arial",
         marginTop: 5,
       }}>here are some words that use default font size</Text>
       <Text>Use number as children:</Text>

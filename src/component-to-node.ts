@@ -1,3 +1,5 @@
+import * as pixelWidth from "string-pixel-width"
+import * as fontMap from "string-pixel-width/lib/widthsMap"
 import * as yoga from "yoga-layout"
 import { Component, Settings } from "./index"
 
@@ -98,13 +100,13 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (!style.height) { node.setHeight(fontSize * 2) }
 
     // Skip attempting to figure the width, if it's hardcoded
-    if (style.width) { return node }
+    if (style.width || typeof style.width === "number") { return node }
     const content = String(component.children[0])
 
-    // Let's say that every font is ~2 times taller than high
-    const fontHeightToWidthRatio = 2
-    const guessWidth = fontSize / fontHeightToWidthRatio
-    node.setWidth(style.width)
+    const fontFamily = style.fontFamily && style.fontFamily.toLowerCase()
+    const font = fontMap[fontFamily] ? fontFamily : "times new roman"
+    const guessWidth = Math.ceil(pixelWidth(content, { font, size: fontSize }))
+    node.setWidth(guessWidth)
   }
 
   return node
