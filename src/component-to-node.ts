@@ -4,9 +4,10 @@ import { Component, Settings } from "./index"
 const componentToNode = (component: Component, settings: Settings): yoga.NodeInstance => {
   // Do we need to pass in the parent node too?
   const node = yoga.Node.create()
-  if (component.props && component.props.style) {
-    const style = styleFromComponent(component)
+  const hasStyle = component.props && component.props.style
+  const style = hasStyle ? styleFromComponent(component) : {}
 
+  if (hasStyle) {
     // http://facebook.github.io/react-native/releases/0.44/docs/layout-props.html
 
     if (style.width) { node.setWidth(style.width) }
@@ -80,30 +81,30 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
       if (alignSelf === "stretch") { node.setAlignSelf(yoga.ALIGN_STRETCH) }
       if (alignSelf === "baseline") { node.setAlignSelf(yoga.ALIGN_BASELINE) }
     }
+  }
 
-    // We're in a node showing Text
-    if (
-      component && component.children && component.children[0] &&
-      (
-        typeof component.children[0] === "string" ||
-        typeof component.children[0] === "number"
-      )
-    ) {
-      // Potentially temporary, but should at least provide some layout stubbing
-      // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
-      //
-      const fontSize = style.fontSize || 14
-      if (!style.height) { node.setHeight(fontSize * 2) }
+  // We're in a node showing Text
+  if (
+    component && component.type === "Text" && component.children &&
+    (
+      typeof component.children[0] === "string" ||
+      typeof component.children[0] === "number"
+    )
+  ) {
+    // Potentially temporary, but should at least provide some layout stubbing
+    // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
+    //
+    const fontSize = style.fontSize || 14
+    if (!style.height) { node.setHeight(fontSize * 2) }
 
-      // Skip attempting to figure the width, if it's hardcoded
-      if (style.width) { return node }
-      const content = String(component.children[0])
+    // Skip attempting to figure the width, if it's hardcoded
+    if (style.width) { return node }
+    const content = String(component.children[0])
 
-      // Let's say that every font is ~2 times taller than high
-      const fontHeightToWidthRatio = 2
-      const guessWidth = fontSize / fontHeightToWidthRatio
-      node.setWidth(style.width)
-    }
+    // Let's say that every font is ~2 times taller than high
+    const fontHeightToWidthRatio = 2
+    const guessWidth = fontSize / fontHeightToWidthRatio
+    node.setWidth(style.width)
   }
 
   return node
