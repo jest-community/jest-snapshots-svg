@@ -17,6 +17,10 @@ it("Renders text blocks", () => {
         fontSize: 16,
         marginTop: 5,
       }}>Hello there, here are some words</Text>
+      <Text style={{
+        fontFamily: "AGaramondPro-Regular",
+        marginTop: 5,
+      }}>here are some words that use default font size</Text>
     </View>
 
   const component = renderer.create(jsx).toJSON()
