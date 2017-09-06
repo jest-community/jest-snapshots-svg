@@ -1,5 +1,5 @@
-const nodeToSVG = jest.fn()
-jest.mock("../node-to-svg.ts", () => ({ default: nodeToSVG }))
+const mockNodeToSVG = jest.fn()
+jest.mock("../node-to-svg.ts", () => ({ default: mockNodeToSVG }))
 
 import * as yoga from "yoga-layout"
 import { RenderedComponent } from "../index"
@@ -35,7 +35,7 @@ const component = (name) => ({
 
 describe("recurseTree", () => {
     beforeEach(() => {
-      nodeToSVG.mockReset()
+      mockNodeToSVG.mockReset()
     })
 
     it("Calls nodeToSVG for it's first node", () => {
@@ -46,7 +46,7 @@ describe("recurseTree", () => {
         height: 768,
       }
       const results = recurseTree(0, root, settings)
-      expect(nodeToSVG.mock.calls.length).toEqual(1)
+      expect(mockNodeToSVG.mock.calls.length).toEqual(1)
     })
 
     it("Calls nodeToSVG for it's children nodes", () => {
@@ -60,6 +60,6 @@ describe("recurseTree", () => {
       }
 
       const results = recurseTree(0, root, settings)
-      expect(nodeToSVG.mock.calls.length).toEqual(3)
+      expect(mockNodeToSVG.mock.calls.length).toEqual(3)
     })
 })
