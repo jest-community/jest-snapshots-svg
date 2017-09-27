@@ -1,4 +1,3 @@
-import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
 
 import { Component, RenderedComponent } from "./index"

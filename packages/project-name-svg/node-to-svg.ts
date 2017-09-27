@@ -1,7 +1,5 @@
-import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
-
-import { RenderedComponent, Settings } from "./index"
+import { RenderedComponent, Settings } from "project-name-core"
 import wsp from "./whitespace"
 
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
