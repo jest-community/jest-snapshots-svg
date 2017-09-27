@@ -1,5 +1,5 @@
 import * as yoga from "yoga-layout"
-import { RenderedComponent, Settings } from "./index"
+import { RenderedComponent, Settings } from "project-name-core"
 import nodeToSVG from "./node-to-svg"
 import wsp from "./whitespace"
 

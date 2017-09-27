@@ -1,12 +1,3 @@
-// Add our matcher to Jest's definitions
-
-declare namespace jest {
-  interface Matchers<R> {
-    /** Checks and sets up SVG rendering for React Components. */
-    toMatchSVGSnapshot(width: number, height: number): void;
-  }
-}
-
 // Initial stub of the Yoga type system
 // Based on https://facebook.github.io/yoga/docs/api/javascript/
 //

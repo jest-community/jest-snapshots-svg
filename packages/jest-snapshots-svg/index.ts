@@ -1,8 +1,6 @@
 import * as fs from "fs"
 import * as path from "path"
 
-import * as yoga from "yoga-layout"
-
 export interface Component {
     type: string
     props: any
@@ -29,11 +27,7 @@ export interface Settings {
     height: number
 }
 
-import componentTreeToNodeTree from "./component-tree-to-nodes"
-import renderedComponentTree from "./reapply-layouts-to-components"
-import treeToSVG from "./tree-to-svg"
-
-// toMatchSVGSnapshot(1024, 768)
+import svg from "project-name-svg"
 
 const fail = (msg) => ({ message: () => msg, pass: false })
 
@@ -59,20 +53,7 @@ expect.extend({
 
         // We will need to do something smarter in the future, these snapshots need to be 1 file per test
         // whereas jest-snapshots can be multi-test per file.
-
-        const settings: Settings = { width, height }
-        const rootNode = componentTreeToNodeTree(root, settings)
-        if (!rootNode) { return }
-
-        // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
-        // still exist.
-        rootNode.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
-
-        // Generate a tree of components with the layout baked into it, them clean up yog memory
-        const renderedComponentRoot = renderedComponentTree(root, rootNode)
-        rootNode.freeRecursive()
-
-        const svgText = treeToSVG(renderedComponentRoot, settings)
+        const svgText = svg(root, width, height)
 
         // TODO: Determine if Jest is in `-u`?
         // can be done via the private API
