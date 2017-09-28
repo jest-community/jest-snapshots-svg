@@ -3,6 +3,8 @@ import * as fontMap from "string-pixel-width/lib/widthsMap"
 import * as yoga from "yoga-layout"
 import { Component, Settings } from "./index"
 
+const isNotEmpty = prop => typeof prop !== "undefined" && prop !== null
+
 const componentToNode = (component: Component, settings: Settings): yoga.NodeInstance => {
   // Do we need to pass in the parent node too?
   const node = yoga.Node.create()
@@ -12,41 +14,41 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
   if (hasStyle) {
     // http://facebook.github.io/react-native/releases/0.44/docs/layout-props.html
 
-    if (style.width) { node.setWidth(style.width) }
-    if (style.height) { node.setHeight(style.height) }
+    if (isNotEmpty(style.width)) { node.setWidth(style.width) }
+    if (isNotEmpty(style.height)) { node.setHeight(style.height) }
 
-    if (style.minHeight) { node.setMinHeight(style.minHeight) }
-    if (style.minWidth) { node.setMinWidth(style.minWidth) }
+    if (isNotEmpty(style.minHeight)) { node.setMinHeight(style.minHeight) }
+    if (isNotEmpty(style.minWidth)) { node.setMinWidth(style.minWidth) }
 
-    if (style.maxHeight) { node.setMaxHeight(style.maxHeight) }
-    if (style.maxWidth) { node.setMaxWidth(style.maxWidth) }
+    if (isNotEmpty(style.maxHeight)) { node.setMaxHeight(style.maxHeight) }
+    if (isNotEmpty(style.maxWidth)) { node.setMaxWidth(style.maxWidth) }
 
-    if (style.marginTop) { node.setMargin(yoga.EDGE_TOP, style.marginTop) }
-    if (style.marginBottom) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
-    if (style.marginLeft) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
-    if (style.marginRight) { node.setMargin(yoga.EDGE_RIGHT, style.marginRight) }
-    if (style.marginVertical) { node.setMargin(yoga.EDGE_VERTICAL, style.marginVertical) }
-    if (style.marginHorizontal) { node.setMargin(yoga.EDGE_HORIZONTAL, style.marginHorizontal) }
+    if (isNotEmpty(style.marginTop)) { node.setMargin(yoga.EDGE_TOP, style.marginTop) }
+    if (isNotEmpty(style.marginBottom)) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
+    if (isNotEmpty(style.marginLeft)) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
+    if (isNotEmpty(style.marginRight)) { node.setMargin(yoga.EDGE_RIGHT, style.marginRight) }
+    if (isNotEmpty(style.marginVertical)) { node.setMargin(yoga.EDGE_VERTICAL, style.marginVertical) }
+    if (isNotEmpty(style.marginHorizontal)) { node.setMargin(yoga.EDGE_HORIZONTAL, style.marginHorizontal) }
 
-    if (style.paddingTop) { node.setPadding(yoga.EDGE_TOP, style.paddingTop) }
-    if (style.paddingBottom) { node.setPadding(yoga.EDGE_BOTTOM, style.paddingBottom) }
-    if (style.paddingLeft) { node.setPadding(yoga.EDGE_LEFT, style.paddingLeft) }
-    if (style.paddingRight) { node.setPadding(yoga.EDGE_RIGHT, style.paddingRight) }
-    if (style.paddingVertical) { node.setPadding(yoga.EDGE_VERTICAL, style.paddingVertical) }
-    if (style.paddingHorizontal) { node.setPadding(yoga.EDGE_HORIZONTAL, style.paddingHorizontal) }
+    if (isNotEmpty(style.paddingTop)) { node.setPadding(yoga.EDGE_TOP, style.paddingTop) }
+    if (isNotEmpty(style.paddingBottom)) { node.setPadding(yoga.EDGE_BOTTOM, style.paddingBottom) }
+    if (isNotEmpty(style.paddingLeft)) { node.setPadding(yoga.EDGE_LEFT, style.paddingLeft) }
+    if (isNotEmpty(style.paddingRight)) { node.setPadding(yoga.EDGE_RIGHT, style.paddingRight) }
+    if (isNotEmpty(style.paddingVertical)) { node.setPadding(yoga.EDGE_VERTICAL, style.paddingVertical) }
+    if (isNotEmpty(style.paddingHorizontal)) { node.setPadding(yoga.EDGE_HORIZONTAL, style.paddingHorizontal) }
 
-    if (style.flex) { node.setFlex(style.flex) }
-    if (style.flexGrow) { node.setFlexGrow(style.flexGrow) }
-    if (style.flexShrink) { node.setFlexShrink(style.flexShrink) }
-    if (style.flexBasis) { node.setFlexBasis(style.flexBasis) }
+    if (isNotEmpty(style.flex)) { node.setFlex(style.flex) }
+    if (isNotEmpty(style.flexGrow)) { node.setFlexGrow(style.flexGrow) }
+    if (isNotEmpty(style.flexShrink)) { node.setFlexShrink(style.flexShrink) }
+    if (isNotEmpty(style.flexBasis)) { node.setFlexBasis(style.flexBasis) }
 
     if (style.position === "absolute") {
       node.setPositionType(yoga.POSITION_TYPE_ABSOLUTE)
     }
-    if (style.top) { node.setPosition(yoga.EDGE_TOP, style.top) }
-    if (style.left) { node.setPosition(yoga.EDGE_LEFT, style.left) }
-    if (style.right) { node.setPosition(yoga.EDGE_RIGHT, style.right) }
-    if (style.bottom) { node.setPosition(yoga.EDGE_BOTTOM, style.bottom) }
+    if (isNotEmpty(style.top)) { node.setPosition(yoga.EDGE_TOP, style.top) }
+    if (isNotEmpty(style.left)) { node.setPosition(yoga.EDGE_LEFT, style.left) }
+    if (isNotEmpty(style.right)) { node.setPosition(yoga.EDGE_RIGHT, style.right) }
+    if (isNotEmpty(style.bottom)) { node.setPosition(yoga.EDGE_BOTTOM, style.bottom) }
 
     const flexDirection = style.flexDirection
     if (flexDirection) {
@@ -100,7 +102,7 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (!style.height) { node.setHeight(fontSize * 2) }
 
     // Skip attempting to figure the width, if it's hardcoded
-    if (style.width || typeof style.width === "number") { return node }
+    if (isNotEmpty(style.width)) { return node }
     const content = String(component.children[0])
 
     const fontFamily = style.fontFamily && style.fontFamily.toLowerCase()
