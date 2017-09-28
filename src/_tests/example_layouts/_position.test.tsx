@@ -47,3 +47,18 @@ it("Renders views on bottom position", () => {
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
+
+it("Renders views on left position", () => {
+  const jsx =
+    <View style={{ flex: 1 }}>
+      <View style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        width: 100,
+      }} />
+    </View>
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
