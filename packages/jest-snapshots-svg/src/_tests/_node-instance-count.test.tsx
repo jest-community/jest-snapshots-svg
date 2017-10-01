@@ -6,8 +6,6 @@ import * as React from "react"
 import { View } from "react-native"
 import * as renderer from "react-test-renderer"
 
-import treeToSVG from "../tree-to-svg"
-
 describe("Counting nodes", () => {
     it("it is good with memory", () => {
 

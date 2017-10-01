@@ -28,6 +28,7 @@
     "typescript": "^2.3.2"
   },
   "scripts": {
+    "test": "jest",
     "type-check": "tsc --noEmit",
     "build": "tsc && cp src/external-api.d.ts build",
     "watch": "tsc --watch",
@@ -48,8 +49,8 @@
       "js"
     ],
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.js$": "babel-jest",
+      ".(ts|tsx)": "ts-jest/preprocessor.js"
     },
     "testRegex": "(.test)\\.(ts|tsx)$",
     "testPathIgnorePatterns": [

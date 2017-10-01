@@ -12,8 +12,8 @@
     },
     "lib":["es2017"],
     "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
+        "packages/*/src/**/*.ts",
+        "packages/*/src/**/*.tsx",
         "dangerfile.ts"
     ],
     "exclude": [
