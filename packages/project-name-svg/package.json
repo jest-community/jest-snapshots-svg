@@ -29,7 +29,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "build": "tsc && cp src/external-api.d.ts build",
+    "build": "tsc",
     "watch": "tsc --watch",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
@@ -40,24 +40,6 @@
       "tslint --fix",
       "git add"
     ]
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(.test)\\.(ts|tsx)$",
-    "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/"
-    ],
-    "cacheDirectory": ".jest/cache",
-    "preset": "react-native"
   },
   "dependencies": {
     "project-name-core": "0.0.21"

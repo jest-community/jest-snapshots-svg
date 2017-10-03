@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "build": "tsc",
     "test": "jest"
   },
   "jest": {
@@ -27,5 +28,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "lerna": "^2.1.2"
+  }
 }

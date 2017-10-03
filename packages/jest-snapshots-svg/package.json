@@ -42,24 +42,6 @@
       "git add"
     ]
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      ".(ts|tsx)": "ts-jest/preprocessor.js"
-    },
-    "testRegex": "(.test)\\.(ts|tsx)$",
-    "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/"
-    ],
-    "cacheDirectory": ".jest/cache",
-    "preset": "react-native"
-  },
   "dependencies": {
     "project-name-svg": "0.0.21"
   }
