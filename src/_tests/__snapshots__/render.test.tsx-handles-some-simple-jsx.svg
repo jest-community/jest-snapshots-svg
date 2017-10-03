@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg" version="1.1">
 
- <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="40" y="40" width="100" height="200"/>
+ <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="40" y="40" width="100" height="260"/>
 
  <g transform='translate(40, 40)'>
    <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="20" y="0" width="20" height="20"/>
@@ -19,6 +19,14 @@
      <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="20" y="0" width="10" height="10"/>
      <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="10" y="20" width="10" height="10"/>
      <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="40" width="10" height="10"/>
+   </g>
+
+   <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="20" y="160" width="160" height="40"/>
+
+   <g transform='translate(20, 160)'>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="30" y="0" width="10" height="10"/>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="10" width="10" height="10"/>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="20" width="10" height="10"/>
    </g>
 
  </g>
