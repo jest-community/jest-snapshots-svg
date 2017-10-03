@@ -39,6 +39,12 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (isNotEmpty(style.paddingVertical)) { node.setPadding(yoga.EDGE_VERTICAL, style.paddingVertical) }
     if (isNotEmpty(style.paddingHorizontal)) { node.setPadding(yoga.EDGE_HORIZONTAL, style.paddingHorizontal) }
 
+    if (isNotEmpty(style.borderWidth)) { node.setBorder(yoga.EDGE_ALL, style.borderWidth) }
+    if (isNotEmpty(style.borderTopWidth)) { node.setBorder(yoga.EDGE_TOP, style.borderTopWidth) }
+    if (isNotEmpty(style.borderBottomWidth)) { node.setBorder(yoga.EDGE_BOTTOM, style.borderBottomWidth) }
+    if (isNotEmpty(style.borderLeftWidth)) { node.setBorder(yoga.EDGE_LEFT, style.borderLeftWidth) }
+    if (isNotEmpty(style.borderRightWidth)) { node.setBorder(yoga.EDGE_RIGHT, style.borderRightWidth) }
+
     if (isNotEmpty(style.flex)) { node.setFlex(style.flex) }
     if (isNotEmpty(style.flexGrow)) { node.setFlexGrow(style.flexGrow) }
     if (isNotEmpty(style.flexShrink)) { node.setFlexShrink(style.flexShrink) }

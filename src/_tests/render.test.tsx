@@ -25,7 +25,7 @@ it("handles some simple JSX", () => {
         <View style={{ width: 10, height: 10, marginVertical: 10 }} />
         <View style={{ width: 10, height: 10, marginHorizontal: -10 }} />
       </View>
-      <View style={{ width: 160, height: 40, margin: 20, padding: 10 }}>
+      <View style={{ width: 160, height: 40, margin: 20, padding: 10, borderWidth: 10 }}>
         <View style={{ width: 10, height: 10, margin: 10, marginLeft: 30 }} />
         <View style={{ width: 10, height: 10, margin: 10, marginTop: 0 }} />
         <View style={{ width: 10, height: 10, margin: -10, marginTop: 0 }} />

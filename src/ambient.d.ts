@@ -241,7 +241,8 @@ declare module "yoga-layout" {
     setMaxWidth(height: number)
     setMaxHeight(height: number)
     setPadding(edge: Edge, value: number)
-    setMargin(edge: Edge, value: number) // maybe?
+    setMargin(edge: Edge, value: number)
+    setBorder(edge: Edge, value: number)
     setDisplay(display: Display)
     setPositionType(positionType: PositionType)
     setPosition(edge: Edge, position: number)
