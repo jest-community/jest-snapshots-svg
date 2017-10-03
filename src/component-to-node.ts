@@ -23,6 +23,7 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (isNotEmpty(style.maxHeight)) { node.setMaxHeight(style.maxHeight) }
     if (isNotEmpty(style.maxWidth)) { node.setMaxWidth(style.maxWidth) }
 
+    if (isNotEmpty(style.margin)) { node.setMargin(yoga.EDGE_ALL, style.margin) }
     if (isNotEmpty(style.marginTop)) { node.setMargin(yoga.EDGE_TOP, style.marginTop) }
     if (isNotEmpty(style.marginBottom)) { node.setMargin(yoga.EDGE_BOTTOM, style.marginBottom) }
     if (isNotEmpty(style.marginLeft)) { node.setMargin(yoga.EDGE_LEFT, style.marginLeft) }
@@ -30,6 +31,7 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
     if (isNotEmpty(style.marginVertical)) { node.setMargin(yoga.EDGE_VERTICAL, style.marginVertical) }
     if (isNotEmpty(style.marginHorizontal)) { node.setMargin(yoga.EDGE_HORIZONTAL, style.marginHorizontal) }
 
+    if (isNotEmpty(style.padding)) { node.setPadding(yoga.EDGE_ALL, style.padding) }
     if (isNotEmpty(style.paddingTop)) { node.setPadding(yoga.EDGE_TOP, style.paddingTop) }
     if (isNotEmpty(style.paddingBottom)) { node.setPadding(yoga.EDGE_BOTTOM, style.paddingBottom) }
     if (isNotEmpty(style.paddingLeft)) { node.setPadding(yoga.EDGE_LEFT, style.paddingLeft) }
