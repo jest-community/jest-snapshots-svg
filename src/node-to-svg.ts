@@ -50,11 +50,11 @@ const getBorderStyle = (style: any): Sides<string> => {
 
 const getBorderColor = (style: any): Sides<string> => {
   let sides: Sides<string> = ["black", "black", "black", "black"]
-  sides = applySides(sides, style.borderWidth, Side.All)
-  sides = applySides(sides, style.borderTopWidth, Side.Top)
-  sides = applySides(sides, style.borderRightWidth, Side.Right)
-  sides = applySides(sides, style.borderBottomWidth, Side.Bottom)
-  sides = applySides(sides, style.borderLeftWidth, Side.Left)
+  sides = applySides(sides, style.borderColor, Side.All)
+  sides = applySides(sides, style.borderTopColor, Side.Top)
+  sides = applySides(sides, style.borderRightColor, Side.Right)
+  sides = applySides(sides, style.borderBottomColor, Side.Bottom)
+  sides = applySides(sides, style.borderLeftColor, Side.Left)
   return sides
 }
 
@@ -77,6 +77,27 @@ const sidesEqual = <T>(sides: Sides<T>): boolean =>
 const scaleSides = (sides: Sides<number>, scale: number): Sides<number> =>
   [sides[0] * scale, sides[1] * scale, sides[2] * scale, sides[3] * scale]
 
+const pathForRect = (x, y, width, height, radii, insets) => {
+  return `M${x + radii[0] - insets[3]},${insets[0]}` +
+    `H${x + width - radii[1] - insets[1]}` +
+    `A${radii[1] - insets[1]},${radii[1] - insets[0]} ` +
+      `0 0,1 ` +
+      `${x + width - insets[1]},${y + radii[1] - insets[0]}` +
+    `V${y + height - radii[2] - insets[2]}` +
+    `A${radii[2] - insets[1]},${radii[2] - insets[2]} ` +
+      `0 0,1 ` +
+      `${x + width - radii[2] - insets[1]},${y + height - insets[2]}` +
+    `H${x + radii[3] - insets[3]}` +
+    `A${radii[3] - insets[3]},${radii[3] - insets[2]} ` +
+      `0 0,1 ` +
+      `${x + insets[3]},${y + height - radii[3] + insets[2]}` +
+    `V${y + radii[0] - insets[0]}` +
+    `A${radii[0] - insets[3]},${radii[0] - insets[0]} ` +
+      `0 0,1 ` +
+      `${x + radii[0] + insets[3]},${y + insets[0]}` +
+    `Z`
+}
+
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
   const attributes: any = {
     type: node.type,
@@ -88,21 +109,24 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
 
   const borderWidths = getBorderWidth(style)
   const borderColors = getBorderColor(style)
-  const borderRadii = getBorderRadius(style)
+  let borderRadii = getBorderRadius(style)
 
   // TODO: Scale. I'll work this out later.
-  // const borderScale = Math.max(
-  //   (borderRadii[1] + borderRadii[3]) / layout.width,
-  //   (borderRadii[0] + borderRadii[2]) / layout.height
-  // )
-  // borderRadii = scaleSides(borderRadii, borderScale)
+  const borderScale = Math.max(
+    (borderRadii[0] + borderRadii[2]) / layout.width,
+    (borderRadii[1] + borderRadii[3]) / layout.width,
+    (borderRadii[0] + borderRadii[3]) / layout.height,
+    (borderRadii[1] + borderRadii[2]) / layout.height,
+    1
+  )
+  if (borderScale > 1) borderRadii = scaleSides(borderRadii, 1 / borderScale)
 
   // TODO: Enable this
   // if (!style.backgroundColor && sidesEqual(borderWidths) && borderWidths[0] === 0) {
   //   return ''
   // }
 
-  const borderStyle: string = node.props.borderStyle || "solid"
+  const borderStyle: string = style.borderStyle || "solid"
 
   let svgText: string
   if (node.textContent) {
@@ -121,8 +145,8 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       attributes["stroke-width"] = borderWidth
     }
     if (borderRadius !== 0) {
-      attributes.rx = borderRadii[0]
-      attributes.ry = borderRadii[0]
+      attributes.rx = borderRadii[0] - borderWidth * 0.5
+      attributes.ry = borderRadii[0] - borderWidth * 0.5
     }
     // Offset size by half border radius, as RN draws border inside, whereas SVG draws on both sides
     svgText = svg(
@@ -133,6 +157,36 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       height - borderWidth,
       attributes
     )
+  } else if (sidesEqual(borderWidths) && sidesEqual(borderColors) && borderStyle === "solid") {
+    const borderWidth = borderWidths[0]
+    attributes.fill = style.backgroundColor || "none"
+    if (borderWidth !== 0) {
+      attributes.stroke = borderColors[0]
+      attributes["stroke-width"] = borderWidth
+    }
+    attributes.d =
+      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
+    svgText = svg2("path", attributes)
+  } else if (sidesEqual(borderWidths) && sidesEqual(borderColors)) {
+    const borderWidth = borderWidths[0]
+
+    const attr1 = Object.assign({}, attributes)
+    attr1.fill = style.backgroundColor || "none"
+    attr1.d =
+      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0])
+
+    const attr2 = Object.assign({}, attributes)
+    attr2.fill = "none"
+    if (borderWidth !== 0) {
+      attr2.stroke = borderColors[0]
+      attr2["stroke-width"] = borderWidth
+    }
+    const dash = (borderStyle === 'dashed' ? 5 : 1) * borderWidth
+    attr2['stroke-dasharray'] = `${dash}, ${dash}`
+    attr2.d =
+      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
+
+    svgText = svg2("path", attr1) + svg2("path", attr2)
   } else {
     throw new Error("Not yet handled (WIP)")
   }
@@ -156,6 +210,8 @@ const attributes = (settings) => {
 
 const svg = (type, x, y, w, h, settings) =>
   `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}"/>`
+
+const svg2 = (type, settings) => `<${type}${attributes(settings)}/>`
 
 const text = (x, y, w, h, style, textContent) => {
   const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'

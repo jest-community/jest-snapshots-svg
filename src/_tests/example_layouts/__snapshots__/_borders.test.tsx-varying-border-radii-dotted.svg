@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg width="320" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+ <path type="View" fill="red" d="M50,0H90A10,10 0 0,1 100,10V80A20,20 0 0,1 80,100H40A40,40 0 0,1 0,60V50A50,50 0 0,1 50,0Z"/><path type="View" fill="none" stroke="blue" stroke-width="10" stroke-dasharray="10, 10" d="M45,5H85A5,5 0 0,1 95,5V75A15,15 0 0,1 75,95H35A35,35 0 0,1 5,65V45A45,45 0 0,1 55,5Z"/>
+</svg>
