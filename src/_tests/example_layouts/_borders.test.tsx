@@ -45,8 +45,8 @@ it("Varying border radii", () => {
         borderBottomLeftRadius: 40,
         borderTopLeftRadius: 50,
         borderWidth: 10,
-        borderColor: 'blue',
-        backgroundColor: 'red'
+        borderColor: "blue",
+        backgroundColor: "red"
       }}
     />
   )
@@ -66,9 +66,9 @@ it("Varying border radii dashed", () => {
         borderBottomLeftRadius: 40,
         borderTopLeftRadius: 50,
         borderWidth: 10,
-        borderColor: 'blue',
-        borderStyle: 'dashed',
-        backgroundColor: 'red'
+        borderColor: "blue",
+        borderStyle: "dashed",
+        backgroundColor: "red"
       }}
     />
   )
@@ -88,9 +88,30 @@ it("Varying border radii dotted", () => {
         borderBottomLeftRadius: 40,
         borderTopLeftRadius: 50,
         borderWidth: 10,
-        borderColor: 'blue',
-        borderStyle: 'dotted',
-        backgroundColor: 'red'
+        borderColor: "blue",
+        borderStyle: "dotted",
+        backgroundColor: "red"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Varying border widths", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 30,
+        borderTopWidth: 5,
+        borderRightWidth: 10,
+        borderBottomWidth: 15,
+        borderLeftWidth: 20,
+        borderColor: "blue",
+        backgroundColor: "red"
       }}
     />
   )

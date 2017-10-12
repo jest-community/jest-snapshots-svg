@@ -6,13 +6,13 @@ import { RenderedComponent, Settings } from "./index"
 import wsp from "./whitespace"
 
 enum Side {
-    All,
-    Vertical,
-    Horizontal,
-    Top,
-    Right,
-    Bottom,
-    Left
+  All,
+  Vertical,
+  Horizontal,
+  Top,
+  Right,
+  Bottom,
+  Left
 }
 
 // Done in CSS order
@@ -77,25 +77,82 @@ const sidesEqual = <T>(sides: Sides<T>): boolean =>
 const scaleSides = (sides: Sides<number>, scale: number): Sides<number> =>
   [sides[0] * scale, sides[1] * scale, sides[2] * scale, sides[3] * scale]
 
-const pathForRect = (x, y, width, height, radii, insets) => {
-  return `M${x + radii[0] - insets[3]},${insets[0]}` +
-    `H${x + width - radii[1] - insets[1]}` +
-    `A${radii[1] - insets[1]},${radii[1] - insets[0]} ` +
-      `0 0,1 ` +
-      `${x + width - insets[1]},${y + radii[1] - insets[0]}` +
-    `V${y + height - radii[2] - insets[2]}` +
-    `A${radii[2] - insets[1]},${radii[2] - insets[2]} ` +
-      `0 0,1 ` +
-      `${x + width - radii[2] - insets[1]},${y + height - insets[2]}` +
-    `H${x + radii[3] - insets[3]}` +
-    `A${radii[3] - insets[3]},${radii[3] - insets[2]} ` +
-      `0 0,1 ` +
-      `${x + insets[3]},${y + height - radii[3] + insets[2]}` +
-    `V${y + radii[0] - insets[0]}` +
-    `A${radii[0] - insets[3]},${radii[0] - insets[0]} ` +
-      `0 0,1 ` +
-      `${x + radii[0] + insets[3]},${y + insets[0]}` +
-    `Z`
+type Corner = { rx: number, ry: number, x: number, y: number }
+
+const cornerEllipseAtSide = (
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radii: Sides<number>,
+  insets: Sides<number>,
+  side: number,
+): Corner => {
+  const radius = radii[side]
+  const insetBefore = insets[(side + 3) % 4]
+  const insetAfter = insets[side]
+  return {
+    rx: Math.max(radius - insetBefore, 0),
+    ry: Math.max(radius - insetAfter, 0),
+    x: x + [0, 1, 1, 0][side] * width + [1, -1, -1, 1][side] * radius,
+    y: y + [0, 0, 1, 1][side] * height + [1, 1, -1, -1][side] * radius,
+  }
+}
+
+const to6Dp = x => Math.round(x * 1E6) / 1E6
+
+const positionOnCorner = (angle: number, corner: Corner) => ({
+  x: to6Dp(corner.x + corner.rx * Math.cos(angle)),
+  y: to6Dp(corner.y + corner.ry * Math.sin(angle))
+})
+
+const drawSide = (
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radii: Sides<number>,
+  insets: Sides<number>,
+  side: number,
+  startCompletion: number = 0.5,
+  endCompletion: number = 0.5,
+  anticlockwise: boolean = false,
+) => {
+  const baseAngle = (side + 3) * (Math.PI / 2)
+
+  const startSide = anticlockwise ? (side + 1) % 4 : side
+  const endSide = anticlockwise ? side : (side + 1) % 4
+  const sweep = anticlockwise ? 0 : 1
+
+  let path = ''
+  if (startCompletion > 0) {
+    const startCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, startSide)
+    const start = positionOnCorner(baseAngle, startCorner)
+    path += `A${startCorner.rx},${startCorner.ry} 0 0,${sweep} ${start.x},${start.y}`
+  }
+
+  const endCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, endSide)
+  const mid = positionOnCorner(baseAngle, endCorner)
+  path += `L${mid.x},${mid.y}`
+
+  if (endCompletion > 0) {
+    const endAngle = baseAngle + endCompletion * Math.PI / 2 * (anticlockwise ? -1 : 1)
+    const end = positionOnCorner(endAngle, endCorner)
+    path += `A${endCorner.rx},${endCorner.ry} 0 0,${sweep} ${end.x},${end.y}`
+  }
+
+  return path
+}
+
+const pathForRect = (x, y, width, height, radii, insets, anticlockwise: boolean = false) => {
+  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, 0)
+  const startAngle = anticlockwise ? Math.PI : (3 * Math.PI / 2)
+  const start = positionOnCorner(startAngle, startCorner)
+  const sides = [0, 1, 2, 3].map(side => (
+    drawSide(x, y, width, height, radii, insets, side, 0, 1, anticlockwise)
+  ))
+  if (anticlockwise) sides.reverse()
+  return `M${start.x},${start.y}` + sides.join('') + 'Z'
 }
 
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
@@ -167,6 +224,20 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
     attributes.d =
       pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
     svgText = svg2("path", attributes)
+  } else if (sidesEqual(borderColors) && borderStyle === "solid") {
+    // FIXME: This has bugs
+    const attr1 = Object.assign({}, attributes)
+    attr1.fill = style.backgroundColor || "none"
+    attr1.d =
+      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0])
+
+    const attr2 = Object.assign({}, attributes)
+    attr2.fill = borderColors[0]
+    attr2.d =
+      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0]) +
+      pathForRect(top, left, width, height, borderRadii, borderWidths, true)
+
+    svgText = svg2("path", attr1) + svg2("path", attr2)
   } else if (sidesEqual(borderWidths) && sidesEqual(borderColors)) {
     const borderWidth = borderWidths[0]
 
@@ -181,8 +252,8 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       attr2.stroke = borderColors[0]
       attr2["stroke-width"] = borderWidth
     }
-    const dash = (borderStyle === 'dashed' ? 5 : 1) * borderWidth
-    attr2['stroke-dasharray'] = `${dash}, ${dash}`
+    const dash = (borderStyle === "dashed" ? 5 : 1) * borderWidth
+    attr2["stroke-dasharray"] = `${dash}, ${dash}`
     attr2.d =
       pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
 
