@@ -229,7 +229,7 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
     const attr1 = Object.assign({}, attributes)
     attr1.fill = style.backgroundColor || "none"
     attr1.d =
-      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0])
+      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
 
     const attr2 = Object.assign({}, attributes)
     attr2.fill = borderColors[0]
