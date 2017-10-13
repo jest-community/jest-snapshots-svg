@@ -92,8 +92,8 @@ const cornerEllipseAtSide = (
   const insetBefore = insets[(side + 3) % 4]
   const insetAfter = insets[side]
   return {
-    rx: Math.max(radius - insetBefore, 0),
-    ry: Math.max(radius - insetAfter, 0),
+    rx: Math.max(radius - (side % 2 === 0 ? insetBefore : insetAfter), 0),
+    ry: Math.max(radius - (side % 2 === 0 ? insetAfter : insetBefore), 0),
     x: x + [0, 1, 1, 0][side] * width + [1, -1, -1, 1][side] * radius,
     y: y + [0, 0, 1, 1][side] * height + [1, 1, -1, -1][side] * radius,
   }
