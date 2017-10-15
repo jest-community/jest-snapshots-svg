@@ -184,3 +184,54 @@ it("Varying border colors dotted", () => {
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
+
+it("Varying border colors and widths", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 30,
+        borderTopWidth: 5,
+        borderRightWidth: 10,
+        borderBottomWidth: 15,
+        borderLeftWidth: 20,
+        borderTopColor: 'red',
+        borderRightColor: 'yellow',
+        borderBottomColor: 'green',
+        borderLeftColor: 'blue',
+        backgroundColor: "black"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Varying border colors, radii and widths", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 40,
+        borderTopLeftRadius: 50,
+        borderTopWidth: 5,
+        borderRightWidth: 10,
+        borderBottomWidth: 15,
+        borderLeftWidth: 20,
+        borderTopColor: 'red',
+        borderRightColor: 'yellow',
+        borderBottomColor: 'green',
+        borderLeftColor: 'blue',
+        backgroundColor: "black"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})

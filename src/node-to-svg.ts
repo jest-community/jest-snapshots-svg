@@ -196,7 +196,6 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   const borderColors = getBorderColor(style)
   let borderRadii = getBorderRadius(style)
 
-  // TODO: Scale. I'll work this out later.
   const borderScale = Math.max(
     (borderRadii[0] + borderRadii[2]) / layout.width,
     (borderRadii[1] + borderRadii[3]) / layout.width,
