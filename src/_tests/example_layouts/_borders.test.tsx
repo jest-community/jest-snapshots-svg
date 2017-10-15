@@ -7,28 +7,28 @@ import * as renderer from "react-test-renderer"
 // https://facebook.github.io/react-native/docs/flexbox.html
 
 it("No border radius", () => {
-  const jsx = <View style={{ width: 100, height: 50 }} />
+  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Small border radius", () => {
-  const jsx = <View style={{ width: 100, height: 50, borderRadius: 10 }} />
+  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50, borderRadius: 10 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Border radius larger than height", () => {
-  const jsx = <View style={{ width: 100, height: 50, borderRadius: 1000 }} />
+  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50, borderRadius: 1000 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Border radius larger than width", () => {
-  const jsx = <View style={{ width: 50, height: 100, borderRadius: 1000 }} />
+  const jsx = <View style={{ backgroundColor: 'red', width: 50, height: 100, borderRadius: 1000 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
@@ -112,6 +112,71 @@ it("Varying border widths", () => {
         borderLeftWidth: 20,
         borderColor: "blue",
         backgroundColor: "red"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Varying border colors", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 30,
+        borderWidth: 10,
+        borderTopColor: 'red',
+        borderRightColor: 'yellow',
+        borderBottomColor: 'green',
+        borderLeftColor: 'blue',
+        backgroundColor: "black"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Varying border colors dashed", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 30,
+        borderWidth: 10,
+        borderStyle: 'dashed',
+        borderTopColor: 'red',
+        borderRightColor: 'yellow',
+        borderBottomColor: 'green',
+        borderLeftColor: 'blue',
+        backgroundColor: "black"
+      }}
+    />
+  )
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Varying border colors dotted", () => {
+  const jsx = (
+    <View
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 30,
+        borderWidth: 10,
+        borderStyle: 'dotted',
+        borderTopColor: 'red',
+        borderRightColor: 'yellow',
+        borderBottomColor: 'green',
+        borderLeftColor: 'blue',
+        backgroundColor: "black"
       }}
     />
   )

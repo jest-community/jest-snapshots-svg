@@ -155,6 +155,34 @@ const pathForRect = (x, y, width, height, radii, insets, anticlockwise: boolean 
   return `M${start.x},${start.y}` + sides.join('') + 'Z'
 }
 
+const filledPathForSide = (x, y, width, height, radii, insets, side) => {
+  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, [0, 0, 0, 0], side)
+  const startAngle = (side + 2.5) * Math.PI / 2
+  const start = positionOnCorner(startAngle, startCorner)
+  const midCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, (side + 1) % 4)
+  const midAngle = startAngle + Math.PI / 2
+  const mid = positionOnCorner(midAngle, midCorner)
+  return `M${start.x},${start.y}` +
+    drawSide(x, y, width, height, radii, [0, 0, 0, 0], side, 0.5, 0.5, false) +
+    `L${mid.x},${mid.y}` +
+    drawSide(x, y, width, height, radii, insets, side, 0.5, 0.5, true) +
+    'Z'
+}
+
+const strokedPathForSide = (x, y, width, height, radii, insets, side) => {
+  const halfInsets = scaleSides(insets, 0.5)
+  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, halfInsets, side)
+  const startAngle = (side + 2.5) * Math.PI / 2
+  const start = positionOnCorner(startAngle, startCorner)
+  return `M${start.x},${start.y}` +
+    drawSide(x, y, width, height, radii, halfInsets, side, 0.5, 0.5, false)
+}
+
+const dashStyles = {
+  dotted: width => ({ 'stroke-linecap': 'round', 'stroke-dasharray': `0, ${width * 1.5}`}),
+  dashed: width => ({ 'stroke-dasharray': `${width * 2}, ${width}`}),
+}
+
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
   const attributes: any = {
     type: node.type,
@@ -184,6 +212,7 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   // }
 
   const borderStyle: string = style.borderStyle || "solid"
+  const fill = style.backgroundColor || 'none'
 
   let svgText: string
   if (node.textContent) {
@@ -196,70 +225,83 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   ) {
     const borderWidth = borderWidths[0]
     const borderRadius = borderRadii[0]
-    attributes.fill = style.backgroundColor || "none"
-    if (borderWidth !== 0) {
-      attributes.stroke = borderColors[0]
-      attributes["stroke-width"] = borderWidth
-    }
-    if (borderRadius !== 0) {
-      attributes.rx = borderRadii[0] - borderWidth * 0.5
-      attributes.ry = borderRadii[0] - borderWidth * 0.5
-    }
     // Offset size by half border radius, as RN draws border inside, whereas SVG draws on both sides
-    svgText = svg(
-      "rect",
-      left - borderWidth * 0.5,
-      top - borderWidth * 0.5,
-      width - borderWidth,
-      height - borderWidth,
-      attributes
-    )
+    svgText = $('rect', {
+      ...attributes,
+      x: left - borderWidth * 0.5,
+      y: top - borderWidth * 0.5,
+      width: width - borderWidth,
+      height: height - borderWidth,
+      fill,
+      stroke: borderColors[0],
+      "stroke-width": borderWidth,
+      rx: borderRadii[0] - borderWidth * 0.5,
+      ry: borderRadii[0] - borderWidth * 0.5,
+    })
   } else if (sidesEqual(borderWidths) && sidesEqual(borderColors) && borderStyle === "solid") {
     const borderWidth = borderWidths[0]
-    attributes.fill = style.backgroundColor || "none"
-    if (borderWidth !== 0) {
-      attributes.stroke = borderColors[0]
-      attributes["stroke-width"] = borderWidth
-    }
-    attributes.d =
-      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
-    svgText = svg2("path", attributes)
+    svgText = $("path", {
+      ...attributes,
+      fill,
+      stroke: borderColors[0],
+      "stroke-width": borderWidth,
+      d: pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
+    })
   } else if (sidesEqual(borderColors) && borderStyle === "solid") {
-    // FIXME: This has bugs
-    const attr1 = Object.assign({}, attributes)
-    attr1.fill = style.backgroundColor || "none"
-    attr1.d =
-      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
-
-    const attr2 = Object.assign({}, attributes)
-    attr2.fill = borderColors[0]
-    attr2.d =
-      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0]) +
-      pathForRect(top, left, width, height, borderRadii, borderWidths, true)
-
-    svgText = svg2("path", attr1) + svg2("path", attr2)
+    const backgroundShape = $('path', {
+      ...attributes,
+      fill,
+      d: pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
+    })
+    const borderShape = $('path', {
+      fill: borderColors[0],
+      d: pathForRect(left, top, width, height, borderRadii, [0, 0, 0, 0]) +
+        pathForRect(left, top, width, height, borderRadii, borderWidths, true)
+    })
+    svgText = backgroundShape + borderShape
   } else if (sidesEqual(borderWidths) && sidesEqual(borderColors)) {
     const borderWidth = borderWidths[0]
-
-    const attr1 = Object.assign({}, attributes)
-    attr1.fill = style.backgroundColor || "none"
-    attr1.d =
-      pathForRect(top, left, width, height, borderRadii, [0, 0, 0, 0])
-
-    const attr2 = Object.assign({}, attributes)
-    attr2.fill = "none"
-    if (borderWidth !== 0) {
-      attr2.stroke = borderColors[0]
-      attr2["stroke-width"] = borderWidth
-    }
-    const dash = (borderStyle === "dashed" ? 5 : 1) * borderWidth
-    attr2["stroke-dasharray"] = `${dash}, ${dash}`
-    attr2.d =
-      pathForRect(top, left, width, height, borderRadii, scaleSides(borderWidths, 0.5))
-
-    svgText = svg2("path", attr1) + svg2("path", attr2)
+    const backgroundShape = $('path', {
+      ...attributes,
+      fill,
+      d: pathForRect(left, top, width, height, borderRadii, [0, 0, 0, 0])
+    })
+    const borderShape = $('path', {
+      ...dashStyles[borderStyle](borderWidth),
+      fill: 'none',
+      stroke: borderColors[0],
+      "stroke-width": borderWidth,
+      d: pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
+    })
+    svgText = backgroundShape + borderShape
+  } else if (borderStyle === 'solid') {
+    const backgroundShape = $('path', {
+      ...attributes,
+      fill,
+      d: pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5)),
+    });
+    const borders = borderColors.map((borderColor, side) => (
+      $('path', {
+        fill: borderColor || 'none',
+        d: filledPathForSide(left, top, width, height, borderRadii, borderWidths, side),
+      })
+    ))
+    return backgroundShape + borders.join('')
   } else {
-    throw new Error("Not yet handled (WIP)")
+    const backgroundShape = $('path', {
+      ...attributes,
+      fill,
+      d: pathForRect(left, top, width, height, borderRadii, [0, 0, 0, 0]),
+    });
+    const borders = borderColors.map((borderColor, side) => (
+      $('path', {
+        ...dashStyles[borderStyle](borderWidths[side]),
+        stroke: borderColor,
+        "stroke-width": borderWidths[side],
+        d: strokedPathForSide(left, top, width, height, borderRadii, borderWidths, side),
+      })
+    ))
+    return backgroundShape + borders.join('')
   }
 
   return "\n"
@@ -279,10 +321,7 @@ const attributes = (settings) => {
   return attributeString
 }
 
-const svg = (type, x, y, w, h, settings) =>
-  `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}"/>`
-
-const svg2 = (type, settings) => `<${type}${attributes(settings)}/>`
+const $ = (type, settings) => `<${type}${attributes(settings)}/>`
 
 const text = (x, y, w, h, style, textContent) => {
   const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'

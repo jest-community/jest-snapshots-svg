@@ -2,5 +2,5 @@
 
 exports[`nodeToSVG handles a simple square 1`] = `
 "
- <rect type=\\"my component\\" fill=\\"none\\" x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\"/>"
+ <rect type=\\"my component\\" x=\\"0\\" y=\\"0\\" width=\\"600\\" height=\\"400\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0\\" rx=\\"0\\" ry=\\"0\\"/>"
 `;
