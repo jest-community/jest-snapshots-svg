@@ -114,19 +114,35 @@ const drawSide = (
   radii: Sides<number>,
   insets: Sides<number>,
   side: number,
-  startCompletion: number = 0.5,
-  endCompletion: number = 0.5,
-  anticlockwise: boolean = false,
+  {
+    startCompletion = 0.5,
+    endCompletion = 0.5,
+    anticlockwise = false,
+    moveCommand = '',
+  }: {
+    startCompletion?: number,
+    endCompletion?: number,
+    moveCommand?: 'M' | 'L' | '',
+    anticlockwise?: boolean,
+  } = {}
 ) => {
   const baseAngle = (side + 3) * (Math.PI / 2)
 
   const startSide = anticlockwise ? (side + 1) % 4 : side
   const endSide = anticlockwise ? side : (side + 1) % 4
   const sweep = anticlockwise ? 0 : 1
+  const completionFactor = Math.PI / 2 * (anticlockwise ? -1 : 1)
 
   let path = ''
+  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, startSide)
+
+  if (moveCommand !== '') {
+    const moveAngle = baseAngle - startCompletion * completionFactor
+    const move = positionOnCorner(moveAngle, startCorner)
+    path += `${moveCommand}${move.x},${move.y}`
+  }
+
   if (startCompletion > 0) {
-    const startCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, startSide)
     const start = positionOnCorner(baseAngle, startCorner)
     path += `A${startCorner.rx},${startCorner.ry} 0 0,${sweep} ${start.x},${start.y}`
   }
@@ -136,7 +152,7 @@ const drawSide = (
   path += `L${mid.x},${mid.y}`
 
   if (endCompletion > 0) {
-    const endAngle = baseAngle + endCompletion * Math.PI / 2 * (anticlockwise ? -1 : 1)
+    const endAngle = baseAngle + endCompletion * completionFactor
     const end = positionOnCorner(endAngle, endCorner)
     path += `A${endCorner.rx},${endCorner.ry} 0 0,${sweep} ${end.x},${end.y}`
   }
@@ -145,38 +161,28 @@ const drawSide = (
 }
 
 const pathForRect = (x, y, width, height, radii, insets, anticlockwise: boolean = false) => {
-  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, 0)
-  const startAngle = anticlockwise ? Math.PI : (3 * Math.PI / 2)
-  const start = positionOnCorner(startAngle, startCorner)
-  const sides = [0, 1, 2, 3].map(side => (
-    drawSide(x, y, width, height, radii, insets, side, 0, 1, anticlockwise)
+  const sideIndices = [0, 1, 2, 3]
+  if (anticlockwise) sideIndices.reverse()
+  const sides = sideIndices.map((side, index) => (
+    drawSide(x, y, width, height, radii, insets, side, {
+      startCompletion: 0,
+      endCompletion: 1,
+      moveCommand: index === 0 ? 'M' : '',
+      anticlockwise,
+    })
   ))
-  if (anticlockwise) sides.reverse()
-  return `M${start.x},${start.y}` + sides.join('') + 'Z'
+  return sides.join('') + 'Z'
 }
 
-const filledPathForSide = (x, y, width, height, radii, insets, side) => {
-  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, [0, 0, 0, 0], side)
-  const startAngle = (side + 2.5) * Math.PI / 2
-  const start = positionOnCorner(startAngle, startCorner)
-  const midCorner = cornerEllipseAtSide(x, y, width, height, radii, insets, (side + 1) % 4)
-  const midAngle = startAngle + Math.PI / 2
-  const mid = positionOnCorner(midAngle, midCorner)
-  return `M${start.x},${start.y}` +
-    drawSide(x, y, width, height, radii, [0, 0, 0, 0], side, 0.5, 0.5, false) +
-    `L${mid.x},${mid.y}` +
-    drawSide(x, y, width, height, radii, insets, side, 0.5, 0.5, true) +
-    'Z'
-}
+const filledPathForSide = (x, y, width, height, radii, insets, side) => (
+  drawSide(x, y, width, height, radii, [0, 0, 0, 0], side, { moveCommand: 'M' }) +
+  drawSide(x, y, width, height, radii, insets, side, { moveCommand: 'L', anticlockwise: true }) +
+  'Z'
+)
 
-const strokedPathForSide = (x, y, width, height, radii, insets, side) => {
-  const halfInsets = scaleSides(insets, 0.5)
-  const startCorner = cornerEllipseAtSide(x, y, width, height, radii, halfInsets, side)
-  const startAngle = (side + 2.5) * Math.PI / 2
-  const start = positionOnCorner(startAngle, startCorner)
-  return `M${start.x},${start.y}` +
-    drawSide(x, y, width, height, radii, halfInsets, side, 0.5, 0.5, false)
-}
+const strokedPathForSide = (x, y, width, height, radii, insets, side) => (
+  drawSide(x, y, width, height, radii, scaleSides(insets, 0.5), side, { moveCommand: 'M' })
+)
 
 const dashStyles = {
   dotted: width => ({ 'stroke-linecap': 'round', 'stroke-dasharray': `0, ${width * 1.5}`}),
@@ -247,6 +253,7 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
       d: pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
     })
   } else if (sidesEqual(borderColors) && borderStyle === "solid") {
+    console.log(':D');
     const backgroundShape = $('path', {
       ...attributes,
       fill,
