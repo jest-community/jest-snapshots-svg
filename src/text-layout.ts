@@ -23,8 +23,8 @@ const textSlice = (
 ): TextWithAttributedStyle => {
   const text = textStyle.text.slice(start, end)
   const firstIndex = textStyle.attributedStyles.findIndex(style => style.end >= start)
-  if (firstIndex === -1) throw new Error("Should not happen")
-  const indexAfter = textStyle.attributedStyles.findIndex(style => style.end >= end)
+  if (firstIndex === -1) throw new Error("Internal error 1")
+  const indexAfter = textStyle.attributedStyles.findIndex(style => style.start >= end)
   let attributedStyles = indexAfter > 0
     ? textStyle.attributedStyles.slice(firstIndex, indexAfter)
     : textStyle.attributedStyles.slice(firstIndex)
@@ -40,25 +40,33 @@ const textSlice = (
 export const breakLines = (
   textStyle: TextWithAttributedStyle,
   width: number
-): Array<TextWithAttributedStyle> => {
+): TextWithAttributedStyle[] => {
   const { text, attributedStyles } = textStyle
   const breaker = new LineBreaker(text)
 
-  const lines: Array<TextWithAttributedStyle> = []
+  const lines: TextWithAttributedStyle[] = []
   let lineStart = 0
+  let lastPosition = 0
   let lastLine: TextWithAttributedStyle | null = null
 
   let bk = null
   while ((bk = breaker.nextBreak()) != null) {
     const { position } = bk as any
-    const trialLine = textSlice(textStyle, lineStart, position)
-    if (lastLine === null || lineWidth(trialLine) <= width) {
-      lastLine = trialLine
+    const testLine = textSlice(textStyle, lineStart, position)
+    console.log(lastLine && lastLine.text, lineWidth(testLine), testLine.text)
+    if (lineWidth(testLine) <= width) {
+      lastLine = testLine
+    } else if (lastLine === null) {
+      lines.push(textSlice(textStyle, lineStart, lastPosition))
+      lastLine = null // textSlice(textStyle, lastPosition, position)
+      lineStart = lastPosition
     } else {
-      lineStart = position
+      console.log('APPEND LINE', lastLine.text)
       lines.push(lastLine)
-      lastLine = null
+      lastLine = textSlice(textStyle, lastPosition, position)
+      lineStart = lastPosition
     }
+    lastPosition = position
   }
 
   if (lastLine !== null) lines.push(lastLine)

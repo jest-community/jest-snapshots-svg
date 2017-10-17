@@ -18,7 +18,7 @@ export const recurseTree = (component: Component, node: yoga.NodeInstance) => {
       const childNode = node.getChild(index)
       // Don't go into Text nodes
       if (component.type !== "Text") {
-        if (typeof childComponent === "string") throw new Error("Should not happen")
+        if (typeof childComponent === "string") throw new Error("Internal error 2")
         const renderedChildComponent = recurseTree(childComponent, childNode)
         newChildren.push(renderedChildComponent)
       }

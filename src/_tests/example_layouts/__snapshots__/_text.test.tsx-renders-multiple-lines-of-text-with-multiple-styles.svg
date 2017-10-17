@@ -8,10 +8,10 @@
 <tspan x="0" y="18" font-family="Helvetica" font-weight="normal" font-style="normal">Lorem ipsum </tspan>
 <tspan x="0" y="36" font-family="Helvetica" font-weight="normal" font-style="normal">dolor sit amet, </tspan>
 <tspan x="0" y="54" font-family="Helvetica" font-weight="normal" font-style="normal">consectetur </tspan>
-<tspan x="0" y="72" font-family="Helvetica" font-weight="normal" font-style="normal">adipiscing elit. </tspan>
-<tspan x="0" y="90" font-family="Helvetica" font-weight="normal" font-style="normal">Sed eleifend </tspan>
-<tspan x="0" y="108" font-family="Helvetica" font-weight="normal" font-style="normal">congue </tspan>
-<tspan x="0" y="126" font-family="Helvetica" font-weight="normal" font-style="normal">faucibus. In </tspan>
+<tspan x="0" y="72" font-family="Helvetica" font-weight="normal" font-style="normal">adipiscing elit.</tspan><tspan font-family="Helvetica" font-weight="normal" font-style="normal"> </tspan>
+<tspan x="0" y="90" font-family="Helvetica" font-weight="normal" font-style="normal"/><tspan font-family="Helvetica" font-weight="normal" font-style="italic">Sed eleifend </tspan>
+<tspan x="0" y="108" font-family="Helvetica" font-weight="normal" font-style="italic">congue </tspan>
+<tspan x="0" y="126" font-family="Helvetica" font-weight="normal" font-style="italic">faucibus.</tspan><tspan font-family="Helvetica" font-weight="normal" font-style="normal"> </tspan><tspan font-family="Helvetica" font-weight="normal" font-style="normal">In </tspan>
 <tspan x="0" y="144" font-family="Helvetica" font-weight="normal" font-style="normal">eget tortor in </tspan>
 <tspan x="0" y="162" font-family="Helvetica" font-weight="normal" font-style="normal">odio luctus </tspan>
 <tspan x="0" y="180" font-family="Helvetica" font-weight="normal" font-style="normal">eleifend. </tspan>

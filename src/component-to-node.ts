@@ -1,8 +1,8 @@
 import * as pixelWidth from "string-pixel-width"
 import * as fontMap from "string-pixel-width/lib/widthsMap"
 import * as yoga from "yoga-layout"
-import { Component, Settings } from "./index"
 import extractText from "./extract-text"
+import { Component, Settings } from "./index"
 import { breakLines, measureLines } from "./text-layout"
 
 export const textLines = Symbol("textLines")

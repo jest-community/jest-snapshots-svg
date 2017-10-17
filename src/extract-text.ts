@@ -1,6 +1,6 @@
-export type AttributedStyle = { start: number, end: number, style: Object }
+export interface AttributedStyle { start: number, end: number, style: Object }
 
-export type TextWithAttributedStyle = { text: string, attributedStyles: Array<AttributedStyle> }
+export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
 
 const flattenStyles = styles => Array.isArray(styles)
   ? Object.assign({}, ...styles)
@@ -15,11 +15,11 @@ const defaultStyles = {
   lineHeight: 18,
   fontFamily: "Helvetica",
   fontWeight: "normal",
-  fontVariant: "normal",
+  fontStyle: "normal",
 }
 
 const appendStyleTo = (
-  attributedStyles: Array<AttributedStyle>,
+  attributedStyles: AttributedStyle[],
   text: string,
   style: Object
 ) => {
@@ -30,11 +30,9 @@ const appendStyleTo = (
   if (lastAttributedStyle !== null && style === lastAttributedStyle) {
     lastAttributedStyle.end += text.length
   } else {
-    attributedStyles.push({
-      start: lastAttributedStyle ? lastAttributedStyle.end : 0,
-      end: text.length,
-      style,
-    })
+    const start = lastAttributedStyle ? lastAttributedStyle.end : 0
+    const end = start + text.length
+    attributedStyles.push({ start, end, style })
   }
 }
 
@@ -79,23 +77,24 @@ export default (component): TextWithAttributedStyle => {
 
 export default (component): TextWithAttributedStyle => {
   let text = ""
-  let attributedStyles: Array<AttributedStyle> = []
+  const attributedStyles: AttributedStyle[] = []
 
   const iterate = (component, style = mergeStyles(defaultStyles, getStyles(component))) => {
     if (!component.children) return
-    component.children.forEach((child) => {
+    component.children.forEach(child => {
       if (child == null) return
       if (typeof child !== "object") {
         const childText = String(child) // child might be a number
         text += childText
         appendStyleTo(attributedStyles, childText, style)
       } else {
-        iterate(child, mergeStyles(style, getStyles(component)))
+        iterate(child, mergeStyles(style, getStyles(child)))
       }
     }, [])
   }
 
   iterate(component)
+  console.log(text, attributedStyles)
 
   return { text, attributedStyles }
 }

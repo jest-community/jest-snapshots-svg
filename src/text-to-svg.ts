@@ -1,20 +1,21 @@
 import { TextWithAttributedStyle } from "./extract-text"
-import { lineHeight } from "./text-layout"
 import { $ } from "./svg-util"
+import { lineHeight } from "./text-layout"
 
 const textStyles = style => ({
-  'font-family': style.fontFamily,
-  'font-weight': style.fontWeight,
-  'font-variant': style.fontVariant,
+  "font-family": style.fontFamily,
+  "font-weight": style.fontWeight,
+  "font-style": style.fontStyle,
 })
 
-export default (x, y, lines: Array<TextWithAttributedStyle>): string => {
+export default (x, y, lines: TextWithAttributedStyle[]): string => {
+  console.log(JSON.stringify(lines))
   const { textLines } = lines.reduce(({ textLines, y }, line) => {
     const { text, attributedStyles } = line
     const nextY = y + lineHeight(line)
 
     const tspans = attributedStyles.map(({ start, end, style }, i) => (
-      $('tspan', {
+      $("tspan", {
         x: i === 0 ? 0 : undefined,
         y: i === 0 ? nextY : undefined,
         ...textStyles(style),
@@ -23,12 +24,12 @@ export default (x, y, lines: Array<TextWithAttributedStyle>): string => {
 
     return {
       y: nextY,
-      textLines: textLines + '\n' + tspans.join('')
+      textLines: textLines + "\n" + tspans.join("")
     }
   }, {
     y,
-    textLines: ''
-  });
+    textLines: ""
+  })
 
-  return $('text', { x, y }, textLines)
+  return $("text", { x, y }, textLines)
 }

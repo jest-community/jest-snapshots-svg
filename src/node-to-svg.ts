@@ -1,7 +1,7 @@
 import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
-import textToSvg from "./text-to-svg"
 import { textLines } from "./component-to-node"
+import textToSvg from "./text-to-svg"
 
 import { RenderedComponent, Settings } from "./index"
 import wsp from "./whitespace"
