@@ -10,14 +10,13 @@ export default treeToNodes
 export const recurseTree = (component: Component, settings: Settings) => {
   const node = componentToNode(component, settings)
 
-  if (component.children) {
+  if (component.type !== "Text" && component.children) {
+    // Don't go into Text nodes
     for (let index = 0; index < component.children.length; index++) {
       const childComponent = component.children[index]
-      // Don't go into Text nodes
-      if (!(typeof childComponent === "string")) {
-        const childNode = recurseTree(childComponent, settings)
-        node.insertChild(childNode, index)
-      }
+      if (typeof childComponent === "string") throw new Error("This should not happen")
+      const childNode = recurseTree(childComponent, settings)
+      node.insertChild(childNode, index)
     }
   }
 

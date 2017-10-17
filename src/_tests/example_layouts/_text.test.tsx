@@ -1,28 +1,31 @@
 import "../../index"
 
 import * as React from "react"
-import { Text, View } from "react-native"
+import { View, Text } from "react-native"
 import * as renderer from "react-test-renderer"
 
-it("Renders text blocks", () => {
+import { loadFont } from "../../font-loader"
+
+const fs = require("fs")
+
+loadFont(new Uint8Array(fs.readFileSync("/System/Library/Fonts/SFNSText.ttf")).buffer, "Helvetica", "normal", "normal")
+
+// https://facebook.github.io/react-native/docs/flexbox.html
+
+it("Renders a line of text", () => {
   const jsx =
-    <View style={{
-      flex: 1,
-      width: 600,
-      height: 600
-    }}>
-      <Text style={{
-        width: 200,
-        fontFamily: "AGaramondPro-Regular",
-        fontSize: 16,
-        marginTop: 5,
-      }}>Hello there, here are some words</Text>
-      <Text style={{
-        fontFamily: "Arial",
-        marginTop: 5,
-      }}>here are some words that use default font size</Text>
-      <Text>Use number as children:</Text>
-      <Text children={123}></Text>
+    <View style={{ width: 100 }}>
+      <Text>Hello world</Text>
+    </View>
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Renders multiple lines of text", () => {
+  const jsx =
+    <View style={{ width: 100 }}>
+      <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend congue faucibus. In eget tortor in odio luctus eleifend. Nullam pretium justo nisi, nec volutpat turpis tempor et.</Text>
     </View>
 
   const component = renderer.create(jsx).toJSON()

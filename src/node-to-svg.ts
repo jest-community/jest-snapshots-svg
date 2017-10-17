@@ -1,5 +1,7 @@
 import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
+import textToSvg from "./text-to-svg"
+import { textLines } from "./component-to-node"
 
 import { RenderedComponent, Settings } from "./index"
 import wsp from "./whitespace"
@@ -21,8 +23,8 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
     }
   }
 
-  const svgText = node.textContent ?
-    text(layout.left, layout.top, layout.width, layout.height, node.props.style, node.textContent)
+  const svgText = node[textLines]
+    ? textToSvg(layout.left, layout.top, node[textLines])
     : svg("rect", layout.left, layout.top, layout.width, layout.height, attributes)
 
   return "\n"
