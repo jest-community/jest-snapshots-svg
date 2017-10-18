@@ -2,7 +2,7 @@ export interface AttributedStyle { start: number, end: number, style: Object }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
 
-const flattenStyles = styles => Array.isArray(styles)
+const flattenStyles = (styles): Object => Array.isArray(styles)
   ? Object.assign({}, ...styles)
   : (styles || {})
 
@@ -13,9 +13,10 @@ const mergeStyles = (a, b) => Object.keys(b).length > 0 ? { ...a, ...b } : a
 const defaultStyles = {
   fontSize: 14,
   lineHeight: 18,
-  fontFamily: "Helvetica",
+  fontFamily: "SF UI Text",
   fontWeight: "normal",
   fontStyle: "normal",
+  textAlign: "left",
 }
 
 const appendStyleTo = (
@@ -36,45 +37,6 @@ const appendStyleTo = (
   }
 }
 
-/*
-This was previous workings. Just keeping until I"ve checked everything works.
-
-type Run = { text: ", style: Object }
-
-const concatRuns = (left: Array<Run>, right: Array<Run>): Array<Run> => {
-  if (left.length === 0) return right
-  if (right.length === 0) return left
-
-  const lastLeft = left[left.length - 1]
-  const firstRight = right[0]
-
-  if (lastLeft.style !== firstRight.style) return left.concat(right)
-
-  return left.slice(0, -1)
-    .concat({ text: lastLeft.text + firstRight.text, style: lastLeft.style } as Run)
-    .concat(right.slice(1))
-}
-
-const textToRuns = (component, style = getStyles(component)): Array<Run> =>
-  (component.children || []).reduce((accum, child) => {
-    if (child == null) return accum
-    if (typeof child !== "object") return accum.concat({ text: String(child), style })
-    return accum.concat(textToRuns(child, { ...style, ...getStyles(component) }))
-  }, [])
-
-export default (component): TextWithAttributedStyle => {
-  let text = ""
-  let attributedStyles: Array<AttributedStyle> = []
-
-  for (const run of textToRuns(component)) {
-    text += run.text
-    appendStyleTo(attributedStyles, run.text, run.style)
-  }
-
-  return { text, attributedStyles }
-}
-*/
-
 export default (component): TextWithAttributedStyle => {
   let text = ""
   const attributedStyles: AttributedStyle[] = []
@@ -94,7 +56,6 @@ export default (component): TextWithAttributedStyle => {
   }
 
   iterate(component)
-  console.log(text, attributedStyles)
 
   return { text, attributedStyles }
 }

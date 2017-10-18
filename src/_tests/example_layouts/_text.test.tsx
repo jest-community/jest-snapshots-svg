@@ -10,13 +10,13 @@ const fs = require("fs")
 
 loadFont(
   new Uint8Array(fs.readFileSync("/System/Library/Fonts/SFNSText.ttf")).buffer,
-  "Helvetica",
+  "SF UI Text",
   "normal",
   "normal"
 )
 loadFont(
   new Uint8Array(fs.readFileSync("/System/Library/Fonts/SFNSTextItalic.ttf")).buffer,
-  "Helvetica",
+  "SF UI Text",
   "normal",
   "italic"
 )
@@ -49,6 +49,24 @@ it("Renders multiple lines of text with multiple styles", () => {
       <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       {" "}<Text style={{ fontStyle: "italic" }}>Sed eleifend congue faucibus.</Text>
       {" "}In eget tortor in odio luctus eleifend. Nullam pretium justo nisi, nec volutpat turpis tempor et.</Text>
+    </View>
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Renders multiple lines of text with text align", () => {
+  const jsx =
+    <View style={{ width: 100 }}>
+      <View>
+        <Text style={{ textAlign: 'left' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+      </View>
+      <View>
+        <Text style={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+      </View>
+      <View>
+        <Text style={{ textAlign: 'right' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+      </View>
     </View>
 
   const component = renderer.create(jsx).toJSON()

@@ -1,4 +1,4 @@
-import { TextWithAttributedStyle } from "./extract-text"
+import { TextWithAttributedStyle, AttributedStyle } from "./extract-text"
 import { fontForStyle } from "./font-loader"
 const LineBreaker = require("linebreak")
 
@@ -16,26 +16,28 @@ export const lineHeight = (line: TextWithAttributedStyle): number =>
     ...line.attributedStyles.map(({ style }) => (style as any).lineHeight)
   )
 
+const baselineForAttributedStyle = ({ style }: AttributedStyle): number => {
+  const font = fontForStyle(style)
+  return font.ascender / font.unitsPerEm * (style as any).fontSize
+}
+
+export const lineBaseline = (line: TextWithAttributedStyle): number =>
+  Math.max(0, ...line.attributedStyles.map(baselineForAttributedStyle))
+
 const textSlice = (
   textStyle: TextWithAttributedStyle,
   start: number,
   end: number
-): TextWithAttributedStyle => {
-  const text = textStyle.text.slice(start, end)
-  const firstIndex = textStyle.attributedStyles.findIndex(style => style.end >= start)
-  if (firstIndex === -1) throw new Error("Internal error 1")
-  const indexAfter = textStyle.attributedStyles.findIndex(style => style.start >= end)
-  let attributedStyles = indexAfter > 0
-    ? textStyle.attributedStyles.slice(firstIndex, indexAfter)
-    : textStyle.attributedStyles.slice(firstIndex)
-  const length = end - start
-  attributedStyles = attributedStyles.map(attributedStyle => ({
-    start: Math.max(attributedStyle.start - start, 0),
-    end: Math.min(attributedStyle.end - start, length),
-    style: attributedStyle.style,
-  }))
-  return { text, attributedStyles }
-}
+): TextWithAttributedStyle => ({
+  text: textStyle.text.slice(start, end),
+  attributedStyles: textStyle.attributedStyles
+    .filter(a => a.end > start && a.start < end)
+    .map(a => ({
+      start: Math.max(a.start - start, 0),
+      end: Math.min(a.end - start, end - start),
+      style: a.style,
+    }))
+})
 
 export const breakLines = (
   textStyle: TextWithAttributedStyle,
@@ -51,20 +53,14 @@ export const breakLines = (
 
   let bk = null
   while ((bk = breaker.nextBreak()) != null) {
-    const { position } = bk as any
+    const { position, required } = bk as any
     const testLine = textSlice(textStyle, lineStart, position)
-    console.log(lastLine && lastLine.text, lineWidth(testLine), testLine.text)
-    if (lineWidth(testLine) <= width) {
+    if (lastLine === null || (!required && lineWidth(testLine) <= width)) {
       lastLine = testLine
-    } else if (lastLine === null) {
-      lines.push(textSlice(textStyle, lineStart, lastPosition))
-      lastLine = null // textSlice(textStyle, lastPosition, position)
-      lineStart = lastPosition
     } else {
-      console.log('APPEND LINE', lastLine.text)
       lines.push(lastLine)
-      lastLine = textSlice(textStyle, lastPosition, position)
       lineStart = lastPosition
+      lastLine = textSlice(textStyle, lineStart, position)
     }
     lastPosition = position
   }
@@ -76,5 +72,5 @@ export const breakLines = (
 
 export const measureLines = lines => ({
   width: Math.max(0, ...lines.map(lineWidth)),
-  height: Math.max(0, ...lines.map(lineHeight)),
+  height: lines.reduce((a, b) => a + lineHeight(b), 0),
 })
