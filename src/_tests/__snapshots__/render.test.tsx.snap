@@ -24,12 +24,12 @@ exports[`handles some simple JSX 1`] = `
      <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0\\" rx=\\"0\\" ry=\\"0\\"/>
    </g>
 
-   <rect type=\\"View\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\"/>
+   <rect type=\\"View\\" x=\\"-5\\" y=\\"-5\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"10\\" rx=\\"-5\\" ry=\\"-5\\"/>
 
    <g transform='translate(0, 0)'>
-     <rect type=\\"View\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\"/>
-     <rect type=\\"View\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\"/>
-     <rect type=\\"View\\" fill-opacity=\\"0.1\\" stroke-width=\\"1\\" stroke=\\"black\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\"/>
+     <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0\\" rx=\\"0\\" ry=\\"0\\"/>
+     <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0\\" rx=\\"0\\" ry=\\"0\\"/>
+     <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"0\\" rx=\\"0\\" ry=\\"0\\"/>
    </g>
 
  </g>

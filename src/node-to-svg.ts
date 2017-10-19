@@ -1,4 +1,4 @@
-import {ViewStyle} from "react-native"
+import { ViewStyle } from "react-native"
 import * as yoga from "yoga-layout"
 
 import { styleFromComponent } from "./component-to-node"

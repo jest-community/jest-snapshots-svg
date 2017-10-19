@@ -8,8 +8,8 @@ import {
   dashStyles,
   filledPathForSide,
   getBorderColor,
-  getBorderRadius,
   getBorderWidth,
+  getScaledBorderRadius,
   pathForRect,
   scaleSides,
   sidesEqual,
@@ -24,19 +24,7 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
 
   const borderWidths = getBorderWidth(style)
   const borderColors = getBorderColor(style)
-  let borderRadii = getBorderRadius(style)
-
-  const borderScale = Math.max(
-    (borderRadii[0] + borderRadii[2]) / width,
-    (borderRadii[1] + borderRadii[3]) / width,
-    (borderRadii[0] + borderRadii[3]) / height,
-    (borderRadii[1] + borderRadii[2]) / height,
-    1
-  )
-
-  if (borderScale > 1) {
-    borderRadii = scaleSides(borderRadii, 1 / borderScale)
-  }
+  const borderRadii = getScaledBorderRadius(style, width, height)
 
   const borderStyle: string = style.borderStyle || "solid"
   const fill = style.backgroundColor || "none"

@@ -12,7 +12,7 @@ enum Side {
 }
 
 // Done in CSS order
-type Sides<T> = [T, T, T, T]
+export type Sides<T> = [T, T, T, T]
 
 const applySides = <T>(sides: Sides<T>, value: T | null | undefined, side: Side): Sides<T> => {
   if (value == null) {
@@ -60,6 +60,24 @@ export const getBorderRadius = (style: any): Sides<number> => {
   sides = applySides(sides, style.borderBottomRightRadius, Side.Bottom)
   sides = applySides(sides, style.borderBottomLeftRadius, Side.Left)
   return sides
+}
+
+export const getScaledBorderRadius = (style: any, width: number, height: number): Sides<number> => {
+  let borderRadii = getBorderRadius(style)
+
+  const borderScale = Math.max(
+    (borderRadii[0] + borderRadii[2]) / width,
+    (borderRadii[1] + borderRadii[3]) / width,
+    (borderRadii[0] + borderRadii[3]) / height,
+    (borderRadii[1] + borderRadii[2]) / height,
+    1
+  )
+
+  if (borderScale > 1) {
+    borderRadii = scaleSides(borderRadii, 1 / borderScale)
+  }
+
+  return borderRadii
 }
 
 export const sidesEqual = <T>(sides: Sides<T>): boolean =>

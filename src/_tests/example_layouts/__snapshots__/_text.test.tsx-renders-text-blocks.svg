@@ -4,10 +4,10 @@
  <rect type="View" x="0" y="0" width="600" height="600" fill="none" stroke="black" stroke-width="0" rx="0" ry="0"/>
 
  <g transform='translate(0, 0)'>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="5" width="200" height="32"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'AGaramondPro-Regular','Times New Roman';font-size:16px">Hello there, here are some words</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="42" width="289" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'Arial','Times New Roman';font-size:14px">here are some words that use default font size</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="70" width="137" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'undefined','Times New Roman';font-size:14px">Use number as children:</p></body></foreignObject>
-   <foreignObject requiredExtensions="http://www.w3.org/1999/xhtml" x="0" y="98" width="22" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:'undefined','Times New Roman';font-size:14px">123</p></body></foreignObject>
+   <foreignObject requiredExtensions='http://www.w3.org/1999/xhtml' x="0" y="5" width="200" height="32"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:"AGaramondPro-Regular","Times New Roman";font-size:16px">Hello there, here are some words</p></body></foreignObject>
+   <foreignObject requiredExtensions='http://www.w3.org/1999/xhtml' x="0" y="42" width="289" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:"Arial","Times New Roman";font-size:14px">here are some words that use default font size</p></body></foreignObject>
+   <foreignObject requiredExtensions='http://www.w3.org/1999/xhtml' x="0" y="70" width="137" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:"undefined","Times New Roman";font-size:14px">Use number as children:</p></body></foreignObject>
+   <foreignObject requiredExtensions='http://www.w3.org/1999/xhtml' x="0" y="98" width="22" height="28"><body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p style="font-family:"undefined","Times New Roman";font-size:14px">123</p></body></foreignObject>
  </g>
 
 </svg>
