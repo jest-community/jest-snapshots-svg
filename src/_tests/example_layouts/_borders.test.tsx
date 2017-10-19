@@ -7,28 +7,28 @@ import * as renderer from "react-test-renderer"
 // https://facebook.github.io/react-native/docs/flexbox.html
 
 it("No border radius", () => {
-  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50 }} />
+  const jsx = <View style={{ backgroundColor: "red", width: 100, height: 50 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Small border radius", () => {
-  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50, borderRadius: 10 }} />
+  const jsx = <View style={{ backgroundColor: "red", width: 100, height: 50, borderRadius: 10 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Border radius larger than height", () => {
-  const jsx = <View style={{ backgroundColor: 'red', width: 100, height: 50, borderRadius: 1000 }} />
+  const jsx = <View style={{ backgroundColor: "red", width: 100, height: 50, borderRadius: 1000 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
 
 it("Border radius larger than width", () => {
-  const jsx = <View style={{ backgroundColor: 'red', width: 50, height: 100, borderRadius: 1000 }} />
+  const jsx = <View style={{ backgroundColor: "red", width: 50, height: 100, borderRadius: 1000 }} />
 
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
@@ -128,10 +128,10 @@ it("Varying border colors", () => {
         height: 100,
         borderRadius: 30,
         borderWidth: 10,
-        borderTopColor: 'red',
-        borderRightColor: 'yellow',
-        borderBottomColor: 'green',
-        borderLeftColor: 'blue',
+        borderTopColor: "red",
+        borderRightColor: "yellow",
+        borderBottomColor: "green",
+        borderLeftColor: "blue",
         backgroundColor: "black"
       }}
     />
@@ -149,11 +149,11 @@ it("Varying border colors dashed", () => {
         height: 100,
         borderRadius: 30,
         borderWidth: 10,
-        borderStyle: 'dashed',
-        borderTopColor: 'red',
-        borderRightColor: 'yellow',
-        borderBottomColor: 'green',
-        borderLeftColor: 'blue',
+        borderStyle: "dashed",
+        borderTopColor: "red",
+        borderRightColor: "yellow",
+        borderBottomColor: "green",
+        borderLeftColor: "blue",
         backgroundColor: "black"
       }}
     />
@@ -171,11 +171,11 @@ it("Varying border colors dotted", () => {
         height: 100,
         borderRadius: 30,
         borderWidth: 10,
-        borderStyle: 'dotted',
-        borderTopColor: 'red',
-        borderRightColor: 'yellow',
-        borderBottomColor: 'green',
-        borderLeftColor: 'blue',
+        borderStyle: "dotted",
+        borderTopColor: "red",
+        borderRightColor: "yellow",
+        borderBottomColor: "green",
+        borderLeftColor: "blue",
         backgroundColor: "black"
       }}
     />
@@ -196,10 +196,10 @@ it("Varying border colors and widths", () => {
         borderRightWidth: 10,
         borderBottomWidth: 15,
         borderLeftWidth: 20,
-        borderTopColor: 'red',
-        borderRightColor: 'yellow',
-        borderBottomColor: 'green',
-        borderLeftColor: 'blue',
+        borderTopColor: "red",
+        borderRightColor: "yellow",
+        borderBottomColor: "green",
+        borderLeftColor: "blue",
         backgroundColor: "black"
       }}
     />
@@ -223,10 +223,10 @@ it("Varying border colors, radii and widths", () => {
         borderRightWidth: 10,
         borderBottomWidth: 15,
         borderLeftWidth: 20,
-        borderTopColor: 'red',
-        borderRightColor: 'yellow',
-        borderBottomColor: 'green',
-        borderLeftColor: 'blue',
+        borderTopColor: "red",
+        borderRightColor: "yellow",
+        borderBottomColor: "green",
+        borderLeftColor: "blue",
         backgroundColor: "black"
       }}
     />
