@@ -21,6 +21,14 @@
      <rect type="View" x="0" y="40" width="10" height="10" fill="none" stroke="black" stroke-width="0" rx="0" ry="0"/>
    </g>
 
+   <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="40" y="180" width="160" height="40"/>
+
+   <g transform='translate(40, 180)'>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="50" y="30" width="10" height="10"/>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="30" y="50" width="10" height="10"/>
+     <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="10" y="70" width="10" height="10"/>
+   </g>
+
  </g>
 
 </svg>
