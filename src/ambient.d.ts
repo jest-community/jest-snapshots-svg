@@ -290,6 +290,10 @@ declare module "yoga-layout" {
   function getInstanceCount(): number
 }
 
+declare module "font-manager" {
+  function findFontSync(style: any): { path: string } | null
+}
+
 // import {ViewStyle} from "react-native"
 
 // interface NodeInstance {

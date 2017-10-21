@@ -1,6 +1,6 @@
+import * as LineBreaker from "linebreak"
 import { AttributedStyle, TextWithAttributedStyle } from "./extract-text"
 import { fontForStyle } from "./font-loader"
-const LineBreaker = require("linebreak")
 
 export const lineWidth = ({ text, attributedStyles }: TextWithAttributedStyle): number =>
   attributedStyles.reduce((x, { start, end, style }, i) => {

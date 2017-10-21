@@ -15,7 +15,6 @@
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
     "danger": "^0.18.0",
-    "font-manager": "^0.2.2",
     "husky": "^0.13.3",
     "jest": "^21.0.1",
     "lint-staged": "^3.2.5",
@@ -62,6 +61,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "font-manager": "^0.2.2",
     "fontkit": "^1.7.7",
     "linebreak": "^0.3.0",
     "nbind": "^0.3.12",

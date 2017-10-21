@@ -1,6 +1,6 @@
-const fs = require("fs")
-const fontkit = require("fontkit")
-const fontManager = require("font-manager")
+import * as fontManager from "font-manager"
+import * as fontkit from "fontkit"
+import * as fs from "fs"
 
 const weights = {
   normal: "400",
