@@ -14,7 +14,9 @@ export const recurseTree = (component: Component, settings: Settings) => {
     // Don't go into Text nodes
     for (let index = 0; index < component.children.length; index++) {
       const childComponent = component.children[index]
-      if (typeof childComponent === "string") throw new Error("Internal error 3")
+      if (typeof childComponent === "string") {
+        throw new Error("Unexpected string child in non-Text node")
+      }
       const childNode = recurseTree(childComponent, settings)
       node.insertChild(childNode, index)
     }

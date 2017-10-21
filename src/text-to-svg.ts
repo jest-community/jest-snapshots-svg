@@ -1,6 +1,6 @@
 import { TextWithAttributedStyle } from "./extract-text"
 import { $ } from "./svg-util"
-import { lineWidth, lineHeight, lineBaseline } from "./text-layout"
+import { lineBaseline, lineHeight, lineWidth } from "./text-layout"
 
 const textStyles = style => ({
   "font-family": style.fontFamily,
@@ -15,28 +15,43 @@ const textAligns = {
   right: 1,
 }
 
+const textAnchors = {
+  left: "start",
+  center: "middle",
+  right: "end",
+}
+
 export default (x, y, width, height, lines: TextWithAttributedStyle[]): string => {
-  const { textLines } = lines.reduce(({ textLines, y }, line) => {
+  const { textAlign = "left" } = lines[0].attributedStyles[0].style as any
+  const originX = width * textAligns[textAlign]
+
+  const { textLines } = lines.reduce((accum, line) => {
     const { text, attributedStyles } = line
-    const originX = (width - lineWidth(line)) * textAligns[(attributedStyles[0].style as any).textAlign]
-    const originY = y + lineBaseline(line)
+    const originY = accum.y + lineBaseline(line)
 
     const tspans = attributedStyles.map(({ start, end, style }, i) => (
       $("tspan", {
         x: i === 0 ? originX : undefined,
         y: i === 0 ? originY : undefined,
         ...textStyles(style),
-      }, text.slice(start, end))
+      }, i === attributedStyles.length - 1
+        ? text.slice(start, end).replace(/\s*$/, "")
+        : text.slice(start, end)
+      )
     ))
 
     return {
-      y: y + lineHeight(line),
-      textLines: textLines + "\n" + tspans.join("")
+      y: accum.y + lineHeight(line),
+      textLines: accum.textLines + "\n" + tspans.join("")
     }
   }, {
     y,
     textLines: ""
   })
 
-  return $("text", { x, y }, textLines)
+  return $("text", {
+    x,
+    y,
+    "text-anchor": textAlign !== "left" ? textAnchors[textAlign as string] : undefined,
+  }, textLines)
 }

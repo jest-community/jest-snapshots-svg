@@ -1,4 +1,4 @@
-import { TextWithAttributedStyle, AttributedStyle } from "./extract-text"
+import { AttributedStyle, TextWithAttributedStyle } from "./extract-text"
 import { fontForStyle } from "./font-loader"
 const LineBreaker = require("linebreak")
 
@@ -6,8 +6,11 @@ export const lineWidth = ({ text, attributedStyles }: TextWithAttributedStyle): 
   attributedStyles.reduce((x, { start, end, style }, i) => {
     let body = text.slice(start, end)
     // Trim trailling whitespace
-    if (i === attributedStyles.length - 1) body = body.replace(/\s+$/, "")
-    return x + fontForStyle(style).getAdvanceWidth(body, (style as any).fontSize)
+    if (i === attributedStyles.length - 1) {
+      body = body.replace(/\s+$/, "")
+    }
+    const font = fontForStyle(style)
+    return x + font.layout(body).advanceWidth / font.unitsPerEm * (style as any).fontSize
   }, 0)
 
 export const lineHeight = (line: TextWithAttributedStyle): number =>
@@ -18,7 +21,7 @@ export const lineHeight = (line: TextWithAttributedStyle): number =>
 
 const baselineForAttributedStyle = ({ style }: AttributedStyle): number => {
   const font = fontForStyle(style)
-  return font.ascender / font.unitsPerEm * (style as any).fontSize
+  return font.ascent / font.unitsPerEm * (style as any).fontSize
 }
 
 export const lineBaseline = (line: TextWithAttributedStyle): number =>
@@ -65,7 +68,9 @@ export const breakLines = (
     lastPosition = position
   }
 
-  if (lastLine !== null) lines.push(lastLine)
+  if (lastLine !== null) {
+    lines.push(lastLine)
+  }
 
   return lines
 }

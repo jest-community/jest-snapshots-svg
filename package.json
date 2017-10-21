@@ -62,10 +62,9 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "fontkit": "^1.7.7",
     "linebreak": "^0.3.0",
     "nbind": "^0.3.12",
-    "opentype.js": "^0.7.3",
-    "string-pixel-width": "^1.1.1",
     "yoga-layout": "^1.5.0"
   }
 }

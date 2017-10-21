@@ -1,4 +1,4 @@
-export const $ = (type: string, attributes: Object, children?: string): string => {
+export const $ = (type: string, attributes: object, children?: string): string => {
   const opening = Object.keys(attributes).reduce((accum, key) => (
     attributes[key] != null ? `${accum} ${key}="${attributes[key]}"` : accum
   ), `<${type}`)

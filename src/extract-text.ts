@@ -1,8 +1,8 @@
-export interface AttributedStyle { start: number, end: number, style: Object }
+export interface AttributedStyle { start: number, end: number, style: object }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
 
-const flattenStyles = (styles): Object => Array.isArray(styles)
+const flattenStyles = (styles): object => Array.isArray(styles)
   ? Object.assign({}, ...styles)
   : (styles || {})
 
@@ -13,7 +13,7 @@ const mergeStyles = (a, b) => Object.keys(b).length > 0 ? { ...a, ...b } : a
 const defaultStyles = {
   fontSize: 14,
   lineHeight: 18,
-  fontFamily: "SF UI Text",
+  fontFamily: "Helvetica",
   fontWeight: "normal",
   fontStyle: "normal",
   textAlign: "left",
@@ -22,7 +22,7 @@ const defaultStyles = {
 const appendStyleTo = (
   attributedStyles: AttributedStyle[],
   text: string,
-  style: Object
+  style: object
 ) => {
   const lastAttributedStyle = attributedStyles.length > 0
     ? attributedStyles[attributedStyles.length - 1]
@@ -41,18 +41,18 @@ export default (component): TextWithAttributedStyle => {
   let text = ""
   const attributedStyles: AttributedStyle[] = []
 
-  const iterate = (component, style = mergeStyles(defaultStyles, getStyles(component))) => {
-    if (!component.children) return
-    component.children.forEach(child => {
-      if (child == null) return
-      if (typeof child !== "object") {
+  const iterate = (c, style = mergeStyles(defaultStyles, getStyles(c))) => {
+    (c.children || []).forEach(child => {
+      if (child == null) {
+        /* Do nothing */
+      } else if (typeof child !== "object") {
         const childText = String(child) // child might be a number
         text += childText
         appendStyleTo(attributedStyles, childText, style)
       } else {
         iterate(child, mergeStyles(style, getStyles(child)))
       }
-    }, [])
+    })
   }
 
   iterate(component)
