@@ -54,8 +54,8 @@ export const breakLines = (
   let lastPosition = 0
   let lastLine: TextWithAttributedStyle | null = null
 
-  let bk = null
-  while ((bk = breaker.nextBreak()) != null) {
+  let bk = breaker.nextBreak()
+  while (bk != null) {
     const { position, required } = bk as any
     const testLine = textSlice(textStyle, lineStart, position)
     if (lastLine === null || (!required && lineWidth(testLine) <= width)) {
@@ -66,6 +66,7 @@ export const breakLines = (
       lastLine = textSlice(textStyle, lineStart, position)
     }
     lastPosition = position
+    bk = breaker.nextBreak()
   }
 
   if (lastLine !== null) {
