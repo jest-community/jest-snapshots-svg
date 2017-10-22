@@ -10,18 +10,24 @@ export const lineWidth = ({ text, attributedStyles }: TextWithAttributedStyle): 
       body = body.replace(/\s+$/, "")
     }
     const font = fontForStyle(style)
-    return x + font.layout(body).advanceWidth / font.unitsPerEm * (style as any).fontSize
+    return x + font.layout(body).advanceWidth / font.unitsPerEm * style.fontSize
   }, 0)
 
 export const lineHeight = (line: TextWithAttributedStyle): number =>
   Math.max(
     0,
-    ...line.attributedStyles.map(({ style }) => (style as any).lineHeight)
+    ...line.attributedStyles.map(({ style }) => style.lineHeight)
+  )
+
+export const lineFontSize = (line: TextWithAttributedStyle): number =>
+  Math.max(
+    0,
+    ...line.attributedStyles.map(({ style }) => style.fontSize)
   )
 
 const baselineForAttributedStyle = ({ style }: AttributedStyle): number => {
   const font = fontForStyle(style)
-  return font.ascent / font.unitsPerEm * (style as any).fontSize
+  return font.ascent / font.unitsPerEm * style.fontSize
 }
 
 export const lineBaseline = (line: TextWithAttributedStyle): number =>
@@ -53,12 +59,13 @@ export const breakLines = (
   let lineStart = 0
   let lastPosition = 0
   let lastLine: TextWithAttributedStyle | null = null
+  let shouldBreak = false
 
-  let bk = breaker.nextBreak()
+  let bk: any = breaker.nextBreak()
   while (bk != null) {
-    const { position, required } = bk as any
+    const { position, required } = bk
     const testLine = textSlice(textStyle, lineStart, position)
-    if (lastLine === null || (!required && lineWidth(testLine) <= width)) {
+    if (lastLine === null || (!shouldBreak && lineWidth(testLine) <= width)) {
       lastLine = testLine
     } else {
       lines.push(lastLine)
@@ -66,6 +73,7 @@ export const breakLines = (
       lastLine = textSlice(textStyle, lineStart, position)
     }
     lastPosition = position
+    shouldBreak = required
     bk = breaker.nextBreak()
   }
 

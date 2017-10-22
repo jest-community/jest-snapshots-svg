@@ -4,8 +4,7 @@
  <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="0" width="100" height="480"/>
 
  <g transform='translate(0, 0)'>
-   <text x="0" y="0">
-<tspan x="0" y="10.7802734375" font-family="Helvetica" font-weight="normal" font-style="normal" font-size="14">Hello world</tspan></text>
+   <text x="0" y="0"><tspan x="0" y="14.673828125" fill="black" font-family="'Arimo', 'Helvetica', 'Arial', sans-serif" font-weight="normal" font-style="normal" font-size="14">Hello world</tspan></text>
  </g>
 
 </svg>

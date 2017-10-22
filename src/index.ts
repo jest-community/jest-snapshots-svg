@@ -37,7 +37,7 @@ import treeToSVG from "./tree-to-svg"
 
 const fail = (msg) => ({ message: () => msg, pass: false })
 
-export { loadFont } from "./font-loader"
+export { addFontFallback, loadFont } from "./font-loader"
 
 expect.extend({
     toMatchSVGSnapshot(root: Component, width, height) {

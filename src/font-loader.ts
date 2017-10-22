@@ -8,6 +8,7 @@ const weights = {
 }
 
 const fonts = {}
+const fontFallbacks = {}
 
 const numberWeight = weight => weights[weight] || weight
 
@@ -72,6 +73,10 @@ export const loadFont = (
   }
 }
 
+export const addFontFallback = (fontFamily: string, fallback: string) => {
+  fontFallbacks[fontFamily] = fallback
+}
+
 export const fontForStyle = (style, force = false) => {
   const key = keyFor(style)
   if (fonts[key]) {
@@ -92,3 +97,7 @@ export const fontForStyle = (style, force = false) => {
 
   return fontForStyle(style, true)
 }
+
+export const fontWithFallbacks = (fontFamily: string): string => (
+  fontFallbacks[fontFamily] ? `'${fontFamily}', ${fontFallbacks[fontFamily]}` : `'${fontFamily}'`
+)

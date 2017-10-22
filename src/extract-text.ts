@@ -1,4 +1,4 @@
-export interface AttributedStyle { start: number, end: number, style: object }
+export interface AttributedStyle { start: number, end: number, style: any }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
 
@@ -11,11 +11,12 @@ const getStyles = component => flattenStyles(component.props.style)
 const mergeStyles = (a, b) => Object.keys(b).length > 0 ? { ...a, ...b } : a
 
 const defaultStyles = {
-  fontSize: 14,
-  lineHeight: 18,
+  color: "black",
   fontFamily: "Helvetica",
-  fontWeight: "normal",
+  fontSize: 14,
   fontStyle: "normal",
+  fontWeight: "normal",
+  lineHeight: 18,
   textAlign: "left",
 }
 
