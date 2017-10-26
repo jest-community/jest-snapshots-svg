@@ -1,5 +1,7 @@
 import {ViewStyle} from "react-native"
 import * as yoga from "yoga-layout"
+import { textLines } from "./component-to-node"
+import textToSvg from "./text-to-svg"
 
 import { RenderedComponent, Settings } from "./index"
 import wsp from "./whitespace"
@@ -21,8 +23,8 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
     }
   }
 
-  const svgText = node.textContent ?
-    text(layout.left, layout.top, layout.width, layout.height, node.props.style, node.textContent)
+  const svgText = node[textLines]
+    ? textToSvg(layout.left, layout.top, layout.width, layout.height, node[textLines])
     : svg("rect", layout.left, layout.top, layout.width, layout.height, attributes)
 
   return "\n"
@@ -44,15 +46,5 @@ const attributes = (settings) => {
 
 const svg = (type, x, y, w, h, settings) =>
   `<${type}${attributes(settings)} x="${x}" y="${y}" width="${w}" height="${h}"/>`
-
-const text = (x, y, w, h, style, textContent) => {
-  const extensions = 'requiredExtensions="http://www.w3.org/1999/xhtml"'
-  const fontSize = style && style.fontSize || 14
-  const fontFamily = (style && `'${style.fontFamily}',`) || ""
-  const textStyle = `style="font-family:${fontFamily}'Times New Roman';font-size:${fontSize}px"`
-  return `<foreignObject ${extensions} x="${x}" y="${y}" width="${w}" height="${h}">`
-       + `<body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;"><p ${textStyle}>${textContent}</p>`
-       + "</body></foreignObject>"
-}
 
 export default nodeToSVG

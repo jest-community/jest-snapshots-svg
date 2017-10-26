@@ -45,7 +45,8 @@
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js"
+      "js",
+      "node"
     ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
@@ -60,8 +61,10 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "font-manager": "^0.2.2",
+    "fontkit": "^1.7.7",
+    "linebreak": "^0.3.0",
     "nbind": "^0.3.12",
-    "string-pixel-width": "^1.1.1",
     "yoga-layout": "^1.5.0"
   }
 }

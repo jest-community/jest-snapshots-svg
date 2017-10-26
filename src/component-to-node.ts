@@ -1,7 +1,9 @@
-import * as pixelWidth from "string-pixel-width"
-import * as fontMap from "string-pixel-width/lib/widthsMap"
 import * as yoga from "yoga-layout"
+import extractText from "./extract-text"
 import { Component, Settings } from "./index"
+import { breakLines, measureLines } from "./text-layout"
+
+export const textLines = Symbol("textLines")
 
 const isNotEmpty = prop => typeof prop !== "undefined" && prop !== null
 
@@ -96,27 +98,14 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
   }
 
   // We're in a node showing Text
-  if (
-    component && component.type === "Text" && component.children &&
-    (
-      typeof component.children[0] === "string" ||
-      typeof component.children[0] === "number"
-    )
-  ) {
-    // Potentially temporary, but should at least provide some layout stubbing
-    // See https://github.com/orta/jest-snapshots-svg/issues/11 for a bit more context
-    //
-    const fontSize = style.fontSize || 14
-    if (!style.height) { node.setHeight(fontSize * 2) }
-
-    // Skip attempting to figure the width, if it's hardcoded
-    if (isNotEmpty(style.width)) { return node }
-    const content = String(component.children[0])
-
-    const fontFamily = style.fontFamily && style.fontFamily.toLowerCase()
-    const font = fontMap[fontFamily] ? fontFamily : "times new roman"
-    const guessWidth = Math.ceil(pixelWidth(content, { font, size: fontSize }))
-    node.setWidth(guessWidth)
+  if (component && component.type === "Text") {
+    const styledText = extractText(component)
+    component[textLines] = null
+    node.setMeasureFunc(width => {
+      const lines = breakLines(styledText, width)
+      component[textLines] = lines
+      return measureLines(lines)
+    })
   }
 
   return node

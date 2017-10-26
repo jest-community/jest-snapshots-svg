@@ -90,12 +90,40 @@ It does this by emulating the rendering process of React Native by calling yoga-
   </tr>
 </table>
 
+### Fonts
+
+If you use `<Text />` elements, you must have access to the font files so we can lay the text out.
+Usually, this just means having the font installed. However, if this goes wrong, this can be done
+manually via the `loadFont` function, where you pass in the font file as a buffer. If you need a
+fallback, you can use `addFontFallback`.
+
+```js
+import { addFontFallback, loadFont } from "jest-snapshots-svg"
+
+loadFont(fs.readFileSync("your-font-file.ttf"))
+addFontFallback("Your Font", "'Helvetica', 'Arial', sans-serif")
+```
+
+This should be able to determine the `fontFamily`, `fontWeight`, and `fontStyle`. However, if it's
+wrong, or it failed, you can pass these in as a second argument.
+
+```js
+loadFont(fs.readFileSync("your-font-file.ttf"), {
+  fontFamily: "Helvetica",
+  fontWeight: "normal",
+  fontStyle: "normal"
+})
+```
+
+If you have a `.ttc` file (a collection of multiple files), and it fails to correctly guess the font
+style parameters, you can provide a `postscriptName` in the style object to target a specific font.
+Do this in combination with passing in the font style arguments. See more about this over at
+[fontkit](https://github.com/devongovett/fontkit#api).
 
 ### Flaws
 
 This is definitely pre-1.0, we only have it working on a few tests in [artsy/emission](https://github.com/artsy/emission/). Expect alpha quality style snapshots for a while, but more people working on it will mean we all get a better chance at it working out well.
 
-* Doesn't render text correctly - see [#11](https://github.com/orta/jest-snapshots-svg/issues/11)
 * Doesn't render image - see [#18](https://github.com/orta/jest-snapshots-svg/issues/18)
 * Not all flexbox attributes are supported - see [#19](https://github.com/orta/jest-snapshots-svg/issues/19)
 
