@@ -256,6 +256,8 @@ declare module "yoga-layout" {
     setAlignItems(alignment: number)
     setAlignSelf(alignment: number)
 
+    setMeasureFunc(func: (width: number) => { width: number, height: number })
+
     insertChild(node: NodeInstance, index: number)
     removeChild(node: NodeInstance)
 
@@ -287,6 +289,10 @@ declare module "yoga-layout" {
 
   // Globals
   function getInstanceCount(): number
+}
+
+declare module "font-manager" {
+  function findFontSync(style: any): { path: string } | null
 }
 
 // import {ViewStyle} from "react-native"
