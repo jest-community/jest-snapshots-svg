@@ -1,12 +1,6 @@
-const attributes = (settings) => {
-  let attributeString = ""
-  for (const key in settings) {
-    if (settings.hasOwnProperty(key)) {
-      const element = settings[key]
-      attributeString += ` ${key}="${element}"`
-    }
-  }
-  return attributeString
+export const $ = (type: string, attributes: object, children?: string): string => {
+  const opening = Object.keys(attributes).reduce((accum, key) => (
+    attributes[key] != null ? `${accum} ${key}="${attributes[key]}"` : accum
+  ), `<${type}`)
+  return children ? `${opening}>${children}</${type}>` : `${opening}/>`
 }
-
-export const $ = (type, settings) => `<${type}${attributes(settings)}/>`

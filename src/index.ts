@@ -27,6 +27,7 @@ export interface RenderedComponent {
 export interface Settings {
     width: number
     height: number
+    wireframe: boolean
 }
 
 import componentTreeToNodeTree from "./component-tree-to-nodes"
@@ -40,7 +41,12 @@ const fail = (msg) => ({ message: () => msg, pass: false })
 export { addFontFallback, loadFont } from "./font-loader"
 
 expect.extend({
-    toMatchSVGSnapshot(root: Component, width, height) {
+    toMatchSVGSnapshot(
+        root: Component,
+        width,
+        height,
+        { wireframe = false }: { wireframe?: boolean } = {}
+    ) {
         if (!root) { return fail("A falsy Component was passed to toMatchSVGSnapshot") }
         if (!root.props) { return fail("A Component without props was passed to toMatchSVGSnapshot") }
         if (!root.type) { return fail("A Component without a type was passed to toMatchSVGSnapshot") }
@@ -62,7 +68,7 @@ expect.extend({
         // We will need to do something smarter in the future, these snapshots need to be 1 file per test
         // whereas jest-snapshots can be multi-test per file.
 
-        const settings: Settings = { width, height }
+        const settings: Settings = { width, height, wireframe }
         const rootNode = componentTreeToNodeTree(root, settings)
         if (!rootNode) { return }
 

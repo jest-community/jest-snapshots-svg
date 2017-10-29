@@ -1,7 +1,7 @@
-import { TextWithAttributedStyle } from "./extract-text"
-import { fontWithFallbacks } from "./font-loader"
-import { $ } from "./svg-util"
-import { lineBaseline, lineFontSize, lineHeight } from "./text-layout"
+import { TextWithAttributedStyle } from "../extract-text"
+import { fontWithFallbacks } from "../font-loader"
+import { lineBaseline, lineFontSize, lineHeight } from "../text-layout"
+import { $ } from "./util"
 
 const textStyles = style => ({
   "font-family": fontWithFallbacks(style.fontFamily),

@@ -1,11 +1,12 @@
 import { ViewStyle } from "react-native"
 import * as yoga from "yoga-layout"
 import { textLines } from "./component-to-node"
-import textToSvg from "./text-to-svg"
 
 import { styleFromComponent } from "./component-to-node"
 import { RenderedComponent, Settings } from "./index"
+import text from "./svg/Text"
 import view from "./svg/View"
+import viewWireframe from "./svg/ViewWireframe"
 import wsp from "./whitespace"
 
 const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) => {
@@ -18,9 +19,14 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   //   return ""
   // }
 
-  const svgText = node[textLines]
-    ? textToSvg(layout.left, layout.top, layout.width, layout.height, node[textLines])
-    : view(layout as yoga.Layout, style)
+  let svgText = ""
+  if (node[textLines]) {
+    svgText = text(layout.left, layout.top, layout.width, layout.height, node[textLines])
+  } else if (!settings.wireframe) {
+    svgText = view(layout as yoga.Layout, style)
+  } else {
+    svgText = viewWireframe(layout as yoga.Layout, style)
+  }
 
   return "\n"
           + wsp(indent)

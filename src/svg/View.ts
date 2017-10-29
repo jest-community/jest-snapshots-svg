@@ -45,18 +45,18 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
       "width": width - borderWidth,
       "height": height - borderWidth,
       fill,
-      "stroke": borderColors[0],
-      "stroke-width": borderWidth,
-      "rx": borderRadii[0] - borderWidth * 0.5,
-      "ry": borderRadii[0] - borderWidth * 0.5,
+      "stroke": borderWidth ? borderColors[0] : undefined,
+      "stroke-width": borderWidth || undefined,
+      "rx": borderRadius ? (borderRadius - borderWidth * 0.5) : undefined,
+      "ry": borderRadius ? (borderRadius - borderWidth * 0.5) : undefined,
     })
   } else if (sidesEqual(borderWidths) && sidesEqual(borderColors) && borderStyle === "solid") {
     const borderWidth = borderWidths[0]
     return $("path", {
       ...attributes,
       fill,
-      "stroke": borderColors[0],
-      "stroke-width": borderWidth,
+      "stroke": borderWidth ? borderColors[0] : undefined,
+      "stroke-width": borderWidth || undefined,
       "d": pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
     })
   } else if (sidesEqual(borderColors) && borderStyle === "solid") {
@@ -81,8 +81,8 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
     const borderShape = $("path", {
       ...dashStyles[borderStyle](borderWidth),
       "fill": "none",
-      "stroke": borderColors[0],
-      "stroke-width": borderWidth,
+      "stroke": borderWidth ? borderColors[0] : undefined,
+      "stroke-width": borderWidth || undefined,
       "d": pathForRect(left, top, width, height, borderRadii, scaleSides(borderWidths, 0.5))
     })
     return backgroundShape + borderShape

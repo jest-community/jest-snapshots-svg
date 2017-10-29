@@ -23,7 +23,7 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
 
   const attributes: any = {
     "type": "View",
-    "fill": "none",
+    "fill": "rgba(0, 0, 0, 0.2)",
     "stroke": "black",
     "stroke-width": borderWidth,
   }
@@ -37,8 +37,8 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
       y: top - borderWidth * 0.5,
       width: width - borderWidth,
       height: height - borderWidth,
-      rx: borderRadii[0] - borderWidth * 0.5,
-      ry: borderRadii[0] - borderWidth * 0.5,
+      rx: borderRadius ? borderRadius - borderWidth * 0.5 : undefined,
+      ry: borderRadius ? borderRadius - borderWidth * 0.5 : undefined,
     })
   } else {
     return $("path", {
