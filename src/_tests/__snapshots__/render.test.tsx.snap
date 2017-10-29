@@ -24,7 +24,7 @@ exports[`handles some simple JSX 1`] = `
      <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\"/>
    </g>
 
-   <rect type=\\"View\\" x=\\"-5\\" y=\\"-5\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"10\\"/>
+   <rect type=\\"View\\" x=\\"5\\" y=\\"5\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\" stroke=\\"black\\" stroke-width=\\"10\\"/>
 
    <g transform='translate(0, 0)'>
      <rect type=\\"View\\" x=\\"0\\" y=\\"0\\" width=\\"NaN\\" height=\\"NaN\\" fill=\\"none\\"/>

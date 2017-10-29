@@ -22,3 +22,10 @@ it("Nested wireframe", () => {
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })
+
+it("Simple wireframe with border radius", () => {
+  const jsx = <View style={{ width: 100, height: 50, borderRadius: 20 }} />
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
+})

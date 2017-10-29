@@ -21,7 +21,7 @@
      <rect type="View" x="0" y="40" width="10" height="10" fill="none"/>
    </g>
 
-   <rect type="View" x="35" y="175" width="150" height="30" fill="none" stroke="black" stroke-width="10"/>
+   <rect type="View" x="45" y="185" width="150" height="30" fill="none" stroke="black" stroke-width="10"/>
 
    <g transform='translate(40, 180)'>
      <rect type="View" x="50" y="30" width="10" height="10" fill="none"/>

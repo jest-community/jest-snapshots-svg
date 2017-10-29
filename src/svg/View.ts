@@ -40,8 +40,8 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
     // Offset size by half border radius, as RN draws border inside, whereas SVG draws on both sides
     return $("rect", {
       ...attributes,
-      "x": left - borderWidth * 0.5,
-      "y": top - borderWidth * 0.5,
+      "x": left + borderWidth * 0.5,
+      "y": top + borderWidth * 0.5,
       "width": width - borderWidth,
       "height": height - borderWidth,
       fill,
