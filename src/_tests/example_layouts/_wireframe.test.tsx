@@ -11,6 +11,13 @@ it("Simple wireframe", () => {
   expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })
 
+it("Simple wireframe with background color", () => {
+  const jsx = <View style={{ width: 100, height: 50, backgroundColor: "red" }} />
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
+})
+
 it("Nested wireframe", () => {
   const jsx =
     <View style={{ width: 100, height: 50, flexDirection: "row" }}>

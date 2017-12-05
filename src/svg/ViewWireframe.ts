@@ -23,7 +23,7 @@ export default ({ top, left, width, height }: yoga.Layout, style: any) => {
 
   const attributes: any = {
     "type": "View",
-    "fill": "rgba(0, 0, 0, 0.2)",
+    "fill": style.backgroundColor || "rgba(0, 0, 0, 0.2)",
     "stroke": "black",
     "stroke-width": borderWidth,
   }
