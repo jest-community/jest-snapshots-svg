@@ -61,7 +61,7 @@ It does this by emulating the rendering process of React Native by calling yoga-
         }}>
           <View style={squareStyle("powderblue")}/>
           <View style={squareStyle("skyblue")}/>
-          <View style={style={squareStyle("steelblue")}
+          <View style={squareStyle("steelblue")}/>
         </View>
 
       const component = renderer.create(jsx).toJSON()
