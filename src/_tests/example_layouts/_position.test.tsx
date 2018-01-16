@@ -23,7 +23,7 @@ it("Renders views on top position", () => {
       }} />
     </View>
   const component = renderer.create(jsx).toJSON()
-  expect(component).toMatchSVGSnapshot(320, 480)
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })
 
 it("Renders views on bottom position", () => {
@@ -45,7 +45,7 @@ it("Renders views on bottom position", () => {
       }} />
     </View>
   const component = renderer.create(jsx).toJSON()
-  expect(component).toMatchSVGSnapshot(320, 480)
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })
 
 it("Renders views on left position", () => {
@@ -60,5 +60,5 @@ it("Renders views on left position", () => {
       }} />
     </View>
   const component = renderer.create(jsx).toJSON()
-  expect(component).toMatchSVGSnapshot(320, 480)
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })
