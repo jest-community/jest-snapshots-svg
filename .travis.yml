@@ -1,5 +1,20 @@
-language: node_js
-node_js: "node"
+language: cpp
+compiler: gcc
+dist: trusty
+
+before_install:
+  # C++14
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+  # Node JS
+  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+install: 
+  # C++14
+  - sudo apt-get install -qq g++-6
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+  # Node
+  - sudo apt-get install -y nodejs
 
 cache:
   yarn: true
