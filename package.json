@@ -65,7 +65,7 @@
     "font-manager": "^0.2.2",
     "fontkit": "^1.7.7",
     "linebreak": "^0.3.0",
-    "nbind": "^0.3.12",
-    "yoga-layout": "^1.5.0"
+    "nbind": "^0.3.14",
+    "yoga-layout": "^1.9.0"
   }
 }
