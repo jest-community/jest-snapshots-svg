@@ -15,5 +15,5 @@ it("Splits the layout vertically across", () => {
     </View>
 
   const component = renderer.create(jsx).toJSON()
-  expect(component).toMatchSVGSnapshot(320, 480)
+  expect(component).toMatchSVGSnapshot(320, 480, { wireframe: true })
 })

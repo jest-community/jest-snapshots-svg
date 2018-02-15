@@ -24,6 +24,7 @@ describe("nodeToSVG", () => {
       const settings = {
         width: 1024,
         height: 768,
+        wireframe: false
       }
 
       const results = nodeToSVG(0, rootNode, settings)

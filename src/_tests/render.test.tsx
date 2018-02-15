@@ -37,6 +37,7 @@ it("handles some simple JSX", () => {
   const settings = {
     width: 600,
     height: 400,
+    wireframe: false
   }
 
   const rootNode = componentTreeToNodeTree(component, settings)

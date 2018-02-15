@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg width="320" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
 
- <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="0" y="0" width="320" height="480"/>
+ <rect type="View" fill="rgba(0, 0, 0, 0.1)" stroke="black" stroke-width="1" x="0.5" y="0.5" width="319" height="479"/>
 
  <g transform='translate(0, 0)'>
-   <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="10" y="370" width="300" height="100"/>
-   <rect type="View" fill-opacity="0.1" stroke-width="1" stroke="black" x="20" y="380" width="280" height="80"/>
+   <rect type="View" fill="rgba(0, 0, 0, 0.1)" stroke="black" stroke-width="1" x="10.5" y="370.5" width="299" height="99"/>
+   <rect type="View" fill="rgba(0, 0, 0, 0.1)" stroke="black" stroke-width="1" x="20.5" y="380.5" width="279" height="79"/>
  </g>
 
 </svg>

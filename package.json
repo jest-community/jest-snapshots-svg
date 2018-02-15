@@ -28,6 +28,7 @@
     "typescript": "^2.3.2"
   },
   "scripts": {
+    "test": "jest",
     "type-check": "tsc --noEmit",
     "build": "tsc && cp src/external-api.d.ts build",
     "watch": "tsc --watch",
