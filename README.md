@@ -69,12 +69,12 @@ It does this by emulating the rendering process of React Native by calling yoga-
     })
 
   </td>
-    <th rowspan="9"><img width="322" height"482" src="https://github.com/orta/jest-snapshots-svg/blob/use-long-names/web/screenshot.png?raw=true"></th>
+    <th rowspan="9"><img width="322" height"482" src="https://github.com/jest-community/jest-snapshots-svg/blob/use-long-names/web/screenshot.png?raw=true"></th>
   </tr>
   <tr>
     <td>Then you run your tests. <code>yarn jest</code>.</td>
   </tr>
-    <td><p>Then you get SVG output in the <code>__snapshots__</code> folder. <a href='https://github.com/orta/jest-snapshots-svg/blob/master/src/_tests/example_layouts/__snapshots__/_align-items.test.tsx-renders-three-vertically-horizontally-centeredblocks.svg?short_path=8153b80'>Example</a></p>
+    <td><p>Then you get SVG output in the <code>__snapshots__</code> folder. <a href='https://github.com/jest-community/jest-snapshots-svg/blob/master/src/_tests/example_layouts/__snapshots__/_align-items.test.tsx-renders-three-vertically-horizontally-centeredblocks.svg?short_path=8153b80'>Example</a></p>
 
     <?xml version="1.0" encoding="UTF-8" ?>
       <svg width="320" height="480" ...>
@@ -124,15 +124,15 @@ Do this in combination with passing in the font style arguments. See more about 
 
 This is definitely pre-1.0, we only have it working on a few tests in [artsy/emission](https://github.com/artsy/emission/). Expect alpha quality style snapshots for a while, but more people working on it will mean we all get a better chance at it working out well.
 
-* Doesn't render image - see [#18](https://github.com/orta/jest-snapshots-svg/issues/18)
-* Not all flexbox attributes are supported - see [#19](https://github.com/orta/jest-snapshots-svg/issues/19)
+* Doesn't render image - see [#18](https://github.com/jest-community/jest-snapshots-svg/issues/18)
+* Not all flexbox attributes are supported - see [#19](https://github.com/jest-community/jest-snapshots-svg/issues/19)
 
 ### I want to work on this
 
 OK, you need to clone this repo:
 
 ```sh
-git clone https://github.com/orta/jest-snapshots-svg.git
+git clone https://github.com/jest-community/jest-snapshots-svg.git
 ```
 
 There's the usual stuff, `yarn test` and `yarn lint`.
