@@ -24,7 +24,7 @@ const textAnchors = {
 
 export default (x, y, width, height, lines: TextWithAttributedStyle[]): string => {
   const { textAlign = "left" as string } = lines[0].attributedStyles[0].style
-  const originX = width * textAligns[textAlign]
+  const originX = x + width * textAligns[textAlign]
 
   const { textLines } = lines.reduce((accum, line) => {
     const { text, attributedStyles } = line

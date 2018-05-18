@@ -113,3 +113,15 @@ it("Renders text with different colors", () => {
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
+
+it("Renders text in the correct place when positioned with flex", () => {
+  const jsx =
+    <View style={{ width: 500, height: 500, alignItems: "center", justifyContent: "center" }}>
+      <Text>
+        Test
+      </Text>
+    </View>
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
