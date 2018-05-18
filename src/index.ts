@@ -1,7 +1,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 
 export interface Component {
     type: string

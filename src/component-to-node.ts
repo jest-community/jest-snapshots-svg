@@ -1,4 +1,4 @@
-import * as yoga from "yoga-layout"
+import Yoga, {Config, Node, NodeInstance} from "yoga-dom"
 import extractText from "./extract-text"
 import { Component, Settings } from "./index"
 import { breakLines, measureLines } from "./text-layout"
@@ -7,14 +7,20 @@ export const textLines = Symbol("textLines")
 
 const isNotEmpty = prop => typeof prop !== "undefined" && prop !== null
 
-const componentToNode = (component: Component, settings: Settings): yoga.NodeInstance => {
+const componentToNode = (component: Component, settings: Settings): NodeInstance => {
   // Do we need to pass in the parent node too?
-  const node = yoga.Node.create()
+
+  const yogaConfig = new Config()
+  const node = Node.createWithConfig(this.yogaConfig)
+
   const hasStyle = component.props && component.props.style
   const style = hasStyle ? styleFromComponent(component) : {}
 
   if (hasStyle) {
     // http://facebook.github.io/react-native/releases/0.44/docs/layout-props.html
+
+    // See https://github.com/vincentriemer/react-native-dom/blob/88fe69fe9d8b9d62e0642e493877ce469cd7a608/packages/react-native-dom/ReactDom/views/RCTShadowView.js
+    // for porting to yoga-dom
 
     if (isNotEmpty(style.width)) { node.setWidth(style.width) }
     if (isNotEmpty(style.height)) { node.setHeight(style.height) }
