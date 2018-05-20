@@ -1,10 +1,7 @@
+import { flattenStyles } from "./flatten-styles"
 export interface AttributedStyle { start: number, end: number, style: any }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
-
-const flattenStyles = (styles): object => Array.isArray(styles)
-  ? Object.assign({}, ...styles)
-  : (styles || {})
 
 const getStyles = component => flattenStyles(component.props.style)
 

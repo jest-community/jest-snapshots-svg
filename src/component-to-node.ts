@@ -1,5 +1,6 @@
 import * as yoga from "yoga-layout"
 import extractText from "./extract-text"
+import { flattenStyles } from "./flatten-styles"
 import { Component, Settings } from "./index"
 import { breakLines, measureLines } from "./text-layout"
 
@@ -115,11 +116,7 @@ export const styleFromComponent = (component: Component) => {
     let style = component.props.style
 
     if (Array.isArray(style)) {
-      // The Stylesheet object allows some serious nesting of styles
-      const flattened = Array.prototype.concat.apply([], style)
-      const themeFlattened = Array.prototype.concat.apply([], flattened) as any[]
-      const objectsOnly = themeFlattened.filter(f => f)
-      style = Object.assign({}, ...objectsOnly)
+        style = flattenStyles(style)
     }
 
     return style
