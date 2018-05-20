@@ -9,6 +9,10 @@ const weights = {
 
 const fonts = {}
 const fontFallbacks = {}
+let defaultFont = "Helvetica"
+
+export const getDefaultFont = () => defaultFont
+export const setDefaultFont = (fontName: string) => defaultFont = fontName
 
 const numberWeight = weight => weights[weight] || weight
 

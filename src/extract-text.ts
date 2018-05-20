@@ -1,4 +1,5 @@
 import { flattenStyles } from "./flatten-styles"
+import { getDefaultFont } from "./font-loader"
 export interface AttributedStyle { start: number, end: number, style: any }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
@@ -9,7 +10,6 @@ const mergeStyles = (a, b) => Object.keys(b).length > 0 ? { ...a, ...b } : a
 
 const defaultStyles = {
   color: "black",
-  fontFamily: "Helvetica",
   fontSize: 14,
   fontStyle: "normal",
   fontWeight: "normal",
@@ -39,7 +39,8 @@ export default (component): TextWithAttributedStyle => {
   let text = ""
   const attributedStyles: AttributedStyle[] = []
 
-  const iterate = (c, style = mergeStyles(defaultStyles, getStyles(c))) => {
+  const defaultStylesWithFont = mergeStyles(defaultStyles, { fontFamily: getDefaultFont() })
+  const iterate = (c, style = mergeStyles(defaultStylesWithFont, getStyles(c))) => {
     (c.children || []).forEach(child => {
       if (child == null) {
         /* Do nothing */
