@@ -1,9 +1,7 @@
-import { StyleSheet } from "react-native"
+import { flattenStyles } from "./flatten-styles"
 export interface AttributedStyle { start: number, end: number, style: any }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
-
-const flattenStyles = (styles): object => Object.assign({}, StyleSheet.flatten(styles))
 
 const getStyles = component => flattenStyles(component.props.style)
 

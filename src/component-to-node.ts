@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native"
 import * as yoga from "yoga-layout"
 import extractText from "./extract-text"
+import { flattenStyles } from "./flatten-styles"
 import { Component, Settings } from "./index"
 import { breakLines, measureLines } from "./text-layout"
 
@@ -116,7 +116,7 @@ export const styleFromComponent = (component: Component) => {
     let style = component.props.style
 
     if (Array.isArray(style)) {
-        style = Object.assign({}, StyleSheet.flatten(style))
+        style = flattenStyles(style)
     }
 
     return style
