@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native"
 import * as yoga from "yoga-layout"
 import extractText from "./extract-text"
 import { Component, Settings } from "./index"
@@ -115,11 +116,7 @@ export const styleFromComponent = (component: Component) => {
     let style = component.props.style
 
     if (Array.isArray(style)) {
-      // The Stylesheet object allows some serious nesting of styles
-      const flattened = Array.prototype.concat.apply([], style)
-      const themeFlattened = Array.prototype.concat.apply([], flattened) as any[]
-      const objectsOnly = themeFlattened.filter(f => f)
-      style = Object.assign({}, ...objectsOnly)
+        style = Object.assign({}, StyleSheet.flatten(style))
     }
 
     return style
