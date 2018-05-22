@@ -6,7 +6,7 @@
   "files": [
     "build/*"
   ],
-  "typings": "build/external-api.d.ts",
+  "typings": "build/index.d.ts",
   "author": "Orta Therox <orta.therox@gmail.com> & Art.sy Inc",
   "license": "MIT",
   "devDependencies": {
@@ -30,7 +30,7 @@
   "scripts": {
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "build": "tsc && cp src/external-api.d.ts build",
+    "build": "tsc",
     "watch": "tsc --watch",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
