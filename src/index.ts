@@ -83,9 +83,17 @@ expect.extend({
         const rootNode = componentTreeToNodeTree(root, settings)
         if (!rootNode) { return }
 
-        // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
-        // still exist.
-        rootNode.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
+        try {
+            // This will mutate the node tree, we cannot trust that the nodes  in the original tree will
+            // still exist.
+            rootNode.calculateLayout(settings.width, settings.height, yoga.DIRECTION_LTR)
+        } catch (e) {
+            // Clean up the root node after the failure to calculate layout then rethrow the error
+            if (rootNode) {
+                rootNode.freeRecursive()
+            }
+            throw e
+        }
 
         // Generate a tree of components with the layout baked into it, them clean up yog memory
         const renderedComponentRoot = renderedComponentTree(root, rootNode)
