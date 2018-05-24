@@ -3,6 +3,17 @@ import * as path from "path"
 
 import * as yoga from "yoga-layout"
 
+// Add toMatchSVGSnapshot to jest definitions. Specified here so that it is output into
+// the index.d.ts definitions provided for projects to use.
+declare global {
+    namespace jest {
+        interface Matchers<R> {
+            /** Checks and sets up SVG rendering for React Components. */
+            toMatchSVGSnapshot(width: number, height: number, settings?: { wireframe?: boolean }): void;
+        }
+    }
+}
+
 export interface Component {
     type: string
     props: any
