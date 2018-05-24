@@ -139,3 +139,13 @@ it("Renders text using the specified default font", () => {
   const component = renderer.create(jsx).toJSON()
   expect(component).toMatchSVGSnapshot(320, 480)
 })
+
+it("Does not break if a Text tag is empty", () => {
+  const jsx =
+    <View style={{ width: 320, height: 480 }}>
+      <Text />
+    </View>
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
