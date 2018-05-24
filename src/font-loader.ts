@@ -9,7 +9,7 @@ const weights = {
 
 const fonts = {}
 const fontFallbacks = {}
-let defaultFont = "Helvetica"
+let defaultFont = "Proza Libre"
 
 export const getDefaultFont = () => defaultFont
 export const setDefaultFont = (fontName: string) => defaultFont = fontName
@@ -105,3 +105,17 @@ export const fontForStyle = (style, force = false) => {
 export const fontWithFallbacks = (fontFamily: string): string => (
   fontFallbacks[fontFamily] ? `'${fontFamily}', ${fontFallbacks[fontFamily]}` : `'${fontFamily}'`
 )
+
+// Default font family to provide for jest snapshots testing.
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Bold.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-BoldItalic.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-ExtraBold.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-ExtraBoldItalic.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Italic.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Light.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-LightItalic.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Medium.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-MediumItalic.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Regular.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-SemiBold.ttf")))
+loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-SemiBoldItalic.ttf")))
