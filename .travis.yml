@@ -32,7 +32,6 @@ cache:
   - .jest
 
 script:
-- 
 - yarn lint
 - yarn jest
 - yarn danger

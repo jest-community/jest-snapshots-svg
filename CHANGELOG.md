@@ -1,5 +1,9 @@
 ### Master
 
+### 0.1.0
+
+* Adds the ability to set a default font [dawnmist]
+* Improved text position rendering [jacobp100]
 
 ### 0.0.24
 
