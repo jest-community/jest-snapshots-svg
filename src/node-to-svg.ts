@@ -20,7 +20,7 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   // }
 
   let svgText = ""
-  if (node[textLines]) {
+  if (node[textLines] && node[textLines].length > 0) {
     svgText = text(layout.left, layout.top, layout.width, layout.height, node[textLines])
   } else if (!settings.wireframe) {
     svgText = view(layout as yoga.Layout, style)

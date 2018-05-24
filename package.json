@@ -30,7 +30,7 @@
   "scripts": {
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "build": "tsc",
+    "build": "tsc && cp -r src/font build",
     "watch": "tsc --watch",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",

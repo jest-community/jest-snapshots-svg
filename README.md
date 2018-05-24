@@ -95,11 +95,13 @@ It does this by emulating the rendering process of React Native by calling yoga-
 If you use `<Text />` elements, you must have access to the font files so we can lay the text out.
 Usually, this just means having the font installed. However, if this goes wrong, this can be done
 manually via the `loadFont` function, where you pass in the font file as a buffer. If you need a
-fallback, you can use `addFontFallback`.
+fallback, you can use `addFontFallback`. If you just want to be able to specify the default
+fontFamily to use, you can use `setDefaultFont`.
 
 ```js
-import { addFontFallback, loadFont } from "jest-snapshots-svg"
+import { addFontFallback, loadFont, setDefaultFont } from "jest-snapshots-svg"
 
+setDefaultFont("DejaVu Sans")
 loadFont(fs.readFileSync("your-font-file.ttf"))
 addFontFallback("Your Font", "'Helvetica', 'Arial', sans-serif")
 ```

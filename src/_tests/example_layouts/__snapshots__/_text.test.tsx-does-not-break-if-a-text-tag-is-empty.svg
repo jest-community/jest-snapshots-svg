@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg width="320" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+ <rect type="View" x="0" y="0" width="320" height="480" fill="none"/>
+
+ <g transform='translate(0, 0)'>
+   <rect type="View" x="0" y="0" width="320" height="0" fill="none"/>
+ </g>
+
+</svg>
