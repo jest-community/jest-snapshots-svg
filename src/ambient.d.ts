@@ -13,7 +13,9 @@ declare namespace jest {
 
 // https://github.com/vincentriemer/react-native-dom/blob/88fe69fe9d8b9d62e0642e493877ce469cd7a608/packages/react-native-dom/flow-typed/npm/yoga-dom.js
 
-declare module "yoga-dom" {
+declare module "yoga-dom" 
+
+declare module "yoga-do" {
 
   // https://github.com/facebook/yoga/blob/master/javascript/sources/YGEnums.js
   // and https://github.com/facebook/yoga/blob/master/gentest/gentest-javascript.js 5
@@ -223,14 +225,14 @@ declare module "yoga-dom" {
     toString(): string
   }
 
-  class Value {
+  export class Value {
     unit: Unit
     value: any
 
     constructor(unit: Unit, value: any)
 
-    fromJS(expose: () => void)
-    toString(): string
+    // fromJS(expose: () => void)
+    // toString(): string
     valueOf(): any
   }
 
@@ -243,18 +245,18 @@ declare module "yoga-dom" {
 
     static createWithConfig(config: YogaConfig): NodeInstance
 
-    // setWidth(width: number)
-    // setHeight(height: number)
-    // setMinWidth(width: number)
-    // setMinHeight(height: number)
-    // setMaxWidth(height: number)
-    // setMaxHeight(height: number)
-    // setPadding(edge: Edge, value: number)
-    // setMargin(edge: Edge, value: number)
-    // setBorder(edge: Edge, value: number)
-    // setDisplay(display: Display)
-    // setPositionType(positionType: PositionType)
-    // setPosition(edge: Edge, position: number)
+    setWidth(width: number)
+    setHeight(height: number)
+    setMinWidth(width: number)
+    setMinHeight(height: number)
+    setMaxWidth(height: number)
+    setMaxHeight(height: number)
+    setPadding(edge: Edge, value: number)
+    setMargin(edge: Edge, value: number)
+    setBorder(edge: Edge, value: number)
+    setDisplay(display: Display)
+    setPositionType(positionType: PositionType)
+    setPosition(edge: Edge, position: number)
 
     // setFlex(ordinal: number)
     // setFlexGrow(ordinal: number)
@@ -297,7 +299,7 @@ declare module "yoga-dom" {
   // const Node: NodeFactory
 
   interface YogaPropConstants {
-    // align: {
+    align: any
     //   [string]: Align,
     //   auto: AlignAuto,
     //   "flex-start": AlignFlexStart,
@@ -307,25 +309,25 @@ declare module "yoga-dom" {
     //   "space-between": AlignSpaceBetween,
     //   "space-around": AlignSpaceAround
     // },
-    // direction: {
+    direction: any
     //   [string]: ?Direction,
     //   inherit: DirectionInherit,
     //   ltr: DirectionLTR,
     //   rtl: DirectionRTL
     // },
-    // display: {
+    display: any
     //   [string]: ?Display,
     //   flex: DisplayFlex,
     //   none: DisplayNone
     // },
-    // flexDirection: {
+    flexDirection: any
     //   [string]: ?FlexDirection,
     //   column: FlexDirColumn,
     //   "column-reverse": FlexDirColumnReverse,
     //   row: FlexDirRow,
     //   "row-reverse": FlexDirRowReverse
     // },
-    // justify: {
+    justify: any
     //   [string]: Justify?,
     //   "flex-start": JustifyFlexStart,
     //   center: JustifyFlexStart,
@@ -334,18 +336,18 @@ declare module "yoga-dom" {
     //   "space-around": JustifySpaceAround,
     //   "space-evenly": JustifySpaceEvenly
     // },
-    // overflow: {
+    overflow: any
     //   [string]: ?Overflow,
     //   visible: OverflowVisible,
     //   hidden: OverflowHidden,
     //   scroll: OverflowScroll
     // },
-    // position: {
+    position: any
     //   [string]: ?PositionType,
     //   absolute: PositionAbsolute,
     //   relative: PositionRelative
     // },
-    // wrap: {
+    wrap: any
     //   [string]: ?Wrap,
     //   nowrap: WrapNoWrap,
     //   wrap: WrapWrap,
@@ -361,7 +363,7 @@ declare module "yoga-dom" {
     //   atMost: MeasureModeAtMost
     // },
 
-    // unit: {
+    unit: any
     //   [string]: ?Unit,
     //   undefined: UnitUndefined,
     //   point: UnitPoint,
@@ -381,10 +383,10 @@ declare module "yoga-dom" {
 
   export const Node: typeof NodeInstance
   export const Config: typeof YogaConfig
-  // export const Constants = YogaConstants;
+  export const Constants: YogaConstants
   // export const Module = Exports;
     // export const PropEnumMap = $Values<YogaPropConstants>;
-  // export const Value = YGValue;
+
 
   // https://github.com/vincentriemer/yoga-dom/blob/master/src/index.js#L47-L67
 
