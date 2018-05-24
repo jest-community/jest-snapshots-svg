@@ -6,7 +6,7 @@ import * as React from "react"
 import { Text, View } from "react-native"
 import * as renderer from "react-test-renderer"
 
-import { addFontFallback, loadFont } from "../../index"
+import { addFontFallback, loadFont, setDefaultFont } from "../../index"
 
 loadFont(fs.readFileSync(path.join(__dirname, "../Arimo/Arimo-Regular.ttf")))
 loadFont(fs.readFileSync(path.join(__dirname, "../Arimo/Arimo-Bold.ttf")))
@@ -119,6 +119,20 @@ it("Renders text in the correct place when positioned with flex", () => {
     <View style={{ width: 500, height: 500, alignItems: "center", justifyContent: "center" }}>
       <Text>
         Test
+      </Text>
+    </View>
+
+  const component = renderer.create(jsx).toJSON()
+  expect(component).toMatchSVGSnapshot(320, 480)
+})
+
+it("Renders text using the specified default font", () => {
+  setDefaultFont("Arimo")
+
+  const jsx =
+    <View style={{ width: 320, height: 480 }}>
+      <Text>
+        Test setDefaultFont
       </Text>
     </View>
 
