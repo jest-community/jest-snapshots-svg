@@ -1,7 +1,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 
 // Add toMatchSVGSnapshot to jest definitions. Specified here so that it is output into
 // the index.d.ts definitions provided for projects to use.

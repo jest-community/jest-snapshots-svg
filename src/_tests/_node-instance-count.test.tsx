@@ -1,6 +1,6 @@
 import "../index"
 
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 
 import * as React from "react"
 import { View } from "react-native"

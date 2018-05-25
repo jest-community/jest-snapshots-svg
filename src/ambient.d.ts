@@ -2,7 +2,11 @@
 // Based on https://facebook.github.io/yoga/docs/api/javascript/
 //
 
-declare module "yoga-layout" {
+// https://github.com/vincentriemer/react-native-dom/blob/88fe69fe9d8b9d62e0642e493877ce469cd7a608/packages/react-native-dom/flow-typed/npm/yoga-dom.js
+
+declare module "yoga-dom" 
+
+declare module "yoga-do" {
 
   // https://github.com/facebook/yoga/blob/master/javascript/sources/YGEnums.js
   // and https://github.com/facebook/yoga/blob/master/gentest/gentest-javascript.js 5
@@ -212,18 +216,25 @@ declare module "yoga-layout" {
     toString(): string
   }
 
-  class Value {
+  export class Value {
     unit: Unit
     value: any
 
     constructor(unit: Unit, value: any)
 
-    fromJS(expose: () => void)
-    toString(): string
+    // fromJS(expose: () => void)
+    // toString(): string
     valueOf(): any
   }
 
-  interface NodeInstance {
+  class YogaConfig {
+    constructor()
+    setPointScaleFactor(ratio: number): void
+  }
+
+  export class NodeInstance {
+
+    static createWithConfig(config: YogaConfig): NodeInstance
 
     setWidth(width: number)
     setHeight(height: number)
@@ -238,26 +249,26 @@ declare module "yoga-layout" {
     setPositionType(positionType: PositionType)
     setPosition(edge: Edge, position: number)
 
-    setFlex(ordinal: number)
-    setFlexGrow(ordinal: number)
-    setFlexShrink(ordinal: number)
-    setFlexBasis(ordinal: number)
-    setFlexDirection(direct: FlexDirection)
-    setJustifyContent(justify: Justify)
-    setAlignItems(alignment: number)
-    setAlignSelf(alignment: number)
+    // setFlex(ordinal: number)
+    // setFlexGrow(ordinal: number)
+    // setFlexShrink(ordinal: number)
+    // setFlexBasis(ordinal: number)
+    // setFlexDirection(direct: FlexDirection)
+    // setJustifyContent(justify: Justify)
+    // setAlignItems(alignment: number)
+    // setAlignSelf(alignment: number)
 
     setMeasureFunc(func: (width: number) => { width: number, height: number })
 
     insertChild(node: NodeInstance, index: number)
     removeChild(node: NodeInstance)
 
-    getComputedLeft(): number
-    getComputedRight(): number
-    getComputedTop(): number
-    getComputedBottom(): number
-    getComputedWidth(): number
-    getComputedHeight(): number
+    // getComputedLeft(): number
+    // getComputedRight(): number
+    // getComputedTop(): number
+    // getComputedBottom(): number
+    // getComputedWidth(): number
+    // getComputedHeight(): number
 
     getChild(index: number): NodeInstance
     getChildCount(): number
@@ -276,10 +287,102 @@ declare module "yoga-layout" {
     destroy(child: NodeInstance)
   }
 
-  const Node: NodeFactory
+  // const Node: NodeFactory
+
+  interface YogaPropConstants {
+    align: any
+    //   [string]: Align,
+    //   auto: AlignAuto,
+    //   "flex-start": AlignFlexStart,
+    //   center: AlignCenter,
+    //   "flex-end": AlignFlexEnd,
+    //   baseline: AlignBaseline,
+    //   "space-between": AlignSpaceBetween,
+    //   "space-around": AlignSpaceAround
+    // },
+    direction: any
+    //   [string]: ?Direction,
+    //   inherit: DirectionInherit,
+    //   ltr: DirectionLTR,
+    //   rtl: DirectionRTL
+    // },
+    display: any
+    //   [string]: ?Display,
+    //   flex: DisplayFlex,
+    //   none: DisplayNone
+    // },
+    flexDirection: any
+    //   [string]: ?FlexDirection,
+    //   column: FlexDirColumn,
+    //   "column-reverse": FlexDirColumnReverse,
+    //   row: FlexDirRow,
+    //   "row-reverse": FlexDirRowReverse
+    // },
+    justify: any
+    //   [string]: Justify?,
+    //   "flex-start": JustifyFlexStart,
+    //   center: JustifyFlexStart,
+    //   "flex-end": JustifyFlexEnd,
+    //   "space-between": JustifySpaceBetween,
+    //   "space-around": JustifySpaceAround,
+    //   "space-evenly": JustifySpaceEvenly
+    // },
+    overflow: any
+    //   [string]: ?Overflow,
+    //   visible: OverflowVisible,
+    //   hidden: OverflowHidden,
+    //   scroll: OverflowScroll
+    // },
+    position: any
+    //   [string]: ?PositionType,
+    //   absolute: PositionAbsolute,
+    //   relative: PositionRelative
+    // },
+    wrap: any
+    //   [string]: ?Wrap,
+    //   nowrap: WrapNoWrap,
+    //   wrap: WrapWrap,
+    //   "wrap-reverse": WrapWrapReverse
+    // }
+  }
+
+  interface YogaConstants extends YogaPropConstants {
+    // measureMode: {
+    //   [string]: ?MeasureMode,
+    //   undefined: MeasureModeUndefined,
+    //   exactly: MeasureModeExactly,
+    //   atMost: MeasureModeAtMost
+    // },
+
+    unit: any
+    //   [string]: ?Unit,
+    //   undefined: UnitUndefined,
+    //   point: UnitPoint,
+    //   percent: UnitPercent,
+    //   auto: UnitAuto
+    // }
+  }
 
   // Globals
   function getInstanceCount(): number
+
+  interface Yoga {
+    Node:  NodeInstance,
+    Config:  YogaConfig,
+    Constants: YogaConstants & any
+  }
+
+  export const Node: typeof NodeInstance
+  export const Config: typeof YogaConfig
+  export const Constants: YogaConstants
+  // export const Module = Exports;
+    // export const PropEnumMap = $Values<YogaPropConstants>;
+
+
+  // https://github.com/vincentriemer/yoga-dom/blob/master/src/index.js#L47-L67
+
+  const yoga: Promise<Yoga>
+  export default yoga
 }
 
 declare module "font-manager" {

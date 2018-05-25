@@ -1,4 +1,4 @@
-import * as yoga from "yoga-layout"
+import yoga from "yoga-dom"
 import { RenderedComponent, Settings } from "./index"
 import nodeToSVG from "./node-to-svg"
 import wsp from "./whitespace"

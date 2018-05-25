@@ -9,7 +9,7 @@ import renderedComponentTree from "../reapply-layouts-to-components"
 import treeToSVG from "../tree-to-svg"
 
 import * as fs from "fs"
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 
 it("handles some simple JSX", () => {
   const jsx = (

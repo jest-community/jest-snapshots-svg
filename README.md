@@ -29,7 +29,7 @@ src/_tests/
 └── render.test.tsx
 ```
 
-It does this by emulating the rendering process of React Native by calling yoga-layout directly in your tests, then converting the output of the layout-pass into SVG items that can easy be previewed in GitHub.
+It does this by emulating the rendering process of React Native by calling yoga-dom directly in your tests, then converting the output of the layout-pass into SVG items that can easy be previewed in GitHub.
 
 👍
 

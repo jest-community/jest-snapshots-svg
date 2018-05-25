@@ -1,4 +1,4 @@
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 
 import componentToNode, { styleFromComponent } from "../component-to-node"
 

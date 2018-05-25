@@ -1,7 +1,7 @@
 const mockNodeToSVG = jest.fn()
 jest.mock("../node-to-svg.ts", () => ({ default: mockNodeToSVG }))
 
-import * as yoga from "yoga-layout"
+import * as yoga from "yoga-dom"
 import { RenderedComponent } from "../index"
 import { recurseTree, svgWrapper } from "../tree-to-svg"
 
