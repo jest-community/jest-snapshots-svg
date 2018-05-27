@@ -49,7 +49,7 @@ import treeToSVG from "./tree-to-svg"
 
 const fail = (msg) => ({ message: () => msg, pass: false })
 
-export { addFontFallback, loadFont, setDefaultFont } from "./font-loader"
+export { addFontFallback, addFontToSvg, loadFont, setDefaultFont } from "./font-loader"
 
 expect.extend({
     toMatchSVGSnapshot(
@@ -99,7 +99,7 @@ expect.extend({
         const renderedComponentRoot = renderedComponentTree(root, rootNode)
         rootNode.freeRecursive()
 
-        const svgText = treeToSVG(renderedComponentRoot, settings)
+        const svgText = treeToSVG(renderedComponentRoot, settings, snapshotsDir)
 
         // TODO: Determine if Jest is in `-u`?
         // can be done via the private API

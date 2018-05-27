@@ -7,12 +7,32 @@ const weights = {
   bold: "700"
 }
 
+export interface FontStyle {
+  fontFamily?: string,
+  fontWeight?: string,
+  fontStyle?: string,
+  postscriptName?: string
+}
 const fonts = {}
 const fontFallbacks = {}
 let defaultFont = "Proza Libre"
+const svgFonts: { [key: string]: { path: string, style: FontStyle } } = {}
+const usedFonts: string[] = []
 
 export const getDefaultFont = () => defaultFont
 export const setDefaultFont = (fontName: string) => defaultFont = fontName
+export const getSvgFonts = () => svgFonts
+
+export const registerFontUsed = (
+  fontFamily: string,
+  fontStyle: string = "normal",
+  fontWeight: string = "normal") => {
+  const key = keyFor({ fontFamily, fontWeight, fontStyle })
+  if (!usedFonts.includes(key)) {
+    usedFonts.push(key)
+  }
+}
+export const getUsedFontKeys = () => usedFonts
 
 const numberWeight = weight => weights[weight] || weight
 
@@ -52,24 +72,45 @@ const matchNames = (target: string, names: NameMatch[], defaultValue: string): s
   return match ? match.value : defaultValue
 }
 
-const addFont = (font, style) => {
+const getFontStyle = (font, style): FontStyle => {
   const fontFamily = style.fontFamily || font.familyName
   const fontWeight = style.fontWeight || matchNames(font.subfamilyName, weightNames, "400")
   const fontStyle = style.fontStyle || matchNames(font.subfamilyName, italicNames, "normal")
+
+  return { fontFamily, fontWeight, fontStyle, postscriptName: style.postscriptName }
+}
+
+const getFontKey = (font, style) => {
+  const { fontFamily, fontWeight, fontStyle } = getFontStyle(font, style)
   const key = keyFor({ fontFamily, fontWeight, fontStyle })
 
   if (!fontFamily || !fontWeight || !fontStyle) {
     throw new Error(`Could not find styles for font: ${key}`)
   }
 
+  return key
+}
+
+const addFont = (font, style: FontStyle) => {
+  const key = getFontKey(font, style)
   fonts[key] = font
 }
 
-export const loadFont = (
-  fontFile,
-  style: { fontFamily?: string, fontWeight?: string, fontStyle?: string, postscriptName?: string } = {}
-) => {
+export const loadFont = (fontFile, style: FontStyle = {}) => {
   const font = fontkit.create(fontFile, style.postscriptName)
+  if (font.fonts) {
+    font.fonts.forEach(f => addFont(f, { fontFamily: style.fontFamily }))
+  } else {
+    addFont(font, style)
+  }
+}
+
+export const addFontToSvg = (fontPath: string, style: FontStyle = {}) => {
+  const resolvedPath = require.resolve(fontPath)
+  const fontFile = fs.readFileSync(resolvedPath)
+  const font = fontkit.create(fontFile, style.postscriptName)
+  const key = getFontKey(font, style)
+  svgFonts[key] = { path: resolvedPath, style: getFontStyle(font, style) }
   if (font.fonts) {
     font.fonts.forEach(f => addFont(f, { fontFamily: style.fontFamily }))
   } else {
@@ -107,15 +148,15 @@ export const fontWithFallbacks = (fontFamily: string): string => (
 )
 
 // Default font family to provide for jest snapshots testing.
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Bold.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-BoldItalic.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-ExtraBold.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-ExtraBoldItalic.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Italic.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Light.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-LightItalic.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Medium.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-MediumItalic.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-Regular.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-SemiBold.ttf")))
-loadFont(fs.readFileSync(require.resolve("./font/proza-libre/ProzaLibre-SemiBoldItalic.ttf")))
+addFontToSvg("./font/proza-libre/ProzaLibre-Bold.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-BoldItalic.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-ExtraBold.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-ExtraBoldItalic.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-Italic.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-Light.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-LightItalic.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-Medium.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-MediumItalic.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-Regular.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-SemiBold.ttf")
+addFontToSvg("./font/proza-libre/ProzaLibre-SemiBoldItalic.ttf")

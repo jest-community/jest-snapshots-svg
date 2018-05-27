@@ -1,5 +1,5 @@
 import { flattenStyles } from "./flatten-styles"
-import { getDefaultFont } from "./font-loader"
+import { getDefaultFont, registerFontUsed } from "./font-loader"
 export interface AttributedStyle { start: number, end: number, style: any }
 
 export interface TextWithAttributedStyle { text: string, attributedStyles: AttributedStyle[] }
@@ -41,6 +41,7 @@ export default (component): TextWithAttributedStyle => {
 
   const defaultStylesWithFont = mergeStyles(defaultStyles, { fontFamily: getDefaultFont() })
   const iterate = (c, style = mergeStyles(defaultStylesWithFont, getStyles(c))) => {
+    registerFontUsed(style.fontFamily, style.fontWeight, style.fontStyle);
     (c.children || []).forEach(child => {
       if (child == null) {
         /* Do nothing */
