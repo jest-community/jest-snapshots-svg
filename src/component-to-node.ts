@@ -113,13 +113,13 @@ const componentToNode = (component: Component, settings: Settings): yoga.NodeIns
 }
 
 export const styleFromComponent = (component: Component) => {
-    let style = component.props.style
+  let style = component.props.style
 
-    if (Array.isArray(style)) {
-        style = flattenStyles(style)
-    }
+  if (Array.isArray(style)) {
+    style = flattenStyles(style)
+  }
 
-    return style
+  return style
 }
 
 export default componentToNode

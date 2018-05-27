@@ -122,6 +122,140 @@ style parameters, you can provide a `postscriptName` in the style object to targ
 Do this in combination with passing in the font style arguments. See more about this over at
 [fontkit](https://github.com/devongovett/fontkit#api).
 
+## Adding relative font path definitions to the output svg
+
+An alternative way to load a font is to use the `addFontToSvg` function instead of the normal `loadFont`. This takes as input the path (can be a node_modules import reference) to load the font from, plus optionally the normal font style information that loadFont takes. Loading the font this way means that we can keep a reference to the file path that the font was loaded from, and then embed the path to the font into the svg in a css style definition.
+
+```js
+addFontToSvg("@expo/vector-icons/fonts/FontAwesome.ttf")
+```
+
+Any fonts loaded using `addFontToSvg` will be checked against the list of actual fonts used in Text styles in the component. Only those that have actually been used in the rendered component will be output into the svg.
+
+### Using relative font paths with react-native-vector-icons and @expo/vector-icons
+
+In order for the above to work with the vector icons, you will need to create a test mock file for these packages. The default output from react-test-renderer does not include the actual character codes to display, which means that it cannot be captured from the rendered component to add to the svg. The file should be added to the `__mocks__` directory _next to_ the node_modules directory, and should have the same name/path as the module it is replacing.
+
+For a typical project with the node_modules directory in the project root directory you should create a file `<project_root>/__mocks__/@expo/vector-icons.js` (or ts if you are using typescript) for mocking @expo/vector-icons. For react-native-vector-icons the mock file should be `<project_root>/__mocks__/react-native-vector-icons.js`.
+
+In the mock file, you need to set the render function to return a Text component, with the font style details set to match the icon font and the text itself set to the unicode reference for the particular character that should be displayed for that icon.
+
+An example mock for @expo/vector-icons could be (written in typescript):
+
+```js
+import * as fs from "fs"
+import { addFontToSvg } from "jest-snapshots-svg"
+import * as React from "react"
+import { StyleProp, StyleSheet, Text, TextStyle } from "react-native"
+import { IconProps } from "react-native-vector-icons/Icon"
+
+const glyphmapDir = "@expo/vector-icons/vendor/react-native-vector-icons/glyphmaps"
+const fontDir = "@expo/vector-icons/fonts"
+
+export const createIconSet = (
+  glyphMap: { [name: string]: string | number },
+  fontFamily: string,
+  fontFile?: string) =>
+{
+  const filename = require.resolve(`${fontDir}/${fontFamily}.ttf`)
+  addFontToSvg(filename, { fontFamily, fontStyle: "normal", fontWeight: "normal" })
+
+  class Icon extends React.Component<IconProps, any> {
+    static loadFont() {
+      console.log("called Icon:loadFont()")
+    }
+    static getImageSource() {
+      console.log("called Icon.getImageSource()")
+    }
+
+    render() {
+      const { name, size, color, style, ...props } = this.props
+
+      let glyph = name ? glyphMap[name] : undefined
+      if (typeof glyph === "number") {
+        glyph = String.fromCodePoint(glyph);
+      }
+
+      const styleDefaults: TextStyle = {
+        fontFamily,
+        fontSize: size,
+        fontWeight: "normal",
+        fontStyle: "normal",
+        color
+      }
+
+      return (
+        <Text {...props} style={[styleDefaults, style]}>
+          {`&#x${glyph
+            .codePointAt(0)
+            .toString(16)
+            .toUpperCase()};`}
+        </Text>
+      );
+    }
+  }
+
+  return Icon
+}
+
+export const createIconSetFromFontello = jest.fn()
+export const createIconSetFromIcoMoon = jest.fn()
+
+// If you know you're only going to use a few/one of these fonts, you can safely
+// remove any you won't use.
+export const Entypo = createIconSet(
+  require(`${glyphmapDir}/Entypo.json`),
+  "Entypo"
+)
+export const EvilIcons = createIconSet(
+  require(`${glyphmapDir}/EvilIcons.json`),
+  "EvilIcons"
+)
+export const Feather = createIconSet(
+  require(`${glyphmapDir}/Feather.json`),
+  "Feather"
+)
+export const FontAwesome = createIconSet(
+  require(`${glyphmapDir}/FontAwesome.json`),
+  "FontAwesome"
+)
+export const Foundation = createIconSet(
+  require(`${glyphmapDir}/Foundation.json`),
+  "Foundation"
+)
+export const Ionicons = createIconSet(
+  require(`${glyphmapDir}/Ionicons.json`),
+  "Ionicons"
+)
+export const MaterialCommunityIcons = createIconSet(
+  require(`${glyphmapDir}/MaterialCommunityIcons.json`),
+  "MaterialCommunityIcons"
+)
+export const MaterialIcons = createIconSet(
+  require(`${glyphmapDir}/MaterialIcons.json`),
+  "MaterialIcons"
+)
+export const Octicons = createIconSet(
+  require(`${glyphmapDir}/Octicons.json`),
+  "Octicons"
+)
+export const SimpleLineIcons = createIconSet(
+  require(`${glyphmapDir}/SimpleLineIcons.json`),
+  "SimpleLineIcons"
+)
+export const Zocial = createIconSet(
+  require(`${glyphmapDir}/Zocial.json`),
+  "Zocial"
+)
+```
+
+For react-native-vector-icons, change the `glyphmapDir` and `fontDir` paths:
+
+```js
+const glyphmapDir = "react-native-vector-icons/glyphmaps"
+const fontDir = "react-native-vector-icons/Fonts"
+```
+
 ### Flaws
 
 This is definitely pre-1.0, we only have it working on a few tests in [artsy/emission](https://github.com/artsy/emission/). Expect alpha quality style snapshots for a while, but more people working on it will mean we all get a better chance at it working out well.

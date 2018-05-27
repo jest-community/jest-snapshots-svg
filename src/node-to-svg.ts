@@ -29,8 +29,8 @@ const nodeToSVG = (indent: number, node: RenderedComponent, settings: Settings) 
   }
 
   return "\n"
-          + wsp(indent)
-          + svgText
+    + wsp(indent)
+    + svgText
 }
 
 export default nodeToSVG

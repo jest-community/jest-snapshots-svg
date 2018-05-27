@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <svg width="320" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <style type="text/css">
+    <![CDATA[
+      @font-face {
+        font-family: Proza Libre;
+        src: url(../../../font/proza-libre/ProzaLibre-Regular.ttf);
+        font-weight: 400;
+        font-style: normal;
+      }
+    ]]>
+    </style>
+  </defs>
 
  <rect type="View" x="0" y="0" width="320" height="480" fill="none"/>
 
