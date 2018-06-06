@@ -1,5 +1,7 @@
 # jest-snapshots-svg
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jest-community/jest-snapshots-svg.svg)](https://greenkeeper.io/)
+
 Take a React Native component tree, and render it into an SVG.
 
 ```ts
